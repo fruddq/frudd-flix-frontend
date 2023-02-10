@@ -10,7 +10,7 @@ export const ComponentHome: React.FunctionComponent = () => {
 
     useEffect(() => {
         const fetchAndSetData = async () => {
-            const data = await fetchData()
+            const data = await fetchData('home')
             setMovies(data)
         }
         fetchAndSetData()
