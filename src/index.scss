@@ -57,7 +57,16 @@ body{
     text-align: center;
     display: flex;
     flex-flow: column;
+    
+    .movie-year {
+      font-size: 2rem;
+      display: inline;
+    }
 
+    .popularity {
+      font-size: 2rem;
+      display: inline;
+    }
 
     &-title {
       font-size: 1.5rem;

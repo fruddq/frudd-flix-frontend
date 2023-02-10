@@ -52,6 +52,14 @@ body {
   display: flex;
   flex-flow: column;
 }
+.movies-container .movie .movie-year {
+  font-size: 2rem;
+  display: inline;
+}
+.movies-container .movie .popularity {
+  font-size: 2rem;
+  display: inline;
+}
 .movies-container .movie-title {
   font-size: 1.5rem;
   font-weight: bold;

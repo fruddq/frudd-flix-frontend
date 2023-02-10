@@ -8,7 +8,10 @@ export const ComponentMovie: React.FunctionComponent<Props> = ({ movie }) => {
     return (
         <div className="movie">
             <h2 className="movie-title">{movie.title}</h2>
-            {/* <h3 className="movie-year">{movie.release_date}</h3> */}
+            <section>
+                <p className="movie-year">Year:{movie.release_date.substring(0, 4)}</p>
+                <p className="popularity">Upvotes:{Math.ceil(movie.popularity)}</p>
+            </section>
             <img
                 className="movie-poster"
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
