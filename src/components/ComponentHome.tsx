@@ -8,11 +8,10 @@ export const ComponentHome: React.FunctionComponent = () => {
 
     const [movies, setMovies] = useState<IMovie[]>([]);
 
-    const request = 'discover/movie'
-
     useEffect(() => {
         const fetchAndSetData = async () => {
-            const data = await fetchData(request)
+            const data = await fetchData()
+            // console.log(data)
             setMovies(data)
         }
         fetchAndSetData()
