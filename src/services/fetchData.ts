@@ -8,6 +8,7 @@ import { API_KEY, API_URL } from "./tempConstants.js"
 
 export const fetchData = async (request: string) => {
   const config = { params: { api_key: API_KEY } }
+
   try {
     const {
       data: { results },
