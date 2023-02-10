@@ -1,22 +1,33 @@
-import type { IMovie } from "../models/IMovie"
+import type { Props } from "../models/Props";
+import { genreList } from "../services/config";
 
-interface Props {
-    movie: IMovie
-}
 
 export const ComponentMovie: React.FunctionComponent<Props> = ({ movie }) => {
+
+    const genreNames = movie.genre_ids.map(id => {
+        const genre = genreList.find(g => g.id === id);
+        return genre ? genre.name : "";
+    });
+
     return (
         <div className="movie">
             <h2 className="movie-title">{movie.title}</h2>
-            <section>
-                <p className="movie-year">Year:{movie.release_date.substring(0, 4)}</p>
-                <p className="popularity">Upvotes:{Math.ceil(movie.popularity)}</p>
-            </section>
             <img
                 className="movie-poster"
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}
             />
+            <section className="sort-info-container">
+                <p className="sort-info-text movie-year">Year: {movie.release_date.substring(0, 4)}</p>
+                <p className="sort-info-text">Rating: {movie.vote_average}/10</p>
+                <p className="sort-info-text">
+                    {genreNames.map(name => (
+                        <button key={name} className="menu-item menu-button">
+                            {name}
+                        </button>
+                    ))}
+                </p>
+            </section>
         </div>
     );
 }
