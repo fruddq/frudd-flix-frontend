@@ -1,5 +1,5 @@
 import axios from "axios"
-import { API_URL, config } from "./tempConstants.js"
+import { API_KEY, API_URL } from "./tempConstants.js"
 
 // @TODO ensure ENV functions as expcted
 // import dotenv from "dotenv"
@@ -7,6 +7,7 @@ import { API_URL, config } from "./tempConstants.js"
 // const config = { params: { api_key: process.env["API_KEY"] } }
 
 export const fetchData = async (request: string) => {
+  const config = { params: { api_key: API_KEY } }
   try {
     const {
       data: { results },
