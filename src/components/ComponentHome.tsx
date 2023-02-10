@@ -1,27 +1,21 @@
-import { useEffect, useState } from "react";
-import type { IMovie } from "../models/ModelMovie";
-import { ComponentMovie } from "./ComponentMovie";
-import { fetchData } from "../services/fetchData";
+import { ComponentMovies } from "./ComponentMovies";
+import { ComponentHeader } from "./ComponentHeader";
+import { ComponentFooter } from "./ComponentFooter";
 
 
 export const ComponentHome: React.FunctionComponent = () => {
 
-    const [movies, setMovies] = useState<IMovie[]>([]);
 
-    useEffect(() => {
-        const fetchAndSetData = async () => {
-            const data = await fetchData('home')
-            setMovies(data)
-        }
-        fetchAndSetData()
 
-    }, [])
 
     return (
-        <div>
-            {movies.map(movie => (
-                <ComponentMovie key={movie.id} movie={movie} />
-            ))}
-        </div>
+        <>
+            <ComponentHeader />
+            <ComponentMovies />
+            <ComponentFooter />
+        </>
     )
 }
+
+
+
