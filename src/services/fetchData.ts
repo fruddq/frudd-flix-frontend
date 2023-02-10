@@ -8,3 +8,4 @@ export const fetchData = async (endpoint: string) => {
     console.error(error)
   }
 }
+//test
