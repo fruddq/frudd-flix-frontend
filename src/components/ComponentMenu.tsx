@@ -1,67 +1,58 @@
 import { useState } from "react";
 
+export const ComponentMenu = () => {
+    const [showMenu, setShowMenu] = useState(false);
 
-export const ComponentMenu: React.FunctionComponent = () => {
-    const [showSearch, setShowSearch] = useState(false);
+    const handleSort = () => {
+        console.log("hello");
+    };
 
-    function handleSort() {
-        console.log('hello')
-    }
+    const handleSearch = () => { };
 
-    function handleSearch() {
-    }
+    const handleSubmit = () => { };
 
-    function handleSubmit() {
-    }
+    const handleSClick = () => {
+        setShowMenu(true);
+    };
+
+    const handleMenuClick = () => {
+        setShowMenu(false);
+    };
 
     return (
-        <>
-            <nav className="menu">
-                {!showSearch && (
-                    <>
-                        <button
-                            className="menu-item menu-button"
-                            onClick={handleSort}
-                        >
-                            Browse
-                        </button>
-                        <button
-                            className="menu-item menu-button"
-                            onClick={handleSort}
-                        >
-                            Year{" "}
-                        </button>
-                        <button
-                            className="menu-item menu-button"
-                            onClick={handleSort}
-                        >
-                            Rating{" "}
-                        </button>
-                        <button
-                            className="menu-item menu-button"
-                            onClick={handleSort}
-                        >
-                            Popularity{" "}
-                        </button>
-                        <button
-                            className="menu-item menu-button"
-                            onClick={handleSort}
-                        >
-                            Filter{" "}
-                        </button>
-                        <button
-                            className="menu-item menu-button"
-                            onClick={() => setShowSearch(true)}
-                        >
+        <nav className="menu">
+            {!showMenu && (
+                <>
+                    <button className="menu-item menu-button" onClick={handleSort}>
+                        Browse
+                    </button>
+                    <button className="menu-item menu-button" onClick={handleSort}>
+                        Year
+                    </button>
+                    <button className="menu-item menu-button" onClick={handleSort}>
+                        Rating
+                    </button>
+                    <button className="menu-item menu-button" onClick={handleSort}>
+                        Popularity
+                    </button>
+                    <button className="menu-item menu-button" onClick={handleSort}>
+                        Filter
+                    </button>
+                    {!showMenu && (
+                        <button className="menu-item menu-button" onClick={handleSClick}>
                             S
                         </button>
-                    </>
-                )}
-                {showSearch && (
+                    )}
+                </>
+            )}
+            {showMenu && (
+                <>
+                    <button className="menu-item menu-button" onClick={handleMenuClick}>
+                        Menu
+                    </button>
                     <form
                         className="menu-item menu-form"
                         onSubmit={handleSubmit}
-                        onBlur={() => setShowSearch(false)}
                     >
                         <input
                             className="menu-item menu-input"
@@ -72,9 +63,9 @@ export const ComponentMenu: React.FunctionComponent = () => {
                         />
                         <button type="submit">Submit</button>
                     </form>
-                )}
-            </nav>
-        </>
+                </>
+            )}
+        </nav>
     );
 };
 
