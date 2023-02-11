@@ -18,15 +18,15 @@ export const ComponentMovie: React.FunctionComponent<Props> = ({ movie }) => {
                 alt={movie.title}
             />
             <section className="sort-info-container">
-                <p className="sort-info-text movie-year">Year: {movie.release_date.substring(0, 4)}</p>
-                <p className="sort-info-text">Rating: {movie.vote_average}/10</p>
-                <p className="sort-info-text">
+                <p className="sort-info-text movie-year">{movie.release_date.substring(0, 4)}</p>
+                <p className="sort-info-text">Rating: {movie.vote_average}/10</p><br />
+                <section className="sort-info-text">
                     {genreNames.map(name => (
                         <button key={name} className="menu-item menu-button">
                             {name}
                         </button>
                     ))}
-                </p>
+                </section>
             </section>
         </div>
     );

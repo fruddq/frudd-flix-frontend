@@ -1,6 +1,6 @@
 
 import { ComponentMenu } from "./ComponentMenu";
-
+import logo from '../assets/mobile-logo.png';
 
 export const ComponentHeader: React.FunctionComponent = () => {
 
@@ -9,7 +9,7 @@ export const ComponentHeader: React.FunctionComponent = () => {
 
     return (
         <div className="header">
-            <h1 className="title">Frudd-Flix </h1>
+            <img className="frudd-flix-logo" src={logo} alt="frudd-flix logo" />
             <ComponentMenu />
         </div>
     )

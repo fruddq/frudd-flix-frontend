@@ -13,35 +13,35 @@ body{
   justify-content: center;
   flex-flow: column;
   align-items: center;
+  .frudd-flix-logo{
+    width: 100%;
+  }
 
   .title {
     font-size: 3.5rem;
     color: rgb(255, 255, 255);
   }
 
- 
-  .menu-item {
-    font-size: 0.9rem;
-    display: inline-block;
-    margin-right: 2px;
-    vertical-align: middle;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    }
-  
-  .menu-button {
-    background-color: #337ab7;
-    border: 1px solid #2e6da4;
-    border-radius: 4px;
-    color: #fff;
-    transition: background-color 0.3s ease;
-  }
-  
-  .menu-input {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+ .menu {
+  width: 100%;
+  height: 50px;
+  display: flex;
 
+    .nav-btn {
+      width: -webkit-fill-available;
+      width: -moz-fit-content;     
+      background-color: rgb(82, 82, 82);
+      color: white;
+      border-radius: 5px;
+    }
+    .menu-menu-btn {
+      width: 100px;
+    }
+    .menu-input {
+      height: 100%;
+      width: 100%;
+    }
+  }
 }
 
 .movies-container {
@@ -50,7 +50,7 @@ body{
   flex-flow: column;
   
   .movie {
-    background-color: rgb(190, 55, 55);
+    background-color: rgb(80, 9, 9);
     width: 100%;
     height: 100%;
     text-align: center;
@@ -67,7 +67,7 @@ body{
       font-size: 1.3rem;
       display: inline;
       color: rgb(255, 255, 255);
-    }
+      }
     
     .movie-year {
       margin-right: 10%;
@@ -88,6 +88,7 @@ body{
         border-radius: 4px;
         color: #fff;
         transition: background-color 0.3s ease;
+        margin-right: 10px;
       }
       
 

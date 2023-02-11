@@ -1,4 +1,6 @@
 import { useState } from "react";
+// import { ReactSVG } from 'react-svg';
+// import ButtonSVG from "../assets/search2.svg"
 
 export const ComponentMenu = () => {
     const [showMenu, setShowMenu] = useState(false);
@@ -23,46 +25,43 @@ export const ComponentMenu = () => {
         <nav className="menu">
             {!showMenu && (
                 <>
-                    <button className="menu-item menu-button" onClick={handleSort}>
+                    <button className="menu-browse-btn nav-btn" onClick={handleSort}>
                         Browse
                     </button>
-                    <button className="menu-item menu-button" onClick={handleSort}>
+                    <button className="menu-year-btn nav-btn" onClick={handleSort}>
                         Year
                     </button>
-                    <button className="menu-item menu-button" onClick={handleSort}>
+                    <button className="menu-rating-btn nav-btn" onClick={handleSort}>
                         Rating
                     </button>
-                    <button className="menu-item menu-button" onClick={handleSort}>
+                    <button className="menu-popularity-btn nav-btn" onClick={handleSort}>
                         Popularity
                     </button>
-                    <button className="menu-item menu-button" onClick={handleSort}>
+                    <button className="menu-filter-btn nav-btn" onClick={handleSort}>
                         Filter
                     </button>
-                    {!showMenu && (
-                        <button className="menu-item menu-button" onClick={handleSClick}>
-                            S
-                        </button>
-                    )}
+
+                    <button className="menu-search-btn nav-btn" onClick={handleSClick}>
+                        {/* <ReactSVG src={ButtonSVG} /> */}
+                        s
+
+                    </button>
+
                 </>
             )}
             {showMenu && (
                 <>
-                    <button className="menu-item menu-button" onClick={handleMenuClick}>
+                    <button className="menu-menu-btn nav-btn" onClick={handleMenuClick}>
                         Menu
                     </button>
-                    <form
-                        className="menu-item menu-form"
-                        onSubmit={handleSubmit}
-                    >
-                        <input
-                            className="menu-item menu-input"
-                            id="search"
-                            type="text"
-                            onChange={handleSearch}
-                            placeholder="Search"
-                        />
-                        <button type="submit">Submit</button>
-                    </form>
+
+                    <input
+                        className="menu-input"
+                        id="search"
+                        type="text"
+                        onChange={handleSearch}
+                        placeholder="Search"
+                    />
                 </>
             )}
         </nav>
