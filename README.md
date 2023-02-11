@@ -8,6 +8,7 @@ Should be able to:
 - search by year
 - Search for best comedies in year 2010 to 2023
 - search should include filter to achieve the above goals
+- when clicking year => search all movies released searchYear 
 - pagination
 - animations
 - Code cleanup, code review

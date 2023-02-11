@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { ComponentTest } from "./ComponentTest";
+import { ComponentDropdown } from "./ComponentDropdown";
+import { ComponentSearchSVG } from "./ComponentSearchSVG";
 // import { ReactSVG } from 'react-svg';
 // import ButtonSVG from "../assets/search2.svg"
 
 export const ComponentMenu = () => {
     const [showMenu, setShowMenu] = useState(false);
-
+    const [showDropdown, setShowDropdown] = useState(false);
     const handleSort = () => {
         console.log("hello");
     };
 
     const handleSearch = () => { };
 
-    const handleSubmit = () => { };
+    // const handleSubmit = () => { };
 
     const handleSClick = () => {
         setShowMenu(true);
@@ -22,11 +23,14 @@ export const ComponentMenu = () => {
         setShowMenu(false);
     };
 
+    const handleBrowseClick = () => {
+        setShowDropdown(!showDropdown); // update state variable for dropdown visibility
+    }
     return (
         <nav className="menu">
             {!showMenu && (
                 <>
-                    <button className="menu-browse-btn nav-btn" onClick={handleSort}>
+                    <button className="menu-browse-btn nav-btn" onClick={handleBrowseClick}>
                         Browse
                     </button>
                     <button className="menu-year-btn nav-btn" onClick={handleSort}>
@@ -43,9 +47,10 @@ export const ComponentMenu = () => {
                     </button>
 
                     <button className="menu-search-btn nav-btn" onClick={handleSClick}>
-                        <ComponentTest height={"30"} width={"30"} />
+                        <ComponentSearchSVG height={"30"} width={"30"} />
                     </button>
 
+                    {showDropdown && <ComponentDropdown />}
                 </>
             )}
             {showMenu && (

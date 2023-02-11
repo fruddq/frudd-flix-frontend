@@ -1,6 +1,8 @@
 
 import { ComponentMenu } from "./ComponentMenu";
 import logo from '../assets/mobile-logo.png';
+// import { ComponentMobileLogoSVG } from "./ComponentMobileLogoSVG";
+// import { ComponentLogoSVG } from "./ComponentLogoSVG";
 
 export const ComponentHeader: React.FunctionComponent = () => {
 
