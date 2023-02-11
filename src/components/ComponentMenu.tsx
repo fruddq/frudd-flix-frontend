@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ComponentTest } from "./ComponentTest";
 // import { ReactSVG } from 'react-svg';
 // import ButtonSVG from "../assets/search2.svg"
 
@@ -42,9 +43,7 @@ export const ComponentMenu = () => {
                     </button>
 
                     <button className="menu-search-btn nav-btn" onClick={handleSClick}>
-                        {/* <ReactSVG src={ButtonSVG} /> */}
-                        s
-
+                        <ComponentTest height={"30"} width={"30"} />
                     </button>
 
                 </>
