@@ -147,6 +147,18 @@ body {
   text-align: center;
   cursor: pointer;
 }
+.header .menu .dropdown .dropdown-genres .button-genre {
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+.header .menu .dropdown .dropdown-genres .button-genre.selected {
+  background-color: #007aff;
+  color: #fff;
+  border: 1px solid #007aff;
+}
 
 .movies-container {
   display: flex;

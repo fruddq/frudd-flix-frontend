@@ -12,9 +12,11 @@ export const ComponentMovies: React.FunctionComponent = () => {
 
     useEffect(() => {
         const fetchAndSetData = async () => {
-            const data = await fetchData('home')
-            setMovies(data)
+            const data = await fetchData({ page: 1 })
+            console.log(data)
+            setMovies(data.results)
         }
+
         fetchAndSetData()
 
     }, [])
