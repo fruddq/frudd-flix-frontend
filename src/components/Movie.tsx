@@ -12,6 +12,9 @@ export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
     const handleWatchLater = () => {
     };
 
+    const handleFavourite = () => {
+    };
+
     return (
         <div className="movie">
             <h2 className="movie-title">{movie.title}</h2>
@@ -24,7 +27,7 @@ export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
                 <p className="sort-info-text movie-year">{movie.release_date.substring(0, 4)}</p>
                 <p className="sort-info-text">Rating: {movie.vote_average}/10</p>
                 <button onClick={handleWatchLater}>Watch later</button>
-                <button onClick={handleWatchLater}>&#10084;</button>
+                <button onClick={handleFavourite}>&#10084;</button>
                 <br />
                 <section className="sort-info-text">
                     {genreNames.map(name => (
