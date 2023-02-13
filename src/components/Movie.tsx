@@ -2,12 +2,15 @@ import type { Props } from "../models/Props";
 import { genreList } from "../services/config";
 
 
-export const ComponentMovie: React.FunctionComponent<Props> = ({ movie }) => {
+export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
 
     const genreNames = movie.genre_ids.map(id => {
         const genre = genreList.find(g => g.id === id);
         return genre ? genre.name : "";
     });
+
+    const handleWatchLater = () => {
+    };
 
     return (
         <div className="movie">
@@ -19,7 +22,10 @@ export const ComponentMovie: React.FunctionComponent<Props> = ({ movie }) => {
             />
             <section className="sort-info-container">
                 <p className="sort-info-text movie-year">{movie.release_date.substring(0, 4)}</p>
-                <p className="sort-info-text">Rating: {movie.vote_average}/10</p><br />
+                <p className="sort-info-text">Rating: {movie.vote_average}/10</p>
+                <button onClick={handleWatchLater}>Watch later</button>
+                <button onClick={handleWatchLater}>&#10084;</button>
+                <br />
                 <section className="sort-info-text">
                     {genreNames.map(name => (
                         <button key={name} className="menu-item menu-button">

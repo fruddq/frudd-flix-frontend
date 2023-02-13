@@ -234,6 +234,10 @@ body {
   text-decoration: none;
 }
 
+.error-message {
+  color: #fff;
+}
+
 @media only screen and (min-width: 1024px) {
   .movies-container .movie-title {
     font-size: 3rem;

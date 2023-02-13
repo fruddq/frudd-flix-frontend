@@ -1,4 +1,4 @@
-import { ErrorBoundary as ComponentErrorBoundary } from 'react-error-boundary'
+import { ErrorBoundary } from 'react-error-boundary'
 
 const ErrorFallback: React.FunctionComponent<{
     readonly error: Error
@@ -14,7 +14,7 @@ const ErrorFallback: React.FunctionComponent<{
 const Main: React.FunctionComponent<React.PropsWithChildren> = ({
     children,
 }) => (
-    <ComponentErrorBoundary FallbackComponent={ErrorFallback}>{children}</ComponentErrorBoundary>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>{children}</ErrorBoundary>
 )
 
 export default Main

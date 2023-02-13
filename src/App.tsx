@@ -1,23 +1,24 @@
 import './App.css'
-import { ComponentHome } from './components/ComponentHome'
-import { Router, Route, BaseLocationHook } from "wouter";
-import { useLocationProperty, navigate } from "wouter/use-location";
-
-const hashLocation = () => window.location.hash.replace(/^#/, "") || "/";
-const hashNavigate = (to: string) => navigate(`${to}`);
-const useHashLocation: BaseLocationHook = () => {
-  const location = useLocationProperty(hashLocation);
-  return [location, hashNavigate];
-};
+import { MovieList } from './components/MovieList'
+import { Router, Route, Redirect, Switch } from "wouter";
+import { Error404 } from './components/Error404';
 
 const App: React.FunctionComponent = () => {
-
-
   return (
-    <Router hook={useHashLocation}>
-      <Route path="/" component={ComponentHome} />
-      {/* <Route path="/page/:page" component={ComponentHome} /> */}
-      <Route path="/:page" component={ComponentHome} />
+    <Router>
+      <Switch>
+        <Route path="/">
+          <Redirect to="/movies/1" />
+        </Route>
+
+        <Route path="/movies/:page">
+          {params => <MovieList page={Number(params['page'] || "1")} />}
+        </Route>
+
+        <Route path="/404" component={Error404} />
+
+        <Redirect to="/404" />
+      </Switch>
     </Router>
   )
 }

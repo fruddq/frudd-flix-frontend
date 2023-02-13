@@ -10,7 +10,7 @@ interface Genre {
     selected: boolean;
 }
 
-export const ComponentDropdown: React.FunctionComponent = () => {
+export const Dropdown: React.FunctionComponent = () => {
     const [min, setMin] = useState(1950);
     const [max, setMax] = useState(2023);
     const [selectedGenres, setSelectedGenres] = useState<Genre[]>(genreList.map(genre => ({ ...genre, selected: false })));
@@ -28,6 +28,8 @@ export const ComponentDropdown: React.FunctionComponent = () => {
     const handleFindMovies = () => {
         const selectedGenreIds = selectedGenres.filter(genre => genre.selected).map(genre => genre.id);
         console.log(`min year: ${min}, max year: ${max}, selected genres: ${selectedGenreIds}`);
+
+        // @TODO PUSH querystring to URL
     };
 
     return (

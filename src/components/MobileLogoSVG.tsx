@@ -3,7 +3,7 @@ interface Props {
     height?: string;
 }
 
-export const ComponentMobileLogoSVG: React.FC<Props> = ({ width = '128px', height = '128px' }) => (
+export const MobileLogoSVG: React.FC<Props> = ({ width = '128px', height = '128px' }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 933 747"

@@ -1,4 +1,4 @@
-export const ComponentFooter: React.FunctionComponent = () => {
+export const Footer: React.FunctionComponent = () => {
 
     return (
         <>

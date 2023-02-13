@@ -3,7 +3,7 @@ interface Props {
     height?: string;
 }
 
-export const ComponentSearchSVG: React.FC<Props> = ({ width = '128px', height = '128px' }) => {
+export const SearchSVG: React.FC<Props> = ({ width = '128px', height = '128px' }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
