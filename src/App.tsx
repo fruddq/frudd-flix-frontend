@@ -15,6 +15,14 @@ const App: React.FunctionComponent = () => {
           {params => <MovieList page={Number(params['page'] || "1")} />}
         </Route>
 
+        <Route path="/favorites/movieIDs=:movieIDs/:page">
+          {params => <MovieList page={Number(params['page'] || "1")} movieIDs={params['movieIDs']} />}
+        </Route>
+
+        <Route path="/watch-later/movieIDs=:movieIDs/:page">
+          {params => <MovieList page={Number(params['page'] || "1")} movieIDs={params['movieIDs']} />}
+        </Route>
+
         <Route path="/404" component={Error404} />
 
         <Redirect to="/404" />

@@ -1,7 +1,7 @@
 import { Movies } from "./Movies";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-export const MovieList: React.FunctionComponent<{ readonly page: number }> = ({ page }) => {
+export const MovieList: React.FunctionComponent<{ readonly page: number; readonly movieIDs?: string | undefined }> = ({ page, movieIDs }) => {
 
   const pageValue = Number(page);
 
@@ -17,7 +17,7 @@ export const MovieList: React.FunctionComponent<{ readonly page: number }> = ({ 
   return (
     <>
       <Header />
-      <Movies page={page} />
+      <Movies page={page} movieIDs={movieIDs} />
       <Footer />
     </>
   );

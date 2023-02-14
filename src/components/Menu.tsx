@@ -1,8 +1,7 @@
 import { useCallback, useState } from "react";
+import { navigate } from "wouter/use-location";
 import { Dropdown } from "./Dropdown";
 import { SearchSVG } from "./SearchSVG";
-// import { ReactSVG } from 'react-svg';
-// import ButtonSVG from "../assets/search2.svg"
 
 export const Menu: React.FC = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -10,7 +9,6 @@ export const Menu: React.FC = () => {
   const handleSort = useCallback(() => {
     console.log("hello");
   }, []);
-
 
   // @TODO use callback
   const handleSearch = useCallback(() => {
@@ -28,6 +26,19 @@ export const Menu: React.FC = () => {
   const handleBrowseClick = useCallback(() => {
     setShowDropdown(prevState => !prevState);
   }, []);
+
+  const handleWatchLater = useCallback(() => {
+    const watchLater = localStorage.getItem('watchLater')
+    navigate(`/watch-later/movieIDs=${watchLater}/1`);
+
+    console.log(watchLater);
+  }, []);
+
+  const handleFavorites = useCallback(() => {
+    const favorites = localStorage.getItem('favorites')
+    navigate(`/favorites/movieIDs=${favorites}/1`);
+  }, []);
+
   return (
     <nav className="menu">
       {!showMenu && (
@@ -44,11 +55,11 @@ export const Menu: React.FC = () => {
             Rating
           </button>
 
-          <button className="menu-filter-btn nav-btn" onClick={handleSort}>
-            Favourites
+          <button className="menu-filter-btn nav-btn" onClick={handleFavorites}>
+            Favorites
           </button>
 
-          <button className="menu-filter-btn nav-btn" onClick={handleSort}>
+          <button className="menu-filter-btn nav-btn" onClick={handleWatchLater}>
             Watch later
           </button>
 
@@ -78,33 +89,5 @@ export const Menu: React.FC = () => {
   );
 };
 
-
-// export const ComponentMenu: React.FunctionComponent = () => {
-
-//     function handleSort() {
-//         console.log('hello')
-//     }
-
-//     function handleSearch() {
-//     }
-
-
-//     return (
-//         <>
-//             <nav className="menu">
-//                 <button className="menu-item menu-button" onClick={() => handleSort()}>Browse</button>
-//                 <button className="menu-item menu-button" onClick={() => handleSort()}>Year </button>
-//                 <button className="menu-item menu-button" onClick={() => handleSort()}>Rating </button>
-//                 <button className="menu-item menu-button" onClick={() => handleSort()}>Popularity </button>
-//                 <button className="menu-item menu-button" onClick={() => handleSort()}>Filter </button>
-//                 <button className="menu-item menu-button" onClick={() => handleSort()}>S </button>
-
-//                 <label htmlFor="search">
-//                     <input className="menu-item menu-input" id="search" type="text" onChange={handleSearch} placeholder="Search" />
-//                 </label>
-//             </nav>
-//         </>
-//     )
-// }
 
 
