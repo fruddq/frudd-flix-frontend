@@ -10,7 +10,9 @@
     "main": "nodemon ./src/main.ts"
   },
   "dependencies": {
+    "classnames": "^2.3.2",
     "font-awesome": "^4.7.0",
+    "lodash": "^4.17.21",
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@tsconfig/node18-strictest-esm": "^1.0.1",
+    "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.18",
     "@types/qs": "^6.9.7",
     "@types/react": "^18.0.27",

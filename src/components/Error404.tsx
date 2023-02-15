@@ -1,6 +1,10 @@
-export const Error404: React.FunctionComponent = () => {
-  console.log("hej")
-  return (
-    <div>Page not found</div>
-  )
-}
+import { ErrorMessage } from "./ErrorMessage"
+import { Header } from "./Header"
+
+export const Error404: React.FunctionComponent = () =>
+(
+  <div>
+    <Header />
+    <ErrorMessage errorMessage="Page not found" />
+  </div>
+)

@@ -1,9 +1,10 @@
-import { Movies } from "./Movies";
-import { Header } from "./Header";
-import { Footer } from "./Footer";
-export const MovieList: React.FunctionComponent<{ readonly page: number; readonly movieIDs?: string | undefined }> = ({ page, movieIDs }) => {
+import { Movies } from "./Movies"
+import { Header } from "./Header"
+import { Footer } from "./Footer"
+import type { IProps as IPropsMovies } from './Movies'
 
-  const pageValue = Number(page);
+export const MovieList: React.FunctionComponent<{ readonly page: number; readonly movieIDs?: IPropsMovies['movieIDs'] }> = ({ page, movieIDs }) => {
+  const pageValue = Number(page)
 
   if (!Number.isInteger(pageValue) || pageValue < 1) {
     return (
@@ -20,6 +21,6 @@ export const MovieList: React.FunctionComponent<{ readonly page: number; readonl
       <Movies page={page} movieIDs={movieIDs} />
       <Footer />
     </>
-  );
+  )
 };
 

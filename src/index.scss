@@ -208,19 +208,21 @@ body{
     border-radius: 5%;
     outline: 2px purple solid;
 
+    // .sort-info-container {}
+
     button.favorite{
       color: white;
     }
 
-      button.favorite.active {
+    button.favorite.active {
         color: red;
         animation: heartBeat 1s forwards;
-      }
+    }
 
-      button.watchLater.active {
-        color: blue;
-        animation: rotate 1s forwards;
-      }
+    button.watchLater.active {
+      background-color: rgb(145, 145, 245);
+      animation: rotate 1s forwards;
+    }
 
       @keyframes heartBeat {
         0% {

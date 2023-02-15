@@ -1,9 +1,7 @@
-interface Props {
-    width?: string;
-    height?: string;
-}
-
-export const LogoSVG: React.FC<Props> = ({ width = '128px', height = '128px' }) => (
+export const LogoSVG: React.FC<{
+    width?: string
+    height?: string
+}> = ({ width = '128px', height = '128px' }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 924 270"

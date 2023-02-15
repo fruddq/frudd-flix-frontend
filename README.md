@@ -31,6 +31,7 @@ If a been favved then it should have a colour that signiifies that.
 Local storage in browser! Or session storage?
 window.localstorage
 
+
 ● A list where you can add movies you want to watch, like the “watch later” functionality on YouTube.
 Same as favourites
 

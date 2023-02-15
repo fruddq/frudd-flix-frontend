@@ -1,43 +1,41 @@
-import { useCallback, useState } from "react";
-import { navigate } from "wouter/use-location";
-import { Dropdown } from "./Dropdown";
-import { SearchSVG } from "./SearchSVG";
+import { useCallback, useState } from "react"
+import { navigate } from "wouter/use-location"
+import { Dropdown } from "./Dropdown"
+import { SearchSVG } from "./SearchSVG"
 
 export const Menu: React.FC = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showMenu, setShowMenu] = useState(false)
+  const [showDropdown, setShowDropdown] = useState(false)
   const handleSort = useCallback(() => {
-    console.log("hello");
-  }, []);
+    console.log("hello")
+  }, [])
 
   // @TODO use callback
   const handleSearch = useCallback(() => {
-    // function body
-  }, []);
+  }, [])
 
   const handleSClick = useCallback(() => {
-    setShowMenu(true);
-  }, []);
+    setShowMenu(true)
+  }, [])
 
   const handleMenuClick = useCallback(() => {
-    setShowMenu(false);
-  }, []);
+    setShowMenu(false)
+  }, [])
 
   const handleBrowseClick = useCallback(() => {
-    setShowDropdown(prevState => !prevState);
-  }, []);
+    setShowDropdown(prevState => !prevState)
+  }, [])
 
   const handleWatchLater = useCallback(() => {
     const watchLater = localStorage.getItem('watchLater')
-    navigate(`/watch-later/movieIDs=${watchLater}/1`);
+    navigate(`/watch-later/movieIDs=${watchLater}/1`)
 
-    console.log(watchLater);
-  }, []);
+    console.log(watchLater)
+  }, [])
 
   const handleFavorites = useCallback(() => {
-    const favorites = localStorage.getItem('favorites')
-    navigate(`/favorites/movieIDs=${favorites}/1`);
-  }, []);
+    navigate("/favorites/1")
+  }, [])
 
   return (
     <nav className="menu">
@@ -86,7 +84,7 @@ export const Menu: React.FC = () => {
         </>
       )}
     </nav>
-  );
+  )
 };
 
 
