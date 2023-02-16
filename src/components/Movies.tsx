@@ -27,8 +27,11 @@ const emptyArray: NonNullable<IProps['movieIDs']> = []
 export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = emptyArray, query = '' }) => {
   if (page > 500) return <ErrorMessage errorMessage="Page not found" />
 
-  const isFavoritePath = window.location.pathname.startsWith('/favorites')
-  const isWatchLaterPath = window.location.pathname.startsWith('/watch-later')
+  const url = window.location.pathname
+
+  const isFavoritePath = url.startsWith('/favorites')
+  const isWatchLaterPath = url.startsWith('/watch-later')
+  const isSearchPath = url.startsWith('/search')
 
   if (page > 1 && (isFavoritePath || isWatchLaterPath)) return <ErrorMessage errorMessage="Page not found" /> // @TODO Pagination
   if (!movieIDs.length && isFavoritePath) return <ErrorMessage errorMessage="No movies favorited" />
@@ -72,13 +75,23 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   // @TODO ensure these can handle page with browsing and favorites/watchlater when pagination is complete
   const handleNextPage = useCallback(() => {
+    if (isSearchPath) {
+      navigate(`/search/${query}/${page + 1}`)
+    }
+    else {
+      navigate(`/movies/${page + 1}`)
+    }
     window.scrollTo(0, 0)
-    navigate(`/movies/${page + 1}`)
   }, [page])
 
   const handlePrevPage = useCallback(() => {
+    if (isSearchPath) {
+      navigate(`/search/${query}/${page - 1}`)
+    }
+    else {
+      navigate(`/movies/${page - 1}`)
+    }
     window.scrollTo(0, 0)
-    navigate(`/movies/${page - 1}`)
   }, [page])
 
   return (

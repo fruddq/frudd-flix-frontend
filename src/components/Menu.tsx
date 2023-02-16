@@ -4,7 +4,7 @@ import { Dropdown } from "./Dropdown"
 import { SearchSVG } from "./SearchSVG"
 
 export const Menu: React.FC = () => {
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenuButton, setShowMenu] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
   const handleSort = useCallback(() => {
     console.log("hello")
@@ -13,8 +13,6 @@ export const Menu: React.FC = () => {
   const handleSearch = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === "Go" || event.key === "Search") {
       navigate(`/search/${event.currentTarget.value}/1`)
-
-      console.log(event.currentTarget.value)
     }
   }, [])
 
@@ -40,7 +38,7 @@ export const Menu: React.FC = () => {
 
   return (
     <nav className="menu">
-      {!showMenu && (
+      {!showMenuButton && (
         <>
           <button className="menu-browse-btn nav-btn" onClick={handleBrowseClick}>
             Browse
@@ -69,7 +67,7 @@ export const Menu: React.FC = () => {
           {showDropdown && <Dropdown />}
         </>
       )}
-      {showMenu && (
+      {showMenuButton && (
         <>
           <button className="menu-menu-btn nav-btn" onClick={handleMenuClick}>
             Menu

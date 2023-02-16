@@ -1,14 +1,14 @@
 import CN from 'classnames'
 import { useCallback, useContext } from "react"
 
-import type { Props } from "../models/Props"
+import type { PropsMovie } from "../models/Props"
 import { genreList } from "../services/config"
 import { EActionFavorites, storeFavorites } from "../stores/favorites"
 import { EActionWatchLater, storeWatchLater } from '../stores/watchLater'
 
 import placeHolder from '../assets/place-holder.png'
 
-export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
+export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
 
   const genreNames = movie.genre_ids.map(id => {
     const genre = genreList.find(g => g.id === id)
@@ -46,11 +46,18 @@ export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
     [dispatchFavorite, stateFavorites, movie]
   )
 
-  console.log(movie.poster_path)
+  const handleTitleClick = () => {
+    console.log(movie.title, movie.id)
+  }
 
+  const handleTitleKeyDown = (event: React.KeyboardEvent<HTMLHeadingElement>) => {
+    if (event.key === 'Enter') {
+      handleTitleClick()
+    }
+  }
   return (
     <div className="movie">
-      <h2 className="movie-title">{movie.title}</h2>
+      <h2 className="movie-title" onClick={handleTitleClick} tabIndex={0} onKeyDown={handleTitleKeyDown}>{movie.title}</h2>
 
       <img
         className="movie-poster"
