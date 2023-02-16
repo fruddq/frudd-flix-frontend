@@ -10,8 +10,12 @@ export const Menu: React.FC = () => {
     console.log("hello")
   }, [])
 
-  // @TODO use callback
-  const handleSearch = useCallback(() => {
+  const handleSearch = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" || event.key === "Go" || event.key === "Search") {
+      navigate(`/search/${event.currentTarget.value}/1`)
+
+      console.log(event.currentTarget.value)
+    }
   }, [])
 
   const handleSClick = useCallback(() => {
@@ -23,7 +27,7 @@ export const Menu: React.FC = () => {
   }, [])
 
   const handleBrowseClick = useCallback(() => {
-    setShowDropdown(prevState => !prevState)
+    setShowDropdown((prevState) => !prevState)
   }, [])
 
   const handleWatchLater = useCallback(() => {
@@ -75,14 +79,11 @@ export const Menu: React.FC = () => {
             className="menu-input"
             id="search"
             type="text"
-            onChange={handleSearch}
+            onKeyUp={handleSearch}
             placeholder="Search"
           />
         </>
       )}
     </nav>
   )
-};
-
-
-
+}

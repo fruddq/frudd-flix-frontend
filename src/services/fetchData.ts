@@ -7,6 +7,7 @@ export const fetchData = async ({
   genres,
   page,
   movieID,
+  query,
 }: {
   readonly route: string
   readonly from?: number
@@ -14,6 +15,7 @@ export const fetchData = async ({
   readonly genres?: number[]
   readonly page?: number
   readonly movieID?: number
+  readonly query?: string
 }) => {
   try {
     const response = await axios.get(`http://localhost:3000/${route}`, {
@@ -23,6 +25,7 @@ export const fetchData = async ({
         genres,
         page,
         movieID,
+        query,
       },
     })
     return response.data
@@ -30,3 +33,7 @@ export const fetchData = async ({
     console.error(error)
   }
 }
+
+// const data = await fetchData({ page: 2, route: "search", query: "spiderman" })
+
+// console.log(data)

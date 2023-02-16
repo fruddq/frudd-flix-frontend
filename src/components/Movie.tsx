@@ -6,6 +6,8 @@ import { genreList } from "../services/config"
 import { EActionFavorites, storeFavorites } from "../stores/favorites"
 import { EActionWatchLater, storeWatchLater } from '../stores/watchLater'
 
+import placeHolder from '../assets/place-holder.png'
+
 export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
 
   const genreNames = movie.genre_ids.map(id => {
@@ -44,14 +46,16 @@ export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
     [dispatchFavorite, stateFavorites, movie]
   )
 
+  console.log(movie.poster_path)
+
   return (
     <div className="movie">
       <h2 className="movie-title">{movie.title}</h2>
 
       <img
         className="movie-poster"
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-        alt={movie.title}
+        src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeHolder}
+        alt={movie.poster_path ? movie.title : 'No poster available'}
       />
 
       <section className="sort-info-container">

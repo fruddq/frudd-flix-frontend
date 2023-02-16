@@ -37,6 +37,9 @@ const App: React.FunctionComponent = () => {
                   {params => <WatchLater page={Number(params['page'] || "1")} />}
                 </Route>
 
+                <Route path="/search/:query/:page">
+                  {params => <MovieList page={Number(params['page'] || "1")} query={params['query'] || ""} />}
+                </Route>
 
                 <Route path="/404" component={Error404} />
 

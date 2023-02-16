@@ -18,16 +18,17 @@ const renderMovies = (movies: IMovie[]) => {
 export interface IProps {
   readonly page: number
   readonly movieIDs?: number[] | undefined
+  readonly query?: string | undefined
 }
 
 // @TODO fix nonnullable wherever applies
 const emptyArray: NonNullable<IProps['movieIDs']> = []
 
-export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = emptyArray }) => {
+export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = emptyArray, query = '' }) => {
   if (page > 500) return <ErrorMessage errorMessage="Page not found" />
 
-  const isFavoritePath = window.location.pathname.slice(0, 10) === '/favorites'
-  const isWatchLaterPath = window.location.pathname.slice(0, 12) === '/watch-later'
+  const isFavoritePath = window.location.pathname.startsWith('/favorites')
+  const isWatchLaterPath = window.location.pathname.startsWith('/watch-later')
 
   if (page > 1 && (isFavoritePath || isWatchLaterPath)) return <ErrorMessage errorMessage="Page not found" /> // @TODO Pagination
   if (!movieIDs.length && isFavoritePath) return <ErrorMessage errorMessage="No movies favorited" />
@@ -35,7 +36,6 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
-
   const fetchAndSetData = useCallback(async () => {
     if (movieIDs.length) {
       const dataPromises = movieIDs.map(movieId => fetchData({ route: 'id', movieID: movieId }))
@@ -43,6 +43,13 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
       setMovies(savedMovies)
       setTotalPages(1) // @TODO settotal page should not be 1, pagination
+    }
+
+    if (query !== '') {
+      const data = await fetchData({ page, route: 'search', query: decodeURIComponent(query) })
+
+      setMovies(data.results)
+      setTotalPages(data.total_pages)
     }
 
     else {
@@ -53,7 +60,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     }
 
     if (page > totalPages) return <ErrorMessage errorMessage="Page not found" />
-  }, [page, setMovies, setTotalPages, movies, movieIDs])
+  }, [page, setMovies, setTotalPages, movies, movieIDs, query])
 
   const moviesComponents = useMemo(() =>
     renderMovies(movies), [renderMovies, movies]
@@ -61,7 +68,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   useEffect(() => {
     fetchAndSetData()
-  }, [movieIDs, page])
+  }, [movieIDs, page, query])
 
   // @TODO ensure these can handle page with browsing and favorites/watchlater when pagination is complete
   const handleNextPage = useCallback(() => {
