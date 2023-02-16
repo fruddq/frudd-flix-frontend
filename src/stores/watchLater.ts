@@ -1,5 +1,5 @@
-import { EActionNumberArray as EActionFavorites, getStoreNumberArray } from "./numberArray"
+import { EActionNumberArray as EActionWatchLater, getStoreNumberArray } from "./numberArray"
 
-export { EActionFavorites }
+export { EActionWatchLater }
 
-export const storeWatchLater = getStoreNumberArray("favorites")
+export const storeWatchLater = getStoreNumberArray("watchLater")

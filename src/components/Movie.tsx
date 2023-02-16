@@ -1,35 +1,32 @@
 import CN from 'classnames'
-import lodash from 'lodash'
-import { useCallback, useContext, useEffect, useState } from "react"
+import { useCallback, useContext } from "react"
 
 import type { Props } from "../models/Props"
 import { genreList } from "../services/config"
-import { storeFavorites } from "../stores/favorites"
-import { EActionNumberArray } from "../stores/numberArray"
+import { EActionFavorites, storeFavorites } from "../stores/favorites"
+import { EActionWatchLater, storeWatchLater } from '../stores/watchLater'
 
 export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
-  const [isWatchLater, setIsWatchLater] = useState(false)
-
-  useEffect(() => {
-    const watchLater = localStorage.getItem('watchLater') ? JSON.parse(localStorage.getItem('watchLater')!) : []
-
-    setIsWatchLater(watchLater.includes(movie.id))
-  }, [movie.id])
 
   const genreNames = movie.genre_ids.map(id => {
     const genre = genreList.find(g => g.id === id)
     return genre ? genre.name : ""
   })
 
-  const handleWatchLater = () => {
-    const watchLater = localStorage.getItem('watchLater') ? JSON.parse(localStorage.getItem('watchLater')!) : []
-    const updatedWatchLater = isWatchLater ? lodash.without(watchLater, movie.id) : lodash.uniq([...watchLater, movie.id])
+  const dispatchWatchLater = useContext(storeWatchLater.contextDispatch)
+  const stateWatchLater = useContext(storeWatchLater.contextState)
 
-    localStorage.setItem('watchLater', JSON.stringify(updatedWatchLater))
+  const handleWatchLater: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+    (event) => {
+      event.preventDefault()
 
-    setIsWatchLater(!isWatchLater)
-    console.log(updatedWatchLater)
-  }
+      dispatchWatchLater({
+        type: stateWatchLater.includes(movie.id) ? EActionWatchLater.Remove : EActionWatchLater.Add,
+        payload: movie.id
+      })
+    },
+    [dispatchWatchLater, stateWatchLater, movie]
+  )
 
 
   const dispatchFavorite = useContext(storeFavorites.contextDispatch)
@@ -37,25 +34,14 @@ export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
 
   const handleFavourite: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
-      console.log("Button was clicked")
       event.preventDefault()
 
       dispatchFavorite({
-        type: stateFavorites.includes(movie.id) ? EActionNumberArray.Remove : EActionNumberArray.Add,
+        type: stateFavorites.includes(movie.id) ? EActionFavorites.Remove : EActionFavorites.Add,
         payload: movie.id
       })
     },
     [dispatchFavorite, stateFavorites, movie]
-  )
-
-  const watchLaterButton = isWatchLater ? (
-    <button onClick={handleWatchLater} className={`watchLater movie-${movie.id} active`}>
-      Watch later
-    </button>
-  ) : (
-    <button onClick={handleWatchLater} className={`watchLater movie-${movie.id}`}>
-      Watch later
-    </button>
   )
 
   return (
@@ -71,9 +57,13 @@ export const Movie: React.FunctionComponent<Props> = ({ movie }) => {
       <section className="sort-info-container">
         <p className="sort-info-text movie-year">{movie.release_date.substring(0, 4)}</p>
 
-        <p className="sort-info-text">Rating: {movie.vote_average}/10</p>
+        <p className="sort-info-text">Rating: {movie.vote_average.toFixed(1)}/10</p>
 
-        {watchLaterButton}
+        <button onClick={handleWatchLater} className={CN('watch-later', `movie-${movie.id}`, {
+          active: stateWatchLater.includes(movie.id)
+        })}>
+          Watch later
+        </button>
 
         <button onClick={handleFavourite} className={CN('favorite', `movie-${movie.id}`, {
           active: stateFavorites.includes(movie.id)

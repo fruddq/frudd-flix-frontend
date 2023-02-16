@@ -27,10 +27,7 @@ export const Menu: React.FC = () => {
   }, [])
 
   const handleWatchLater = useCallback(() => {
-    const watchLater = localStorage.getItem('watchLater')
-    navigate(`/watch-later/movieIDs=${watchLater}/1`)
-
-    console.log(watchLater)
+    navigate("/watch-later/1")
   }, [])
 
   const handleFavorites = useCallback(() => {

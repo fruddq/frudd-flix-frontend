@@ -183,7 +183,7 @@ body {
   color: red;
   animation: heartBeat 1s forwards;
 }
-.movies-container .movie button.watchLater.active {
+.movies-container .movie button.watch-later.active {
   background-color: rgb(145, 145, 245);
   animation: rotate 1s forwards;
 }

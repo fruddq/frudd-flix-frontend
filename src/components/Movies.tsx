@@ -27,9 +27,11 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
   if (page > 500) return <ErrorMessage errorMessage="Page not found" />
 
   const isFavoritePath = window.location.pathname.slice(0, 10) === '/favorites'
+  const isWatchLaterPath = window.location.pathname.slice(0, 12) === '/watch-later'
 
-  if (page > 1 && isFavoritePath) return <ErrorMessage errorMessage="Page not found" /> // @TODO Pagination
+  if (page > 1 && (isFavoritePath || isWatchLaterPath)) return <ErrorMessage errorMessage="Page not found" /> // @TODO Pagination
   if (!movieIDs.length && isFavoritePath) return <ErrorMessage errorMessage="No movies favorited" />
+  if (!movieIDs.length && isWatchLaterPath) return <ErrorMessage errorMessage="No movies saved" />
 
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
