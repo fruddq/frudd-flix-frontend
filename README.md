@@ -12,6 +12,7 @@ Should be able to:
 - pagination
 - animations
 - Code cleanup, code review
+- Components placeholder when page is loading
 
 - code should be test covered
 - e2e test, cypress, playwright, selenium

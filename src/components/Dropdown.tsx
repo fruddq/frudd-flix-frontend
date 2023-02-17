@@ -25,6 +25,7 @@ export const Dropdown: React.FunctionComponent = () => {
     setSelectedGenres(updatedGenres)
   }
 
+  // @TODO USECALLBACK
   //http://localhost:5173/browse/?from=100&to=200&genres=action-comedy&page=3
   // to={`/browse?from=${from}&to=${to}&genres=${genres}&page=${page}`}
   const handleFindMovies = () => {

@@ -49,5 +49,4 @@ export const Trailers: React.FunctionComponent<PropsTrailers> =
 
       </div>
     )
-  };
-
+  }

@@ -32,6 +32,12 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   const url = window.location.pathname
 
+  // const test = DOM.getters.URLQuery()
+  // console.log(test)
+  // const test2 = window.location.search
+  // console.log(test2)
+
+
   const isFavoritePath = url.startsWith('/favorites')
   const isWatchLaterPath = url.startsWith('/watch-later')
   const isSearchPath = url.startsWith('/search')
@@ -45,10 +51,9 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
   const [totalPages, setTotalPages] = useState(1)
 
   const fetchAndSetData = useCallback(async () => {
-
     if (isBrowsePath) {
       const data = await fetchMovies({ page, route: 'discover', genres, from, to })
-      console.log(window.location.search)
+
       setMovies(data.results)
       setTotalPages(data.total_pages)
     }
@@ -82,7 +87,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     fetchAndSetData()
   }, [movieIDs, page, query])
 
-  // @TODO ensure these can handle page with browsing and favorites/watchlater when pagination is complete
+  // @TODO WHY SEARCH PAGE 2 NOT WORKING
   const handleNextPage = useCallback(() => {
     if (isSearchPath) {
       navigate(`/search/${query}/${page + 1}`)
