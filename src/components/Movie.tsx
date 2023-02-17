@@ -1,5 +1,5 @@
 import CN from 'classnames'
-import { useCallback, useContext } from "react"
+import { useCallback, useContext, useState } from "react"
 
 import type { PropsMovie } from "../models/Props"
 import { genreList } from "../services/config"
@@ -7,8 +7,11 @@ import { EActionFavorites, storeFavorites } from "../stores/favorites"
 import { EActionWatchLater, storeWatchLater } from '../stores/watchLater'
 
 import placeHolder from '../assets/place-holder.png'
+import { Trailers } from './Trailers'
 
 export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
+
+  const [showBackdrop, setShowBackdrop] = useState(false)
 
   const genreNames = movie.genre_ids.map(id => {
     const genre = genreList.find(g => g.id === id)
@@ -47,7 +50,7 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
   )
 
   const handleTitleClick = () => {
-    console.log(movie.title, movie.id)
+    setShowBackdrop(!showBackdrop)
   }
 
   const handleTitleKeyDown = (event: React.KeyboardEvent<HTMLHeadingElement>) => {
@@ -92,6 +95,14 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
           ))}
         </section>
       </section>
+
+      {showBackdrop && <Trailers
+        movieID={movie.id}
+        onCloseBackdrop={handleTitleClick}
+      />}
+
+
+
     </div>
   )
 }

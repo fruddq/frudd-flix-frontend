@@ -202,6 +202,41 @@ body {
     border-radius: 5%;
     outline: 2px purple solid;
 
+    .backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+
+      .backdrop-title {
+        color: white;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      .backdrop-exit {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: white;
+        background-color: transparent;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+
+      .backdrop-exit:hover {
+        color: red;
+      }
+    }
+
     // .sort-info-container {}
 
     button.favorite {
@@ -291,8 +326,11 @@ body {
 
     &-title {
       font-size: 1.6rem;
-      font-weight: bold;
       color: rgb(255, 255, 255);
+    }
+
+    &-title:hover {
+      color: rgb(30, 255, 0);
     }
 
     &-poster {

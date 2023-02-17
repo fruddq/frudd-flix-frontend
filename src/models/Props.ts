@@ -1,4 +1,4 @@
-import type { IMovie } from "./IMovie.js"
+import type { IMovie } from "./Interfaces.js"
 
 export interface PropsMovie {
   movie: IMovie

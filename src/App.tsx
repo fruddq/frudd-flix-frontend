@@ -9,6 +9,9 @@ import { Favorites } from './components/Favorites'
 import { storeFavorites } from './stores/favorites'
 import { storeWatchLater } from './stores/watchLater'
 import { WatchLater } from './components/WatchLater'
+import { Browse } from './components/Browse'
+
+// http://localhost:5173/browse/?from=100&to=200&genres=action-comedy
 
 const App: React.FunctionComponent = () => {
   const [stateFavorites, dispatchFavorites] = useReducer(storeFavorites.reducer, storeFavorites.initialState)
@@ -39,6 +42,20 @@ const App: React.FunctionComponent = () => {
 
                 <Route path="/search/:query/:page">
                   {params => <MovieList page={Number(params['page'] || "1")} query={params['query'] || ""} />}
+                </Route>
+
+                <Route path="/browse">
+                  {() => {
+                    const params = new URLSearchParams(location.search)
+                    return (
+                      <Browse
+                        from={Number(params.get('from') || '0')}
+                        to={Number(params.get('to') || '0')}
+                        genres={params.get('genres') || ''}
+                        page={Number(params.get('page') || '1')}
+                      />
+                    )
+                  }}
                 </Route>
 
                 <Route path="/404" component={Error404} />

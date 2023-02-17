@@ -2,23 +2,24 @@ import { Movies } from "./Movies"
 import { Header } from "./Header"
 import { Footer } from "./Footer"
 import type { IProps as IPropsMovies } from './Movies'
+import type { movieID } from "../models/Interfaces"
 
-export const MovieList: React.FunctionComponent<{ readonly page: number; readonly movieIDs?: IPropsMovies['movieIDs']; readonly query?: string }> = ({ page, movieIDs, query }) => {
-  const pageValue = Number(page)
+interface PropsMovieList {
+  readonly page: number
+  readonly movieIDs?:
+  IPropsMovies['movieIDs']
+  readonly query?: string
+  readonly from?: number
+  readonly to?: number
+  readonly genres?: movieID[]
+}
 
-  if (!Number.isInteger(pageValue) || pageValue < 1) {
-    return (
-      <div>
-        <Header />
-        <p className="error-message">Page must be a number over 0</p>
-      </div>
-    )
-  }
+export const MovieList: React.FunctionComponent<PropsMovieList> = ({ page, movieIDs, query, from, to, genres }) => {
 
   return (
     <>
       <Header />
-      <Movies page={page} movieIDs={movieIDs} query={query} />
+      <Movies page={page} movieIDs={movieIDs} query={query} from={from} to={to} genres={genres} />
       <Footer />
     </>
   )

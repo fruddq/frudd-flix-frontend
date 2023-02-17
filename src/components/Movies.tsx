@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { navigate } from "wouter/use-location"
 
-import type { IMovie } from "../models/IMovie"
+import type { IMovie, movieID } from "../models/Interfaces"
 import { Movie } from "./Movie"
-import { fetchData } from "../services/fetchData"
+import { fetchMovies } from "../services/fetchMovies"
 import { ErrorMessage } from "./ErrorMessage"
 
-// import { DOM } from "../modules/DOM"
+import { DOM } from "../modules/DOM"
 
 const renderMovies = (movies: IMovie[]) => {
   return movies.map((movie) => (
@@ -19,19 +19,23 @@ export interface IProps {
   readonly page: number
   readonly movieIDs?: number[] | undefined
   readonly query?: string | undefined
+  readonly from?: number | undefined
+  readonly to?: number | undefined
+  readonly genres?: movieID[] | undefined
 }
 
 // @TODO fix nonnullable wherever applies
 const emptyArray: NonNullable<IProps['movieIDs']> = []
 
-export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = emptyArray, query = '' }) => {
-  if (page > 500) return <ErrorMessage errorMessage="Page not found" />
+export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = emptyArray, query = '', from, to, genres }) => {
+  if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
 
   const url = window.location.pathname
 
   const isFavoritePath = url.startsWith('/favorites')
   const isWatchLaterPath = url.startsWith('/watch-later')
   const isSearchPath = url.startsWith('/search')
+  const isBrowsePath = url.startsWith('/browse')
 
   if (page > 1 && (isFavoritePath || isWatchLaterPath)) return <ErrorMessage errorMessage="Page not found" /> // @TODO Pagination
   if (!movieIDs.length && isFavoritePath) return <ErrorMessage errorMessage="No movies favorited" />
@@ -39,24 +43,29 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
+
   const fetchAndSetData = useCallback(async () => {
-    if (movieIDs.length) {
-      const dataPromises = movieIDs.map(movieId => fetchData({ route: 'id', movieID: movieId }))
+
+    if (isBrowsePath) {
+      const data = await fetchMovies({ page, route: 'discover', genres, from, to })
+      console.log(window.location.search)
+      setMovies(data.results)
+      setTotalPages(data.total_pages)
+    }
+    else if (movieIDs.length) {
+      const dataPromises = movieIDs.map(movieId => fetchMovies({ route: 'id', movieID: movieId }))
       const savedMovies = await Promise.all(dataPromises)
 
       setMovies(savedMovies)
       setTotalPages(1) // @TODO settotal page should not be 1, pagination
     }
-
-    if (query !== '') {
-      const data = await fetchData({ page, route: 'search', query: decodeURIComponent(query) })
-
+    else if (query !== '') {
+      const data = await fetchMovies({ page, route: 'search', query: decodeURIComponent(query) })
       setMovies(data.results)
       setTotalPages(data.total_pages)
     }
-
     else {
-      const data = await fetchData({ page, route: 'discover' })
+      const data = await fetchMovies({ page, route: 'discover' })
 
       setMovies(data.results)
       setTotalPages(data.total_pages)
