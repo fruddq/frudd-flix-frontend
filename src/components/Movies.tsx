@@ -5,6 +5,7 @@ import type { IMovie, movieID } from "../models/Interfaces"
 import { Movie } from "./Movie"
 import { fetchMovies } from "../services/fetchMovies"
 import { ErrorMessage } from "./ErrorMessage"
+import { navigateAndReturnNull } from "../services/navigateAndReturnNull"
 
 // import { DOM } from "../modules/DOM"
 
@@ -14,12 +15,12 @@ const renderMovies = (movies: IMovie[]) => {
   ))
 }
 
-const getMoviesForPage = (page: number, savedMovies: IMovie[]) => {
-  const moviesPerPage = 20
-  const startIndex = (page - 1) * moviesPerPage
-  const endIndex = Math.min(startIndex + moviesPerPage, savedMovies.length)
-  return savedMovies.slice(startIndex, endIndex)
-}
+// const getMoviesForPage = (page: number, savedMovies: IMovie[]) => {
+//   const moviesPerPage = 20
+//   const startIndex = (page - 1) * moviesPerPage
+//   const endIndex = Math.min(startIndex + moviesPerPage, savedMovies.length)
+//   return savedMovies.slice(startIndex, endIndex)
+// }
 
 // @TODO fix Props
 export interface IProps {
@@ -99,38 +100,54 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
   // @TODO WHY SEARCH PAGE 2 NOT WORKING
   const handleNextPage = useCallback(() => {
     setUrl(window.location.pathname)
+    window.scrollTo(0, 0)
+
     if (isSearchPath) {
-      navigate(`/search/${query}/${page + 1}`)
+      return navigateAndReturnNull(() => {
+        navigate(`/search/${query}/${page + 1}`)
+      })
     }
     else if (isFavoritePath) {
-      navigate(`/favorites/${page + 1}`)
+      return navigateAndReturnNull(() => {
+        navigate(`/favorites/${page + 1}`)
+      })
     }
     else if (isWatchLaterPath) {
-      navigate(`/watch-later/${page + 1}`)
+      return navigateAndReturnNull(() => {
+        navigate(`/watch-later/${page + 1}`)
+      })
     }
     else {
-      navigate(`/movies/${page + 1}`)
+      return navigateAndReturnNull(() => {
+        navigate(`/movies/${page + 1}`)
+      })
     }
-    window.scrollTo(0, 0)
-    return null
   }, [page, url])
 
   const handlePrevPage = useCallback(() => {
     setUrl(window.location.pathname)
+    window.scrollTo(0, 0)
+
     if (isSearchPath) {
-      navigate(`/search/${query}/${page - 1}`)
+      return navigateAndReturnNull(() => {
+        navigate(`/search/${query}/${page - 1}`)
+      })
     }
     else if (isFavoritePath) {
-      navigate(`/favorites/${page - 1}`)
+      return navigateAndReturnNull(() => {
+        navigate(`/favorites/${page - 1}`)
+      })
     }
     else if (isWatchLaterPath) {
-      navigate(`/watch-later/${page - 1}`)
+      return navigateAndReturnNull(() => {
+        navigate(`/watch-later/${page - 1}`)
+      })
     }
     else {
-      navigate(`/movies/${page - 1}`)
+      return navigateAndReturnNull(() => {
+        navigate(`/movies/${page - 1}`)
+      })
     }
-    window.scrollTo(0, 0)
-    return null
   }, [page, url])
 
   return (

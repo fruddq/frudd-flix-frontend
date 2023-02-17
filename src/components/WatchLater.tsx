@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { navigate } from "wouter/use-location"
+import { navigateAndReturnNull } from "../services/navigateAndReturnNull"
 import { storeWatchLater } from "../stores/watchLater"
 import { ErrorComplete } from "./ErrorComplete"
 import { MovieList } from "./MovieList"
@@ -13,9 +14,13 @@ export const WatchLater: React.FunctionComponent<{ readonly page: number }> = ({
     </>)
   }
 
+  console.log(watchLater.length)
   if (watchLater.length < page + 19 && page !== 1) {
-    navigate(`/watch-later/${page - 1}`)
-    return null
+    console.log("inside IF")
+
+    return navigateAndReturnNull(() => {
+      navigate(`/watch-later/${page - 1}`)
+    })
   }
 
   return (

@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react"
 import { navigate } from "wouter/use-location"
+import { navigateAndReturnNull } from "../services/navigateAndReturnNull"
 import { Dropdown } from "./Dropdown"
 import { SearchSVG } from "./SearchSVG"
 
@@ -12,8 +13,9 @@ export const Menu: React.FC = () => {
 
   const handleSearch = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === "Go" || event.key === "Search") {
-      navigate(`/search/${event.currentTarget.value}/1`)
-      return null
+      return navigateAndReturnNull(() => {
+        navigate(`/search/${event.currentTarget.value}/1`)
+      })
     }
   }, [])
 
@@ -30,13 +32,15 @@ export const Menu: React.FC = () => {
   }, [])
 
   const handleWatchLater = useCallback(() => {
-    navigate("/watch-later/1")
-    return null
+    return navigateAndReturnNull(() => {
+      navigate("/watch-later/1")
+    })
   }, [])
 
   const handleFavorites = useCallback(() => {
-    navigate("/favorites/1")
-    return null
+    return navigateAndReturnNull(() => {
+      navigate("/favorites/1")
+    })
   }, [])
 
   return (

@@ -45,19 +45,21 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
         type: stateFavorites.includes(movie.id) ? EActionFavorites.Remove : EActionFavorites.Add,
         payload: movie.id
       })
+
     },
     [dispatchFavorite, stateFavorites, movie]
   )
 
-  const handleTitleClick = () => {
-    setShowBackdrop(!showBackdrop)
-  }
+  const handleTitleClick = useCallback(() => {
+    setShowBackdrop(prev => !prev)
+  }, [setShowBackdrop])
 
-  const handleTitleKeyDown = (event: React.KeyboardEvent<HTMLHeadingElement>) => {
+  const handleTitleKeyDown = useCallback((event: React.KeyboardEvent<HTMLHeadingElement>) => {
     if (event.key === 'Enter') {
       handleTitleClick()
     }
-  }
+  }, [handleTitleClick])
+
   return (
     <div className="movie">
       <h2 className="movie-title" onClick={handleTitleClick} tabIndex={0} onKeyDown={handleTitleKeyDown}>{movie.title}</h2>

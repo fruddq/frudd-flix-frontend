@@ -1,16 +1,17 @@
 import { useContext } from "react"
 import { navigate } from "wouter/use-location"
+import { navigateAndReturnNull } from "../services/navigateAndReturnNull"
 import { storeFavorites } from "../stores/favorites"
 import { ErrorComplete } from "./ErrorComplete"
 import { MovieList } from "./MovieList"
 
-const navigateAndReturnNull = (callback: () => void) => {
-  callback()
-  return null
-}
-
 export const Favorites: React.FunctionComponent<{ readonly page: number }> = ({ page }) => {
   const favorites = useContext(storeFavorites.contextState)
+  const paginationNumber = page + 19 * (page - 1)
+  const totalPages = Math.ceil(favorites.length / 20)
+  //check total pages
+
+
 
   if (favorites.length < 1) {
     return (<>
@@ -18,13 +19,21 @@ export const Favorites: React.FunctionComponent<{ readonly page: number }> = ({ 
     </>)
   }
 
-  if (favorites.length < page + 19 && page !== 1) {
-    // navigate(`/favorites/${page - 1}`)
-    // return null
+  if (page > totalPages + 1) {
+    return (<>
+      <ErrorComplete errorMessage={`Only ${totalPages} pages available`} />
+    </>)
+  }
+
+  console.log("favorites", favorites.length, "pagination number", page + 19 * (page - 1))
+
+  if (favorites.length < paginationNumber && page !== 1) {
+    console.log('inside if')
     return navigateAndReturnNull(() => {
       navigate(`/favorites/${page - 1}`)
     })
   }
+
 
   return (
     <>
