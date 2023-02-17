@@ -13,6 +13,7 @@ export const Menu: React.FC = () => {
   const handleSearch = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === "Go" || event.key === "Search") {
       navigate(`/search/${event.currentTarget.value}/1`)
+      return null
     }
   }, [])
 
@@ -30,10 +31,12 @@ export const Menu: React.FC = () => {
 
   const handleWatchLater = useCallback(() => {
     navigate("/watch-later/1")
+    return null
   }, [])
 
   const handleFavorites = useCallback(() => {
     navigate("/favorites/1")
+    return null
   }, [])
 
   return (

@@ -1,20 +1,21 @@
 import { useContext } from "react"
+import { navigate } from "wouter/use-location"
 import { storeWatchLater } from "../stores/watchLater"
-import { ErrorMessage } from "./ErrorMessage"
-import { Footer } from "./Footer"
-import { Header } from "./Header"
+import { ErrorComplete } from "./ErrorComplete"
 import { MovieList } from "./MovieList"
 
 export const WatchLater: React.FunctionComponent<{ readonly page: number }> = ({ page }) => {
-
   const watchLater = useContext(storeWatchLater.contextState)
 
   if (watchLater.length < 1) {
     return (<>
-      <Header />
-      <ErrorMessage errorMessage="No saved movies" />
-      <Footer />
+      <ErrorComplete errorMessage="No saved movies" />
     </>)
+  }
+
+  if (watchLater.length < page + 19 && page !== 1) {
+    navigate(`/watch-later/${page - 1}`)
+    return null
   }
 
   return (

@@ -59,20 +59,17 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
       setTotalPages(data.total_pages)
     }
     else if (movieIDs.length) {
+      // Determine the range of movies to fetch based on the current page and number of movies per page
+      const moviesPerPage = 20
+      const startIndex = (page - 1) * moviesPerPage
+      const endIndex = startIndex + moviesPerPage
+      const movieIdsToFetch = movieIDs.slice(startIndex, endIndex)
 
-      // @TODO FETCH ONLY PAGINATION NUMBERS not all 
-      const dataPromises = movieIDs.map(movieId => fetchMovies({ route: 'id', movieID: movieId }))
+      const dataPromises = movieIdsToFetch.map(movieId => fetchMovies({ route: 'id', movieID: movieId }))
       const savedMovies = await Promise.all(dataPromises)
 
-      if (savedMovies.length > 20) {
-        const paginatedMovies = getMoviesForPage(page, savedMovies)
-
-        setMovies(paginatedMovies)
-      } else {
-        setMovies(savedMovies)
-      }
-
-      setTotalPages(Math.ceil(savedMovies.length / 20))
+      setMovies(savedMovies)
+      setTotalPages(Math.ceil(movieIDs.length / moviesPerPage))
     }
     else if (query !== '') {
       const data = await fetchMovies({ page, route: 'search', query: decodeURIComponent(query) })
@@ -108,10 +105,14 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     else if (isFavoritePath) {
       navigate(`/favorites/${page + 1}`)
     }
+    else if (isWatchLaterPath) {
+      navigate(`/watch-later/${page + 1}`)
+    }
     else {
       navigate(`/movies/${page + 1}`)
     }
     window.scrollTo(0, 0)
+    return null
   }, [page, url])
 
   const handlePrevPage = useCallback(() => {
@@ -122,10 +123,14 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     else if (isFavoritePath) {
       navigate(`/favorites/${page - 1}`)
     }
+    else if (isWatchLaterPath) {
+      navigate(`/watch-later/${page - 1}`)
+    }
     else {
       navigate(`/movies/${page - 1}`)
     }
     window.scrollTo(0, 0)
+    return null
   }, [page, url])
 
   return (
