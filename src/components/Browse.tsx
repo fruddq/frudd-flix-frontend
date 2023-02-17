@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { genreList } from "../services/config"
 import { ErrorMessage } from "./ErrorMessage"
 import { MovieList } from "./MovieList"
@@ -11,12 +10,6 @@ interface PropsBrowse {
 }
 
 export const Browse: React.FunctionComponent<PropsBrowse> = ({ page, from, to, genres }) => {
-  const [browseState, setBrowseState] = useState({ from, to, genres, page })
-
-  useEffect(() => {
-    setBrowseState({ from, to, genres, page })
-  }, [from, to, genres, page])
-
   const matchingGenres = genreList.filter(genre => {
     const splitGenres = genres.split('-')
     return splitGenres.includes(genre.name)

@@ -14,6 +14,13 @@ const renderMovies = (movies: IMovie[]) => {
   ))
 }
 
+const getMoviesForPage = (page: number, savedMovies: IMovie[]) => {
+  const moviesPerPage = 20
+  const startIndex = (page - 1) * moviesPerPage
+  const endIndex = Math.min(startIndex + moviesPerPage, savedMovies.length)
+  return savedMovies.slice(startIndex, endIndex)
+}
+
 // @TODO fix Props
 export interface IProps {
   readonly page: number
@@ -37,14 +44,13 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
   const isSearchPath = url.startsWith('/search')
   const isBrowsePath = url.startsWith('/browse')
 
-  if (page > 1 && (isFavoritePath || isWatchLaterPath)) return <ErrorMessage errorMessage="Page not found" /> // @TODO Pagination
-  if (!movieIDs.length && isFavoritePath) return <ErrorMessage errorMessage="No movies favorited" />
-  if (!movieIDs.length && isWatchLaterPath) return <ErrorMessage errorMessage="No movies saved" />
+  if (page > Math.ceil(movieIDs.length / 20) && (isFavoritePath || isWatchLaterPath)) return <ErrorMessage errorMessage="Page not found" /> // @TODO Pagination
 
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
 
   const fetchAndSetData = useCallback(async () => {
+
     setUrl(window.location.pathname)
     if (isBrowsePath) {
       const data = await fetchMovies({ page, route: 'discover', genres, from, to })
@@ -53,11 +59,20 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
       setTotalPages(data.total_pages)
     }
     else if (movieIDs.length) {
+
+      // @TODO FETCH ONLY PAGINATION NUMBERS not all 
       const dataPromises = movieIDs.map(movieId => fetchMovies({ route: 'id', movieID: movieId }))
       const savedMovies = await Promise.all(dataPromises)
-      console.log(savedMovies)
-      setMovies(savedMovies)
-      setTotalPages(1) // @TODO settotal page should not be 1, pagination
+
+      if (savedMovies.length > 20) {
+        const paginatedMovies = getMoviesForPage(page, savedMovies)
+
+        setMovies(paginatedMovies)
+      } else {
+        setMovies(savedMovies)
+      }
+
+      setTotalPages(Math.ceil(savedMovies.length / 20))
     }
     else if (query !== '') {
       const data = await fetchMovies({ page, route: 'search', query: decodeURIComponent(query) })
@@ -90,6 +105,9 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     if (isSearchPath) {
       navigate(`/search/${query}/${page + 1}`)
     }
+    else if (isFavoritePath) {
+      navigate(`/favorites/${page + 1}`)
+    }
     else {
       navigate(`/movies/${page + 1}`)
     }
@@ -101,6 +119,9 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     if (isSearchPath) {
       navigate(`/search/${query}/${page - 1}`)
     }
+    else if (isFavoritePath) {
+      navigate(`/favorites/${page - 1}`)
+    }
     else {
       navigate(`/movies/${page - 1}`)
     }
@@ -110,7 +131,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
   return (
     <>
       {/* rome-ignore lint/correctness/noChildrenProp: <explanation> */}
-      <div className="movies-container" children={moviesComponents} />
+      <div className="movies-container" children={moviesComponents.length ? moviesComponents : <ErrorMessage errorMessage="Loading..." />} />
       <div className="pagination-container">
         <button
           disabled={page === 1}

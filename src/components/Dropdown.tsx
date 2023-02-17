@@ -1,20 +1,19 @@
 import { genreList } from "../services/config"
-import { useState } from "react"
+import { useCallback, useContext, useState } from "react"
 import ReactSlider from "react-slider"
 import { navigate } from "wouter/use-location"
-
-interface Genre {
-  id: number
-  name: string
-  selected: boolean
-}
+import type { IGenre } from "../models/Interfaces"
+import { EActionDropdown, storeDropdown } from "../stores/dropdown"
 
 export const Dropdown: React.FunctionComponent = () => {
-  const [selectedGenres, setSelectedGenres] = useState<Genre[]>(genreList.map(genre => ({ ...genre, selected: false })))
+  const [selectedGenres, setSelectedGenres] = useState<IGenre[]>(genreList.map(genre => ({ ...genre, selected: false })))
   const [min, setMin] = useState(1950)
   const [max, setMax] = useState(2023)
 
-  const handleGenreClick = (id: number) => {
+  const dispatchDropdown = useContext(storeDropdown.contextDispatch)
+  const dropdownInfo = useContext(storeDropdown.contextState)
+
+  const handleGenreClick = useCallback((id: number) => {
     const updatedGenres = selectedGenres.map(genre => {
       if (genre.id === id) {
         return { ...genre, selected: !genre.selected }
@@ -23,11 +22,21 @@ export const Dropdown: React.FunctionComponent = () => {
     })
 
     setSelectedGenres(updatedGenres)
-  }
+    console.log(selectedGenres)
 
-  // @TODO USECALLBACK
-  //http://localhost:5173/browse/?from=100&to=200&genres=action-comedy&page=3
-  // to={`/browse?from=${from}&to=${to}&genres=${genres}&page=${page}`}
+    dispatchDropdown({
+      type: EActionDropdown.Replace,
+      payload: { yearRange: { from: min, to: max }, genres: selectedGenres }
+    })
+
+    // console.log(dropdownInfo)
+
+  }, [selectedGenres])
+
+  const test = useContext(storeDropdown.contextState)
+
+  // console.log(test)
+
   const handleFindMovies = () => {
     const selectedGenreNames = selectedGenres.filter(genre => genre.selected).map(genre => genre.name).join('-')
     navigate(`/browse?from=${min}&to=${max}&genres=${selectedGenreNames}&page=1`)
@@ -86,3 +95,5 @@ export const Dropdown: React.FunctionComponent = () => {
     </div>
   )
 }
+
+

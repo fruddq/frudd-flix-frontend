@@ -10,63 +10,85 @@ import { storeFavorites } from './stores/favorites'
 import { storeWatchLater } from './stores/watchLater'
 import { WatchLater } from './components/WatchLater'
 import { Browse } from './components/Browse'
+import { storeDropdown } from './stores/dropdown'
 
 // http://localhost:5173/browse/?from=100&to=200&genres=action-comedy
 
 const App: React.FunctionComponent = () => {
   const [stateFavorites, dispatchFavorites] = useReducer(storeFavorites.reducer, storeFavorites.initialState)
   const [stateWatchLater, dispatchWatchLater] = useReducer(storeWatchLater.reducer, storeWatchLater.initialState)
+  const [stateDropdown, dispatchDropdown] = useReducer(storeDropdown.reducer, storeDropdown.initialState)
+
   return (
-    <storeWatchLater.contextState.Provider value={stateWatchLater}>
-      <storeWatchLater.contextDispatch.Provider value={dispatchWatchLater}>
-        <storeFavorites.contextState.Provider value={stateFavorites}>
-          <storeFavorites.contextDispatch.Provider value={dispatchFavorites}>
-            <Router>
-              <Switch>
-                <Route path="/">
-                  <Redirect to="/movies/1" />
-                </Route>
 
-                <Route path="/movies/:page">
-                  {params => <MovieList page={Number(params['page'] || "1")} />}
-                </Route>
+    <storeDropdown.contextState.Provider value={stateDropdown}>
+      <storeDropdown.contextDispatch.Provider value={dispatchDropdown}>
+        <storeWatchLater.contextState.Provider value={stateWatchLater}>
+          <storeWatchLater.contextDispatch.Provider value={dispatchWatchLater}>
+            <storeFavorites.contextState.Provider value={stateFavorites}>
+              <storeFavorites.contextDispatch.Provider value={dispatchFavorites}>
+                <Router>
+                  <Switch>
+                    <Route path="/">
+                      <Redirect to="/movies/1" />
+                    </Route>
 
-                <Route path="/favorites/:page">
-                  {params => <Favorites page={Number(params['page'] || "1")} />}
-                </Route>
+                    <Route path="/movies/:page">
+                      {params => <MovieList page={Number(params['page'] || "1")} />}
+                    </Route>
 
-                <Route path="/watch-later/:page">
-                  {params => <WatchLater page={Number(params['page'] || "1")} />}
-                </Route>
+                    <Route path="/favorites/:page">
+                      {params => <Favorites page={Number(params['page'] || "1")} />}
+                    </Route>
 
-                <Route path="/search/:query/:page">
-                  {params => <MovieList page={Number(params['page'] || "1")} query={params['query'] || ""} />}
-                </Route>
+                    <Route path="/watch-later/:page">
+                      {params => <WatchLater page={Number(params['page'] || "1")} />}
+                    </Route>
 
-                <Route path="/browse">
-                  {() => {
-                    const params = new URLSearchParams(location.search)
-                    return (
-                      <Browse
-                        from={Number(params.get('from') || '0')}
-                        to={Number(params.get('to') || '0')}
-                        genres={params.get('genres') || ''}
-                        page={Number(params.get('page') || '1')}
-                      />
-                    )
-                  }}
-                </Route>
+                    <Route path="/search/:query/:page">
+                      {params => <MovieList page={Number(params['page'] || "1")} query={params['query'] || ""} />}
+                    </Route>
 
-                <Route path="/404" component={Error404} />
+                    <Route path="/browse">
+                      {() => {
+                        const params = new URLSearchParams(location.search)
+                        return (
+                          <Browse
+                            from={Number(params.get('from') || '0')}
+                            to={Number(params.get('to') || '0')}
+                            genres={params.get('genres') || ''}
+                            page={Number(params.get('page') || '1')}
+                          />
+                        )
+                      }}
+                    </Route>
 
-                <Redirect to="/404" />
-              </Switch>
-            </Router>
+                    <Route path="/browse/:page">
+                      {(paramsX) => {
+                        const params = new URLSearchParams(location.search)
+                        return (
+                          <Browse
+                            page={Number(paramsX['page'] || "1")}
+                            from={Number(params.get('from') || '0')}
+                            to={Number(params.get('to') || '0')}
+                            genres={params.get('genres') || ''}
+                          />
+                        )
+                      }}
+                    </Route>
 
-          </storeFavorites.contextDispatch.Provider>
-        </storeFavorites.contextState.Provider>
-      </storeWatchLater.contextDispatch.Provider>
-    </storeWatchLater.contextState.Provider>
+                    <Route path="/404" component={Error404} />
+
+                    <Redirect to="/404" />
+                  </Switch>
+                </Router>
+
+              </storeFavorites.contextDispatch.Provider>
+            </storeFavorites.contextState.Provider>
+          </storeWatchLater.contextDispatch.Provider>
+        </storeWatchLater.contextState.Provider>
+      </storeDropdown.contextDispatch.Provider>
+    </storeDropdown.contextState.Provider>
 
   )
 }

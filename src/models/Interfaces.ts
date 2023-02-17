@@ -49,6 +49,12 @@ export interface PropsTrailers {
   onCloseBackdrop: () => void
 }
 
+export interface IGenre {
+  id: number
+  name: string
+  selected: boolean
+}
+
 // {
 //   adult: false,
 //   backdrop_path: '/xDMIl84Qo5Tsu62c9DGWhmPI67A.jpg',
