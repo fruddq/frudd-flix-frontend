@@ -6,7 +6,7 @@ import { Movie } from "./Movie"
 import { fetchMovies } from "../services/fetchMovies"
 import { ErrorMessage } from "./ErrorMessage"
 
-import { DOM } from "../modules/DOM"
+// import { DOM } from "../modules/DOM"
 
 const renderMovies = (movies: IMovie[]) => {
   return movies.map((movie) => (
@@ -55,7 +55,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     else if (movieIDs.length) {
       const dataPromises = movieIDs.map(movieId => fetchMovies({ route: 'id', movieID: movieId }))
       const savedMovies = await Promise.all(dataPromises)
-
+      console.log(savedMovies)
       setMovies(savedMovies)
       setTotalPages(1) // @TODO settotal page should not be 1, pagination
     }
