@@ -30,7 +30,10 @@ const emptyArray: NonNullable<IProps['movieIDs']> = []
 export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = emptyArray, query = '', from, to, genres }) => {
   if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
 
-  const url = window.location.pathname
+  const [url, setUrl] = useState(window.location.pathname)
+
+  console.log(url)
+  // const url = window.location.pathname
 
   // const test = DOM.getters.URLQuery()
   // console.log(test)
@@ -51,6 +54,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
   const [totalPages, setTotalPages] = useState(1)
 
   const fetchAndSetData = useCallback(async () => {
+    setUrl(window.location.pathname)
     if (isBrowsePath) {
       const data = await fetchMovies({ page, route: 'discover', genres, from, to })
 
@@ -77,7 +81,8 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     }
 
     if (page > totalPages) return <ErrorMessage errorMessage="Page not found" />
-  }, [page, setMovies, setTotalPages, movies, movieIDs, query])
+
+  }, [page, setMovies, setTotalPages, movies, movieIDs, query, setUrl, url])
 
   const moviesComponents = useMemo(() =>
     renderMovies(movies), [renderMovies, movies]
@@ -85,10 +90,13 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   useEffect(() => {
     fetchAndSetData()
-  }, [movieIDs, page, query])
+
+  }, [movieIDs, page, query, url])
 
   // @TODO WHY SEARCH PAGE 2 NOT WORKING
   const handleNextPage = useCallback(() => {
+    console.log(window.location.pathname, isSearchPath, url)
+    // setUrl(window.location.pathname)
     if (isSearchPath) {
       navigate(`/search/${query}/${page + 1}`)
     }

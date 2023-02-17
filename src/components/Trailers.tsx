@@ -3,6 +3,7 @@ import { fetchTrailers } from "../services/fetchTrailers"
 import ReactPlayer from 'react-player/youtube'
 import type { PropsTrailers } from "../models/Interfaces"
 import { ErrorMessage } from "./ErrorMessage"
+import { VideoPlayer } from "./VideoPlayer"
 
 
 
@@ -18,7 +19,7 @@ export const Trailers: React.FunctionComponent<PropsTrailers> =
 
     const fetchAndSetData = useCallback(async () => {
       const trailerKeys = await fetchTrailers(movieID)
-      setTrailers(trailerKeys.map(trailer => `https://www.youtube.com/watch?v=${trailer}`))
+      setTrailers(trailerKeys.map(trailer => `https://www.youtube.com/embed/${trailer}`))
     }, [])
 
 
@@ -27,14 +28,13 @@ export const Trailers: React.FunctionComponent<PropsTrailers> =
 
     }, [])
 
-    console.log(trailers)
     return (
       <div className="backdrop" >
         <button className="backdrop-exit" onClick={handleTitleClick}>
           &times;
         </button>
 
-        {trailers.length > 0 ? (
+        {/* {trailers.length > 0 ? (
           <ReactPlayer
             className="youtube-player"
             url={trailers}
@@ -45,7 +45,10 @@ export const Trailers: React.FunctionComponent<PropsTrailers> =
           />
         ) : (
           <ErrorMessage errorMessage="No trailers available" />
-        )}
+        )} */}
+
+        {/* @TODO Fix pagination for this. loading message */}
+        <VideoPlayer src={trailers[0] as string} />
 
       </div>
     )
