@@ -32,15 +32,6 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   const [url, setUrl] = useState(window.location.pathname)
 
-  console.log(url)
-  // const url = window.location.pathname
-
-  // const test = DOM.getters.URLQuery()
-  // console.log(test)
-  // const test2 = window.location.search
-  // console.log(test2)
-
-
   const isFavoritePath = url.startsWith('/favorites')
   const isWatchLaterPath = url.startsWith('/watch-later')
   const isSearchPath = url.startsWith('/search')
@@ -82,7 +73,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
     if (page > totalPages) return <ErrorMessage errorMessage="Page not found" />
 
-  }, [page, setMovies, setTotalPages, movies, movieIDs, query, setUrl, url])
+  }, [page, setMovies, setTotalPages, movies, movieIDs, query, url])
 
   const moviesComponents = useMemo(() =>
     renderMovies(movies), [renderMovies, movies]
@@ -95,8 +86,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   // @TODO WHY SEARCH PAGE 2 NOT WORKING
   const handleNextPage = useCallback(() => {
-    console.log(window.location.pathname, isSearchPath, url)
-    // setUrl(window.location.pathname)
+    setUrl(window.location.pathname)
     if (isSearchPath) {
       navigate(`/search/${query}/${page + 1}`)
     }
@@ -104,9 +94,10 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
       navigate(`/movies/${page + 1}`)
     }
     window.scrollTo(0, 0)
-  }, [page])
+  }, [page, url])
 
   const handlePrevPage = useCallback(() => {
+    setUrl(window.location.pathname)
     if (isSearchPath) {
       navigate(`/search/${query}/${page - 1}`)
     }
@@ -114,7 +105,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
       navigate(`/movies/${page - 1}`)
     }
     window.scrollTo(0, 0)
-  }, [page])
+  }, [page, url])
 
   return (
     <>
