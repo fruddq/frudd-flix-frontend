@@ -37,7 +37,6 @@ const getStoreDropdown = () => {
       { type, payload: dropdownInfo }: { readonly type: EActionDropdown; readonly payload: IDropdown },
     ) {
       if (type === EActionDropdown.Replace) {
-        // console.log(dropdownInfo)
         const newState = { ...dropdownInfo }
         localStorage.setItem(keyLocalStorage, JSON.stringify(newState))
 

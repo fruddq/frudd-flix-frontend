@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react"
 import { fetchTrailers } from "../services/fetchTrailers"
 import ReactPlayer from 'react-player/youtube'
-import type { PropsTrailers } from "../models/Interfaces"
 import { ErrorMessage } from "./ErrorMessage"
 import { VideoPlayer } from "./VideoPlayer"
+import type { PropsTrailers } from "../models/Props"
 
 
 

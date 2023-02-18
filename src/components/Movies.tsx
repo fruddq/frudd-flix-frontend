@@ -51,6 +51,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
   const [totalPages, setTotalPages] = useState(1)
 
   const fetchAndSetData = useCallback(async () => {
+    console.log("In movies", from, to, genres)
 
     setUrl(window.location.pathname)
     if (isBrowsePath) {
@@ -95,7 +96,7 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
   useEffect(() => {
     fetchAndSetData()
 
-  }, [movieIDs, page, query, url])
+  }, [movieIDs, page, query, url, genres, from, to])
 
   // @TODO WHY SEARCH PAGE 2 NOT WORKING
   const handleNextPage = useCallback(() => {

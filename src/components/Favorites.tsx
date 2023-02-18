@@ -9,9 +9,6 @@ export const Favorites: React.FunctionComponent<{ readonly page: number }> = ({ 
   const favorites = useContext(storeFavorites.contextState)
   const paginationNumber = page + 19 * (page - 1)
   const totalPages = Math.ceil(favorites.length / 20)
-  //check total pages
-
-
 
   if (favorites.length < 1) {
     return (<>

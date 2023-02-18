@@ -1,59 +1,54 @@
-import { genreList } from "../services/config"
-import { useCallback, useContext, useState } from "react"
+import { useCallback, useContext } from "react"
 import ReactSlider from "react-slider"
 import { navigate } from "wouter/use-location"
 import type { IGenre } from "../models/Interfaces"
+import { navigateAndReturnNull } from "../services/navigateAndReturnNull"
 import { EActionDropdown, storeDropdown } from "../stores/dropdown"
 
 export const Dropdown: React.FunctionComponent = () => {
-  const [selectedGenres, setSelectedGenres] = useState<IGenre[]>(genreList.map(genre => ({ ...genre, selected: false })))
-  const [min, setMin] = useState(1950)
-  const [max, setMax] = useState(2023)
-
-  const dispatchDropdown = useContext(storeDropdown.contextDispatch)
   const dropdownInfo = useContext(storeDropdown.contextState)
+  const dispatchDropdown = useContext(storeDropdown.contextDispatch)
 
   const handleGenreClick = useCallback((id: number) => {
-    const updatedGenres = selectedGenres.map(genre => {
+    const updatedGenres = dropdownInfo.genres.map(genre => {
       if (genre.id === id) {
         return { ...genre, selected: !genre.selected }
       }
       return genre
     })
 
-    setSelectedGenres(updatedGenres)
-    console.log(selectedGenres)
-
     dispatchDropdown({
       type: EActionDropdown.Replace,
-      payload: { yearRange: { from: min, to: max }, genres: selectedGenres }
+      payload: { yearRange: { from: dropdownInfo.yearRange.from, to: dropdownInfo.yearRange.to }, genres: updatedGenres }
     })
-
-    // console.log(dropdownInfo)
-
-  }, [selectedGenres])
-
-  const test = useContext(storeDropdown.contextState)
-
-  // console.log(test)
+  }, [dropdownInfo])
 
   const handleFindMovies = () => {
-    const selectedGenreNames = selectedGenres.filter(genre => genre.selected).map(genre => genre.name).join('-')
-    navigate(`/browse?from=${min}&to=${max}&genres=${selectedGenreNames}&page=1`)
+    const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
+    return navigateAndReturnNull(() => {
+      navigate(`/browse/from=${dropdownInfo.yearRange.from}/to=${dropdownInfo.yearRange.to}/genres=${selectedGenreNames}/1`)
+    })
   }
+
+  const handleDropdownChange = useCallback((min: number, max: number, genres: IGenre[]) => {
+    dispatchDropdown({
+      type: EActionDropdown.Replace,
+      payload: { yearRange: { from: min, to: max }, genres }
+    })
+  }, [dispatchDropdown])
 
   return (
     <div className="dropdown">
 
       <div className="dropdown-header">
-        <p className="slider-min-text">{min}</p>
+        <p className="slider-min-text">{dropdownInfo.yearRange.from}</p>
         <h2 className="slider-title">Year</h2>
-        <p className="slider-max-text">{max}</p>
+        <p className="slider-max-text">{dropdownInfo.yearRange.to}</p>
       </div>
 
       <div className="slider-container">
         <ReactSlider
-          defaultValue={[min, max]}
+          defaultValue={[dropdownInfo.yearRange.from, dropdownInfo.yearRange.to]}
           className="slider"
           trackClassName="tracker"
           min={1950}
@@ -69,8 +64,7 @@ export const Dropdown: React.FunctionComponent = () => {
             return <div {...props} className="track"> </div>
           }}
           onChange={([min, max]) => {
-            setMin(min!)
-            setMax(max!)
+            handleDropdownChange(min!, max!, dropdownInfo.genres)
           }}
         />
       </div>
@@ -78,7 +72,7 @@ export const Dropdown: React.FunctionComponent = () => {
       <h2 className="slider-title">Genre</h2>
 
       <div className="dropdown-genres">
-        {selectedGenres.map((genre) => (
+        {dropdownInfo.genres.map((genre) => (
           <button
             className={`button-genre ${genre.selected ? 'selected' : ''}`}
             key={genre.id}

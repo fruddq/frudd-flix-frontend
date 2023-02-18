@@ -49,7 +49,7 @@ const App: React.FunctionComponent = () => {
                       {params => <MovieList page={Number(params['page'] || "1")} query={params['query'] || ""} />}
                     </Route>
 
-                    <Route path="/browse">
+                    {/* <Route path="/browse">
                       {() => {
                         const params = new URLSearchParams(location.search)
                         return (
@@ -61,20 +61,11 @@ const App: React.FunctionComponent = () => {
                           />
                         )
                       }}
-                    </Route>
+                    </Route> */}
+                    {/*Wouter prevents normal search params  */}
 
-                    <Route path="/browse/:page">
-                      {(paramsX) => {
-                        const params = new URLSearchParams(location.search)
-                        return (
-                          <Browse
-                            page={Number(paramsX['page'] || "1")}
-                            from={Number(params.get('from') || '0')}
-                            to={Number(params.get('to') || '0')}
-                            genres={params.get('genres') || ''}
-                          />
-                        )
-                      }}
+                    <Route path="/browse/from=:from/to=:to/genres=:genres/:page">
+                      {params => <Browse page={Number(params['page'] || "1")} from={Number(params['from'] || "1950")} to={Number(params['to'] || "2023")} genres={params['genres'] || ""} />}
                     </Route>
 
                     <Route path="/404" component={Error404} />
