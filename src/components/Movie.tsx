@@ -62,49 +62,70 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
 
   return (
     <div className="movie">
-      <h2 className="movie-title" onClick={handleTitleClick} tabIndex={0} onKeyDown={handleTitleKeyDown}>{movie.title}</h2>
-
+      <h2
+        className="movie-title"
+        onClick={handleTitleClick}
+        tabIndex={0}
+        onKeyDown={handleTitleKeyDown}
+      >
+        {movie.title}
+      </h2>
       <img
         className="movie-poster"
-        src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : placeHolder}
-        alt={movie.poster_path ? movie.title : 'No poster available'}
+        src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : placeHolder
+        }
+        alt={movie.poster_path ? movie.title : "No poster available"}
       />
-
       <section className="sort-info-container">
-        <p className="sort-info-text movie-year">{movie.release_date.substring(0, 4)}</p>
+        <article>
+          <p className="sort-info-text movie-year">
+            {movie.release_date.substring(0, 4)}
+          </p>
+          <p className="sort-info-text">
+            Rating: {movie.vote_average.toFixed(1)}/10
+          </p>
+        </article>
 
-        <p className="sort-info-text">Rating: {movie.vote_average.toFixed(1)}/10</p>
-
-        <button onClick={handleWatchLater} className={CN('watch-later', `movie-${movie.id}`, {
-          active: stateWatchLater.includes(movie.id)
-        })}>
-          Watch later
-        </button>
-
-        <button onClick={handleFavourite} className={CN('favorite', `movie-${movie.id}`, {
-          active: stateFavorites.includes(movie.id)
-        })}>
-          &#10084;
-        </button>
-
-        <br />
-
-        <section className="sort-info-text">
-          {genreNames.map(name => (
+        <article className="sort-info-text">
+          {genreNames.map((name) => (
             <button key={name} className="menu-item menu-button">
               {name}
             </button>
           ))}
-        </section>
+        </article>
+
+        <article className="later-trailer-liked-container">
+          {/* TODO: fix watch trailer btn */}
+          <button className="watch-trailer-btn">Watch trailer</button>
+
+          <button
+            onClick={handleWatchLater}
+            className={CN("watch-later", `movie-${movie.id}`, {
+              active: stateWatchLater.includes(movie.id),
+            })}
+          >
+            Watch later
+          </button>
+
+          <button
+            onClick={handleFavourite}
+            className={CN("favorite", `movie-${movie.id}`, {
+              active: stateFavorites.includes(movie.id),
+            })}
+          >
+            &#10084;
+          </button>
+        </article>
       </section>
 
-      {showBackdrop && <Trailers
-        movieID={movie.id}
-        onCloseBackdrop={handleTitleClick}
-      />}
+      {showBackdrop && (
+        <Trailers movieID={movie.id} onCloseBackdrop={handleTitleClick} />
+      )}
 
-
-
+      <hr className="line-break" />
     </div>
   )
 }
