@@ -39,14 +39,14 @@ export const Dropdown: React.FunctionComponent = () => {
 
   return (
     <div className="dropdown">
+      <h2 className="dropdown-title">Year</h2>
 
-      <div className="dropdown-header">
-        <p className="slider-min-text">{dropdownInfo.yearRange.from}</p>
+      {/* <div className="dropdown-header">
         <h2 className="slider-title">Year</h2>
-        <p className="slider-max-text">{dropdownInfo.yearRange.to}</p>
-      </div>
+      </div> */}
 
       <div className="slider-container">
+        <p className="slider-min-text">{dropdownInfo.yearRange.from}</p>
         <ReactSlider
           defaultValue={[dropdownInfo.yearRange.from, dropdownInfo.yearRange.to]}
           className="slider"
@@ -67,9 +67,10 @@ export const Dropdown: React.FunctionComponent = () => {
             handleDropdownChange(min!, max!, dropdownInfo.genres)
           }}
         />
+        <p className="slider-max-text">{dropdownInfo.yearRange.to}</p>
       </div>
 
-      <h2 className="slider-title">Genre</h2>
+      <h2 className="dropdown-title">Genre</h2>
 
       <div className="dropdown-genres">
         {dropdownInfo.genres.map((genre) => (
@@ -81,11 +82,12 @@ export const Dropdown: React.FunctionComponent = () => {
             {genre.name}
           </button>
         ))}
-
-        <button className="menu-filter-btn" onClick={handleFindMovies}>
-          Find Movies
-        </button>
       </div>
+
+      <button className="menu-filter-btn" onClick={handleFindMovies}>
+        Find Movies
+      </button>
+
     </div>
   )
 }

@@ -21,6 +21,6 @@ export interface PropsBrowse {
 }
 
 export interface PropsTrailers {
-  movieID: movieID
+  trailers: string[]
   onCloseBackdrop: () => void
 }

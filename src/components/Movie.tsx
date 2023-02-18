@@ -1,5 +1,5 @@
 import CN from 'classnames'
-import { useCallback, useContext, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 
 import type { PropsMovie } from "../models/Props"
 import { genreList } from "../services/config"
@@ -8,6 +8,13 @@ import { EActionWatchLater, storeWatchLater } from '../stores/watchLater'
 
 import placeHolder from '../assets/place-holder.png'
 import { Trailers } from './Trailers'
+import { fetchTrailers } from '../services/fetchTrailers'
+import type { movieID } from '../models/Interfaces'
+
+const getTrailers = async (movieID: movieID) => {
+  const trailerKeys = await fetchTrailers(movieID)
+  return (trailerKeys.map(trailer => `https://www.youtube.com/embed/${trailer}`))
+}
 
 export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
 
@@ -50,26 +57,41 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
     [dispatchFavorite, stateFavorites, movie]
   )
 
-  const handleTitleClick = useCallback(() => {
+  const handleWatchTrailer = useCallback(() => {
     setShowBackdrop(prev => !prev)
   }, [setShowBackdrop])
 
-  const handleTitleKeyDown = useCallback((event: React.KeyboardEvent<HTMLHeadingElement>) => {
-    if (event.key === 'Enter') {
-      handleTitleClick()
-    }
-  }, [handleTitleClick])
+  const [trailers, setTrailers] = useState<string[]>([])
+
+  // const fetchAndSetData = useCallback(async () => {
+  //   const trailerKeys = await fetchTrailers(movie.id)
+  //   setTrailers(trailerKeys.map(trailer => `https://www.youtube.com/embed/${trailer}`))
+  // }, [trailers])
+
+
+
+  // useEffect(() => {
+  //   fetchAndSetData()
+  // }, [])
+
+  const fetchTrailers = useCallback(async () => {
+    const data = await getTrailers(movie.id)
+    setTrailers(data)
+  }, [movie.id])
+
+  useEffect(() => {
+    fetchTrailers()
+  }, [fetchTrailers])
+
+
+  // console.log(showBackdrop)
 
   return (
     <div className="movie">
-      <h2
-        className="movie-title"
-        onClick={handleTitleClick}
-        tabIndex={0}
-        onKeyDown={handleTitleKeyDown}
-      >
+      <h2 className="movie-title">
         {movie.title}
       </h2>
+
       <img
         className="movie-poster"
         src={
@@ -79,6 +101,7 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
         }
         alt={movie.poster_path ? movie.title : "No poster available"}
       />
+
       <section className="sort-info-container">
         <article>
           <p className="sort-info-text movie-year">
@@ -98,8 +121,13 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
         </article>
 
         <article className="later-trailer-liked-container">
-          {/* TODO: fix watch trailer btn */}
-          <button className="watch-trailer-btn">Watch trailer</button>
+
+          {trailers.length &&
+            <button onClick={handleWatchTrailer}
+              className="watch-trailer-btn">
+              Watch trailer
+            </button>
+          }
 
           <button
             onClick={handleWatchLater}
@@ -122,7 +150,7 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
       </section>
 
       {showBackdrop && (
-        <Trailers movieID={movie.id} onCloseBackdrop={handleTitleClick} />
+        <Trailers trailers={trailers} onCloseBackdrop={handleWatchTrailer} />
       )}
 
       <hr className="line-break" />

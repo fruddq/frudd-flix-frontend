@@ -4,12 +4,13 @@ import { navigateAndReturnNull } from "../services/navigateAndReturnNull"
 import { Dropdown } from "./Dropdown"
 import { SearchSVG } from "./SearchSVG"
 
+// @TODO fix sort functions
 export const Menu: React.FC = () => {
   const [showMenuButton, setShowMenu] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
-  const handleSort = useCallback(() => {
-    console.log("hello")
-  }, [])
+  // const handleSort = useCallback(() => {
+  //   console.log("hello")
+  // }, [])
 
   const handleSearch = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === "Go" || event.key === "Search") {
@@ -51,13 +52,13 @@ export const Menu: React.FC = () => {
             Browse
           </button>
 
-          <button className="menu-year-btn nav-btn" onClick={handleSort}>
+          {/* <button className="menu-year-btn nav-btn" onClick={handleSort}>
             Year
           </button>
 
           <button className="menu-rating-btn nav-btn" onClick={handleSort}>
             Rating
-          </button>
+          </button> */}
 
           <button className="menu-filter-btn nav-btn" onClick={handleFavorites}>
             Favorites

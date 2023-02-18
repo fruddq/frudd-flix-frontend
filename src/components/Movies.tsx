@@ -49,20 +49,20 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
+  const [isLoading, setIsLoading] = useState(true)
 
   const fetchAndSetData = useCallback(async () => {
-    console.log("In movies", from, to, genres)
-
     setUrl(window.location.pathname)
+
     if (isBrowsePath) {
       const data = await fetchMovies({ page, route: 'discover', genres, from, to })
 
       setMovies(data.results)
-      setTotalPages(data.total_pages)
+      setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
     }
     else if (movieIDs.length) {
       // Determine the range of movies to fetch based on the current page and number of movies per page
-      const moviesPerPage = 20
+      const moviesPerPage = 3
       const startIndex = (page - 1) * moviesPerPage
       const endIndex = startIndex + moviesPerPage
       const movieIdsToFetch = movieIDs.slice(startIndex, endIndex)
@@ -76,17 +76,18 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     else if (query !== '') {
       const data = await fetchMovies({ page, route: 'search', query: decodeURIComponent(query) })
       setMovies(data.results)
-      setTotalPages(data.total_pages)
+      setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
     }
     else {
       const data = await fetchMovies({ page, route: 'discover' })
 
       setMovies(data.results)
-      setTotalPages(data.total_pages)
+      setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
     }
 
     if (page > totalPages) return <ErrorMessage errorMessage="Page not found" />
 
+    setIsLoading(false)
   }, [page, setMovies, setTotalPages, movies, movieIDs, query, url])
 
   const moviesComponents = useMemo(() =>
@@ -95,10 +96,8 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
 
   useEffect(() => {
     fetchAndSetData()
-
   }, [movieIDs, page, query, url, genres, from, to])
 
-  // @TODO WHY SEARCH PAGE 2 NOT WORKING
   const handleNextPage = useCallback(() => {
     setUrl(window.location.pathname)
     window.scrollTo(0, 0)
@@ -151,27 +150,103 @@ export const Movies: React.FunctionComponent<IProps> = ({ page, movieIDs = empty
     }
   }, [page, url])
 
+  const handleFirstPage = useCallback(() => {
+    console.log(totalPages)
+    setUrl(window.location.pathname)
+    window.scrollTo(0, 0)
+
+    if (isSearchPath) {
+      return navigateAndReturnNull(() => {
+        navigate(`/search/${query}/1}`)
+      })
+    }
+    else if (isFavoritePath) {
+      return navigateAndReturnNull(() => {
+        navigate("/favorites/1")
+      })
+    }
+    else if (isWatchLaterPath) {
+      return navigateAndReturnNull(() => {
+        navigate("/watch-later/1")
+      })
+    }
+    else {
+      return navigateAndReturnNull(() => {
+        navigate("/movies/1")
+      })
+    }
+  }, [page, url])
+
+  const handleLastPage = useCallback(() => {
+    console.log(totalPages)
+    setUrl(window.location.pathname)
+    window.scrollTo(0, 0)
+
+    if (isSearchPath) {
+      return navigateAndReturnNull(() => {
+        navigate(`/search/${query}/${totalPages}`)
+      })
+    }
+    else if (isFavoritePath) {
+      return navigateAndReturnNull(() => {
+        navigate(`/favorites/${totalPages}`)
+      })
+    }
+    else if (isWatchLaterPath) {
+      return navigateAndReturnNull(() => {
+        navigate(`/watch-later/${totalPages}`)
+      })
+    }
+    else {
+      return navigateAndReturnNull(() => {
+        navigate(`/movies/${totalPages}`)
+      })
+    }
+  }, [page, url])
+  console.log(page)
+
   return (
     <>
-      {/* rome-ignore lint/correctness/noChildrenProp: <explanation> */}
-      <div className="movies-container" children={moviesComponents.length ? moviesComponents : <ErrorMessage errorMessage="Loading..." />} />
+      {isLoading ? (
+        <ErrorMessage errorMessage="Loading..." />
+      ) : (
+        // rome-ignore lint/correctness/noChildrenProp: <explanation>
+        <div className="movies-container" children={moviesComponents} />
+      )}
+
       <div className="pagination-container">
         <button
+          className={`previous-btn${page === 1 ? ' disabled' : ''}`}
+          disabled={page === 1}
+          onClick={handleFirstPage}
+        >
+          «
+        </button>
+
+        <button className={`previous-btn${page === 1 ? ' disabled' : ''}`}
           disabled={page === 1}
           onClick={handlePrevPage}
         >
-          Previous
+          ‹
         </button>
 
         <p className="total-pages">
-          Page {page} of {totalPages > 500 ? 500 : totalPages}
+          <b className="current-page-numb">{page}</b> of {totalPages}
         </p>
-        {/* @TODO pagination numbers */}
-        <button
+        {/* TODO: pagination numbers */}
+        <button className={`next-btn${page === totalPages ? ' disabled' : ''}`}
           disabled={page === totalPages}
           onClick={handleNextPage}
         >
-          Next
+          ›
+        </button>
+
+        <button
+          className={`next-btn${page === totalPages ? ' disabled' : ''}`}
+          disabled={page === totalPages}
+          onClick={handleLastPage}
+        >
+          »
         </button>
       </div>
     </>

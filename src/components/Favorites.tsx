@@ -5,10 +5,11 @@ import { storeFavorites } from "../stores/favorites"
 import { ErrorComplete } from "./ErrorComplete"
 import { MovieList } from "./MovieList"
 
-export const Favorites: React.FunctionComponent<{ readonly page: number }> = ({ page }) => {
+
+export const Favorites: React.FunctionComponent<{ readonly page: number, readonly limit?: number }> = ({ page, limit = 3 }) => {
   const favorites = useContext(storeFavorites.contextState)
-  const paginationNumber = page + 19 * (page - 1)
-  const totalPages = Math.ceil(favorites.length / 20)
+  const paginationNumber = page + limit * (page - 1)
+  const totalPages = Math.ceil(favorites.length / limit)
 
   if (favorites.length < 1) {
     return (<>
@@ -18,11 +19,11 @@ export const Favorites: React.FunctionComponent<{ readonly page: number }> = ({ 
 
   if (page > totalPages + 1) {
     return (<>
-      <ErrorComplete errorMessage={`Only ${totalPages} pages available`} />
+      <ErrorComplete errorMessage={`Only ${totalPages} pages of favorites available`} />
     </>)
   }
 
-  console.log("favorites", favorites.length, "pagination number", page + 19 * (page - 1))
+  console.log("favorites", favorites.length, "pagination number", paginationNumber)
 
   if (favorites.length < paginationNumber && page !== 1) {
     console.log('inside if')
