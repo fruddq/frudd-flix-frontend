@@ -390,6 +390,8 @@ body {
   font-family: "Mukta", sans-serif;
   margin: 4% 0 0 0;
 
+  .last-btn,
+  .first-btn,
   .previous-btn,
   .next-btn {
     font-family: "Mukta", sans-serif;
@@ -407,7 +409,10 @@ body {
     font-weight: 600;
   }
 
-  .previous-btn.disabled {
+  .last-btn.disabled,
+  .first-btn.disabled,
+  .previous-btn.disabled,
+  .next-btn.disabled {
     color: grey;
   }
 
@@ -451,6 +456,7 @@ body {
   }
 }
 
+.loader,
 .error-message {
   color: #fff;
 }

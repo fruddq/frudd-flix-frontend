@@ -340,6 +340,8 @@ body {
   font-family: "Mukta", sans-serif;
   margin: 4% 0 0 0;
 }
+.pagination-container .last-btn,
+.pagination-container .first-btn,
 .pagination-container .previous-btn,
 .pagination-container .next-btn {
   font-family: "Mukta", sans-serif;
@@ -356,7 +358,10 @@ body {
   width: 1%;
   font-weight: 600;
 }
-.pagination-container .previous-btn.disabled {
+.pagination-container .last-btn.disabled,
+.pagination-container .first-btn.disabled,
+.pagination-container .previous-btn.disabled,
+.pagination-container .next-btn.disabled {
   color: grey;
 }
 .pagination-container .total-pages {
@@ -393,6 +398,7 @@ body {
   color: white;
 }
 
+.loader,
 .error-message {
   color: #fff;
 }

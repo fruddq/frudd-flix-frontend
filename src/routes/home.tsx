@@ -1,19 +1,6 @@
-import { Footer } from "../components/Footer"
-import { Header } from "../components/Header"
-import { Movies } from "../components/Movies"
+import { Navigate } from "../components/Navigate"
 
-interface PropsRouteHome {
-  page: number
-
-}
-
-export const RouteHome: React.FunctionComponent<PropsRouteHome> = ({ page }) =>
-(
-  <>
-    <Header />
-    <Movies page={page} />
-    <Footer />
-  </>
-)
-
+export const Home: React.FunctionComponent = () => <Navigate onNavigate={({ navigate }) => {
+  navigate("/movies/1")
+}} />
 

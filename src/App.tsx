@@ -1,18 +1,35 @@
 import './App.css'
 
 import { useReducer } from 'react'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom"
 
-import { MovieList } from './components/MovieList'
-import { Router, Route, Redirect, Switch } from "wouter"
-import { Error404 } from './components/Error404'
-import { Favorites } from './components/Favorites'
+import { Home } from './routes/Home'
+import { Movies } from './routes/Movies'
 import { storeFavorites } from './stores/favorites'
 import { storeWatchLater } from './stores/watchLater'
-import { WatchLater } from './components/WatchLater'
-import { Browse } from './components/Browse'
 import { storeDropdown } from './stores/dropdown'
+import { Favorites } from './routes/Favorites'
 
-// http://localhost:5173/browse/?from=100&to=200&genres=action-comedy
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/movies/:page",
+    element: <Movies />,
+  },
+  {
+    path: "/favorites/:page",
+    element: <Favorites />,
+  },
+])
+
+
 
 const App: React.FunctionComponent = () => {
   const [stateFavorites, dispatchFavorites] = useReducer(storeFavorites.reducer, storeFavorites.initialState)
@@ -20,14 +37,15 @@ const App: React.FunctionComponent = () => {
   const [stateDropdown, dispatchDropdown] = useReducer(storeDropdown.reducer, storeDropdown.initialState)
 
   return (
-
     <storeDropdown.contextState.Provider value={stateDropdown}>
       <storeDropdown.contextDispatch.Provider value={dispatchDropdown}>
         <storeWatchLater.contextState.Provider value={stateWatchLater}>
           <storeWatchLater.contextDispatch.Provider value={dispatchWatchLater}>
             <storeFavorites.contextState.Provider value={stateFavorites}>
               <storeFavorites.contextDispatch.Provider value={dispatchFavorites}>
-                <Router>
+                <RouterProvider router={router} />
+
+                {/* <Router>
                   <Switch>
                     <Route path="/">
                       <Redirect to="/movies/1" />
@@ -62,9 +80,9 @@ const App: React.FunctionComponent = () => {
                         )
                       }}
                     </Route> */}
-                    {/*Wouter prevents normal search params  */}
+                {/*Wouter prevents normal search params  */}
 
-                    <Route path="/browse/from=:from/to=:to/genres=:genres/:page">
+                {/* <Route path="/browse/from=:from/to=:to/genres=:genres/:page">
                       {params => <Browse page={Number(params['page'] || "1")} from={Number(params['from'] || "1950")} to={Number(params['to'] || "2023")} genres={params['genres'] || ""} />}
                     </Route>
 
@@ -72,7 +90,10 @@ const App: React.FunctionComponent = () => {
 
                     <Redirect to="/404" />
                   </Switch>
-                </Router>
+                </Router> */}
+
+
+
 
               </storeFavorites.contextDispatch.Provider>
             </storeFavorites.contextState.Provider>

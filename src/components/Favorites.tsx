@@ -8,7 +8,7 @@ import { MovieList } from "./MovieList"
 
 export const Favorites: React.FunctionComponent<{ readonly page: number, readonly limit?: number }> = ({ page, limit = 3 }) => {
   const favorites = useContext(storeFavorites.contextState)
-  const paginationNumber = page + limit * (page - 1)
+  const paginationNumber = page + 19 * (page - 1)
   const totalPages = Math.ceil(favorites.length / limit)
 
   if (favorites.length < 1) {

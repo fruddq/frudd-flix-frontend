@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react"
-import { navigate } from "wouter/use-location"
+import { useNavigate } from "react-router-dom"
+// import { navigate } from "wouter/use-location"
 import { navigateAndReturnNull } from "../services/navigateAndReturnNull"
 import { Dropdown } from "./Dropdown"
 import { SearchSVG } from "./SearchSVG"
@@ -8,41 +9,38 @@ import { SearchSVG } from "./SearchSVG"
 export const Menu: React.FC = () => {
   const [showMenuButton, setShowMenu] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
+
   // const handleSort = useCallback(() => {
   //   console.log("hello")
   // }, [])
 
+  const navigate = useNavigate()
+
   const handleSearch = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === "Go" || event.key === "Search") {
-      return navigateAndReturnNull(() => {
-        navigate(`/search/${event.currentTarget.value}/1`)
-      })
+      navigate(`/search/${event.currentTarget.value}/1`)
     }
-  }, [])
+  }, [navigate])
 
   const handleSClick = useCallback(() => {
     setShowMenu(true)
-  }, [])
+  }, [setShowMenu])
 
   const handleMenuClick = useCallback(() => {
     setShowMenu(false)
-  }, [])
+  }, [setShowMenu])
 
   const handleBrowseClick = useCallback(() => {
     setShowDropdown((prevState) => !prevState)
-  }, [])
+  }, [setShowDropdown])
 
   const handleWatchLater = useCallback(() => {
-    return navigateAndReturnNull(() => {
-      navigate("/watch-later/1")
-    })
-  }, [])
+    navigate("/watch-later/1")
+  }, [navigate])
 
   const handleFavorites = useCallback(() => {
-    return navigateAndReturnNull(() => {
-      navigate("/favorites/1")
-    })
-  }, [])
+    navigate("/favorites/1")
+  }, [navigate])
 
   return (
     <nav className="menu">

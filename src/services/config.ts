@@ -22,3 +22,5 @@ export const genreList = [
   { id: 99, name: "Documentary" },
   { id: 878, name: "Science Fiction" },
 ]
+
+export const moviesPerPage = 1
