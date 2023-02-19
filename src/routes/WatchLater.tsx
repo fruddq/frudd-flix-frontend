@@ -77,11 +77,7 @@ export class WatchLaterBase extends React.Component<{
   override render() {
     const { props } = this
 
-    if (props.watchLater.length < 1) {
-      return (<>
-        <ErrorComplete errorMessage="No movies saved" />
-      </>)
-    }
+    if (props.watchLater.length < 1) return <ErrorComplete errorMessage="No movies saved" />
 
     const page = Number(props.params.page)
 
@@ -89,11 +85,7 @@ export class WatchLaterBase extends React.Component<{
 
     const totalPages = Math.ceil(props.watchLater.length / moviesPerPage)
 
-    if (page > totalPages + 1) {
-      return (<>
-        <ErrorComplete errorMessage={`Only ${totalPages} pages of watch later available`} />
-      </>)
-    }
+    if (page > totalPages + 1) return <ErrorComplete errorMessage={`Only ${totalPages} pages of watch later available`} />
 
     const paginationNumber = page + (moviesPerPage - 1) * (page - 1)
 

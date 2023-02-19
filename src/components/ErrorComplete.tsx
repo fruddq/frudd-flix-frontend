@@ -1,14 +1,15 @@
+import { ErrorMessage } from "./ErrorMessage"
 import { Footer } from "./Footer"
 import { Header } from "./Header"
 
 export const ErrorComplete: React.FunctionComponent<{
-  errorMessage?: string
+  errorMessage: string
 
 }> = ({ errorMessage }) =>
   (
     <>
       <Header />
-      <div className="error-message">{errorMessage}</div>
+      <ErrorMessage errorMessage={errorMessage} />
       <Footer />
     </>
   )

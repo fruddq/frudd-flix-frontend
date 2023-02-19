@@ -12,14 +12,14 @@ import { fetchMoviesSearch } from "../services/fetchMoviesSearch"
 export const Search: React.FunctionComponent = () => {
   // rome-ignore lint/suspicious/noExplicitAny: <explanation>
   const params = useParams() as any as { readonly page: string, readonly query: string }
-  const navigate = useNavigate()
+  const page = Number(params.page)
+
+  if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
+  const query = params.query
+
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
 
-  const page = Number(params.page)
-  if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
-
-  const query = params.query
   const fetchAndSetData = useCallback(async () => {
     const data = await fetchMoviesSearch({ page, query })
 
@@ -30,6 +30,8 @@ export const Search: React.FunctionComponent = () => {
   useEffect(() => {
     fetchAndSetData()
   }, [fetchAndSetData])
+
+  const navigate = useNavigate()
 
   const navigateNext = useCallback(() => {
     window.scrollTo(0, 0)

@@ -90,11 +90,7 @@ export class FavoritesBase extends React.Component<{
 
     const totalPages = Math.ceil(props.favorites.length / moviesPerPage)
 
-    if (page > totalPages + 1) {
-      return (<>
-        <ErrorComplete errorMessage={`Only ${totalPages} pages of favorites available`} />
-      </>)
-    }
+    if (page > totalPages + 1) return <ErrorComplete errorMessage={`Only ${totalPages} pages of favorites available`} />
 
     const paginationNumber = page + (moviesPerPage - 1) * (page - 1)
 

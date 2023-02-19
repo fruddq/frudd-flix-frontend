@@ -15,6 +15,7 @@ import { Favorites } from './routes/Favorites'
 import { WatchLater } from './routes/WatchLater'
 import { Search } from './routes/Search'
 import { Error404 } from './components/Error404'
+import { Browse } from './routes/Browse'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/search/:query/:page",
     element: <Search />,
+  },
+  {
+    path: "/browse",
+    element: <Browse />,
   },
   {
     path: "/*",

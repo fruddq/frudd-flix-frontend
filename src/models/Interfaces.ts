@@ -17,10 +17,6 @@ export interface IMovie {
   vote_count: number
 }
 
-// export interface APIMoviesresponse {
-//   data: IMovie[]
-// }
-
 export interface APIMoviesresponse {
   data: {
     page: number

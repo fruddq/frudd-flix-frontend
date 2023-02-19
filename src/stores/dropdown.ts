@@ -12,7 +12,7 @@ interface IDropdown {
 }
 
 const getStoreDropdown = () => {
-  const keyLocalStorage = "browse-test"
+  const keyLocalStorage = "browse"
 
   if (!localStorage.getItem(keyLocalStorage)) {
     localStorage.setItem(

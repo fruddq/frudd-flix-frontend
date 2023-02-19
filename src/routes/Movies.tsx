@@ -11,12 +11,12 @@ import { ErrorMessage } from "../components/ErrorMessage"
 export const Movies: React.FunctionComponent = () => {
   // rome-ignore lint/suspicious/noExplicitAny: <explanation>
   const params = useParams() as any as { readonly page: string }
-  const navigate = useNavigate()
+  const page = Number(params.page)
+
+  if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
+
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
-
-  const page = Number(params.page)
-  if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
 
   const fetchAndSetData = useCallback(async () => {
     const data = await fetchMovies({ page })
@@ -28,6 +28,8 @@ export const Movies: React.FunctionComponent = () => {
   useEffect(() => {
     fetchAndSetData()
   }, [fetchAndSetData])
+
+  const navigate = useNavigate()
 
   const navigateNext = useCallback(() => {
     window.scrollTo(0, 0)
