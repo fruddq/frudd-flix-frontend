@@ -12,6 +12,7 @@ import { storeFavorites } from './stores/favorites'
 import { storeWatchLater } from './stores/watchLater'
 import { storeDropdown } from './stores/dropdown'
 import { Favorites } from './routes/Favorites'
+import { WatchLater } from './routes/WatchLater'
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
   {
     path: "/favorites/:page",
     element: <Favorites />,
+  },
+  {
+    path: "/watch-later/:page",
+    element: <WatchLater />,
+  },
+  {
+    path: "/search/:query/:page",
+    element: <WatchLater />,
   },
 ])
 

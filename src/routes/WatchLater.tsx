@@ -15,11 +15,11 @@ import { Navigate } from "../components/Navigate"
 import { moviesPerPage } from "../services/config"
 import { fetchMovie } from "../services/fetchMovie"
 import { fetchMovies } from "../services/fetchMovies"
+import { storeWatchLater } from "../stores/watchLater"
 
-import { storeFavorites } from "../stores/favorites"
 
-export const Favorites: React.FunctionComponent = () => {
-  const favorites = useContext(storeFavorites.contextState)
+export const WatchLater: React.FunctionComponent = () => {
+  const watchLater = useContext(storeWatchLater.contextState)
   const params = useParams() as any as { readonly page: string }
 
   const [movies, setMovies] = useState<IMovie[]>([])
@@ -27,13 +27,13 @@ export const Favorites: React.FunctionComponent = () => {
   const fetchAndSetData = useCallback(async () => {
     const startIndex = (Number(params.page) - 1) * moviesPerPage
     const endIndex = startIndex + moviesPerPage
-    const movieIdsToFetch = favorites.slice(startIndex, endIndex)
+    const movieIdsToFetch = watchLater.slice(startIndex, endIndex)
 
     const dataPromises = movieIdsToFetch.map(movieId => fetchMovie(movieId))
     const savedMovies = await Promise.all(dataPromises)
 
     setMovies(savedMovies)
-  }, [setMovies, fetchMovies, params, favorites])
+  }, [setMovies, fetchMovies, params, watchLater])
 
   useEffect(() => {
     fetchAndSetData()
@@ -41,11 +41,11 @@ export const Favorites: React.FunctionComponent = () => {
 
   const navigate = useNavigate()
 
-  return <FavoritesBase favorites={favorites} params={params} movies={movies} navigate={navigate} />
+  return <WatchLaterBase watchLater={watchLater} params={params} movies={movies} navigate={navigate} />
 }
 
-export class FavoritesBase extends React.Component<{
-  readonly favorites: number[]
+export class WatchLaterBase extends React.Component<{
+  readonly watchLater: number[]
   readonly params: { readonly page: string }
   readonly movies: IMovie[]
   readonly navigate: NavigateFunction
@@ -53,33 +53,33 @@ export class FavoritesBase extends React.Component<{
   navigateNext = () => {
     const { props } = this
     window.scrollTo(0, 0)
-    props.navigate(`/favorites/${Number(props.params.page) + 1}`)
+    props.navigate(`/watch-later/${Number(props.params.page) + 1}`)
   }
 
   navigatePrevious = () => {
     const { props } = this
     window.scrollTo(0, 0)
-    props.navigate(`/favorites/${Number(props.params.page) - 1}`)
+    props.navigate(`/watch-later/${Number(props.params.page) - 1}`)
   }
 
   navigateFirstPage = () => {
     const { props } = this
     window.scrollTo(0, 0)
-    props.navigate("/favorites/1")
+    props.navigate("/watch-later/1")
   }
 
   navigateLastPage = () => {
     const { props } = this
     window.scrollTo(0, 0)
-    props.navigate(`/favorites/${Math.ceil(props.favorites.length / moviesPerPage)}`)
+    props.navigate(`/watch-later/${Math.ceil(props.watchLater.length / moviesPerPage)}`)
   }
 
   override render() {
     const { props } = this
 
-    if (props.favorites.length < 1) {
+    if (props.watchLater.length < 1) {
       return (<>
-        <ErrorComplete errorMessage="No movies favorited" />
+        <ErrorComplete errorMessage="No movies saved" />
       </>)
     }
 
@@ -87,20 +87,20 @@ export class FavoritesBase extends React.Component<{
 
     if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
 
-    const totalPages = Math.ceil(props.favorites.length / moviesPerPage)
+    const totalPages = Math.ceil(props.watchLater.length / moviesPerPage)
 
     if (page > totalPages + 1) {
       return (<>
-        <ErrorComplete errorMessage={`Only ${totalPages} pages of favorites available`} />
+        <ErrorComplete errorMessage={`Only ${totalPages} pages of watch later available`} />
       </>)
     }
 
     const paginationNumber = page + (moviesPerPage - 1) * (page - 1)
 
-    if (props.favorites.length < paginationNumber && page !== 1) {
+    if (props.watchLater.length < paginationNumber && page !== 1) {
       return <Navigate onNavigate={({ navigate }) => {
         window.scrollTo(0, 0)
-        navigate(`/favorites/${page - 1}`)
+        navigate(`/watch-later/${page - 1}`)
       }} />
     }
 

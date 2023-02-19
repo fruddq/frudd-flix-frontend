@@ -23,4 +23,5 @@ export const genreList = [
   { id: 878, name: "Science Fiction" },
 ]
 
-export const moviesPerPage = 1
+// Controls number of movies displayed in favorites and watchlater
+export const moviesPerPage = 20
