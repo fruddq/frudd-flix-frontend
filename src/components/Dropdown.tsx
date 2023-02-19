@@ -21,12 +21,12 @@ export const Dropdown: React.FunctionComponent = () => {
     })
   }, [dropdownInfo])
 
-  // const handleFindMovies = () => {
-  //   const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
-  //   return navigateAndReturnNull(() => {
-  //     navigate(`/browse/from=${dropdownInfo.yearRange.from}/to=${dropdownInfo.yearRange.to}/genres=${selectedGenreNames}/1`)
-  //   })
-  // }
+  const handleFindMovies = () => {
+    // const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
+    // return navigateAndReturnNull(() => {
+    //   navigate(`/browse/from=${dropdownInfo.yearRange.from}/to=${dropdownInfo.yearRange.to}/genres=${selectedGenreNames}/1`)
+    // })
+  }
 
   const handleDropdownChange = useCallback((min: number, max: number, genres: IGenre[]) => {
     dispatchDropdown({
@@ -39,12 +39,11 @@ export const Dropdown: React.FunctionComponent = () => {
     <div className="dropdown">
       <h2 className="dropdown-title">Year</h2>
 
-      {/* <div className="dropdown-header">
-        <h2 className="slider-title">Year</h2>
-      </div> */}
-
       <div className="slider-container">
         <p className="slider-min-text">{dropdownInfo.yearRange.from}</p>
+      </div>
+
+      <div className="slider-container">
         <ReactSlider
           defaultValue={[dropdownInfo.yearRange.from, dropdownInfo.yearRange.to]}
           className="slider"
@@ -68,6 +67,7 @@ export const Dropdown: React.FunctionComponent = () => {
         <p className="slider-max-text">{dropdownInfo.yearRange.to}</p>
       </div>
 
+
       <h2 className="dropdown-title">Genre</h2>
 
       <div className="dropdown-genres">
@@ -82,12 +82,11 @@ export const Dropdown: React.FunctionComponent = () => {
         ))}
       </div>
 
-      {/* <button className="menu-filter-btn" onClick={handleFindMovies}>
+      <button className="menu-filter-btn" onClick={handleFindMovies}>
         Find Movies
-      </button> */}
+      </button>
 
     </div>
   )
 }
-
 

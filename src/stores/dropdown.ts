@@ -1,5 +1,6 @@
 import { createContext } from "react"
 import type { IGenre } from "../models/Interfaces"
+import { genreList } from "../services/config"
 
 export enum EActionDropdown {
   Replace = "Replace",
@@ -11,10 +12,19 @@ interface IDropdown {
 }
 
 const getStoreDropdown = () => {
-  const keyLocalStorage = "browse"
+  const keyLocalStorage = "browse-test"
 
   if (!localStorage.getItem(keyLocalStorage)) {
-    localStorage.setItem(keyLocalStorage, JSON.stringify({}))
+    localStorage.setItem(
+      keyLocalStorage,
+      JSON.stringify({
+        genres: genreList.map((genre) => ({ ...genre, selected: false })),
+        yearRange: {
+          from: 1950,
+          to: 2023,
+        },
+      }),
+    )
   }
 
   const initialState: IDropdown = JSON.parse(localStorage.getItem(keyLocalStorage)!)
