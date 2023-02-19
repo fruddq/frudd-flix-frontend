@@ -25,7 +25,7 @@ export const Search: React.FunctionComponent = () => {
 
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
-  }, [setMovies, setTotalPages, fetchMovies, page])
+  }, [setMovies, setTotalPages, fetchMovies, page, query])
 
   useEffect(() => {
     fetchAndSetData()

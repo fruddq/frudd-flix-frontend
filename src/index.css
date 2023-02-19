@@ -195,15 +195,10 @@ body {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
   z-index: 999;
-}
-.movies-container .movie .backdrop .backdrop-title {
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
 }
 .movies-container .movie .backdrop .backdrop-exit {
   position: absolute;
@@ -217,6 +212,39 @@ body {
 }
 .movies-container .movie .backdrop .backdrop-exit:hover {
   color: red;
+}
+.movies-container .movie .backdrop .trailer-navigation {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  font-family: "Mukta", sans-serif;
+  width: 100%;
+}
+.movies-container .movie .backdrop .trailer-navigation .previous-btn,
+.movies-container .movie .backdrop .trailer-navigation .next-btn {
+  font-family: "Mukta", sans-serif;
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: 0 20px;
+  margin-left: 10px;
+  outline: none;
+  font-size: 2rem;
+  width: 1%;
+  font-weight: 600;
+}
+.movies-container .movie .backdrop .trailer-navigation .total-pages {
+  color: rgb(158, 158, 158);
+  margin: 0 16px;
+  word-spacing: 7px;
+}
+.movies-container .movie .backdrop .trailer-navigation .total-pages .current-page-numb {
+  color: white;
 }
 .movies-container .movie button.favorite {
   color: white;

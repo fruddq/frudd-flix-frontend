@@ -9,9 +9,8 @@ import { EActionWatchLater, storeWatchLater } from '../stores/watchLater'
 import placeHolder from '../assets/place-holder.png'
 import { Trailers } from './Trailers'
 import { fetchTrailers } from '../services/fetchTrailers'
-import type { movieID } from '../models/Interfaces'
 
-const getTrailers = async (movieID: movieID) => {
+const getTrailers = async (movieID: number) => {
   const trailerKeys = await fetchTrailers(movieID)
   return (trailerKeys.map(trailer => `https://www.youtube.com/embed/${trailer}`))
 }
@@ -40,7 +39,6 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
     [dispatchWatchLater, stateWatchLater, movie]
   )
 
-
   const dispatchFavorite = useContext(storeFavorites.contextDispatch)
   const stateFavorites = useContext(storeFavorites.contextState)
 
@@ -58,33 +56,19 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
   )
 
   const handleWatchTrailer = useCallback(() => {
-    setShowBackdrop(prev => !prev)
-  }, [setShowBackdrop])
+    setShowBackdrop(!showBackdrop)
+  }, [setShowBackdrop, showBackdrop])
 
   const [trailers, setTrailers] = useState<string[]>([])
-
-  // const fetchAndSetData = useCallback(async () => {
-  //   const trailerKeys = await fetchTrailers(movie.id)
-  //   setTrailers(trailerKeys.map(trailer => `https://www.youtube.com/embed/${trailer}`))
-  // }, [trailers])
-
-
-
-  // useEffect(() => {
-  //   fetchAndSetData()
-  // }, [])
 
   const fetchTrailers = useCallback(async () => {
     const data = await getTrailers(movie.id)
     setTrailers(data)
-  }, [movie.id])
+  }, [setTrailers, movie.id])
 
   useEffect(() => {
     fetchTrailers()
   }, [fetchTrailers])
-
-
-  // console.log(showBackdrop)
 
   return (
     <div className="movie">

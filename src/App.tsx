@@ -15,7 +15,6 @@ import { Favorites } from './routes/Favorites'
 import { WatchLater } from './routes/WatchLater'
 import { Search } from './routes/Search'
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,8 +38,6 @@ const router = createBrowserRouter([
   },
 ])
 
-
-
 const App: React.FunctionComponent = () => {
   const [stateFavorites, dispatchFavorites] = useReducer(storeFavorites.reducer, storeFavorites.initialState)
   const [stateWatchLater, dispatchWatchLater] = useReducer(storeWatchLater.reducer, storeWatchLater.initialState)
@@ -55,29 +52,7 @@ const App: React.FunctionComponent = () => {
               <storeFavorites.contextDispatch.Provider value={dispatchFavorites}>
                 <RouterProvider router={router} />
 
-                {/* <Router>
-                  <Switch>
-                    <Route path="/">
-                      <Redirect to="/movies/1" />
-                    </Route>
-
-                    <Route path="/movies/:page">
-                      {params => <MovieList page={Number(params['page'] || "1")} />}
-                    </Route>
-
-                    <Route path="/favorites/:page">
-                      {params => <Favorites page={Number(params['page'] || "1")} />}
-                    </Route>
-
-                    <Route path="/watch-later/:page">
-                      {params => <WatchLater page={Number(params['page'] || "1")} />}
-                    </Route>
-
-                    <Route path="/search/:query/:page">
-                      {params => <MovieList page={Number(params['page'] || "1")} query={params['query'] || ""} />}
-                    </Route>
-
-                    {/* <Route path="/browse">
+                {/* <Route path="/browse">
                       {() => {
                         const params = new URLSearchParams(location.search)
                         return (
@@ -101,9 +76,6 @@ const App: React.FunctionComponent = () => {
                     <Redirect to="/404" />
                   </Switch>
                 </Router> */}
-
-
-
 
               </storeFavorites.contextDispatch.Provider>
             </storeFavorites.contextState.Provider>
