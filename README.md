@@ -12,6 +12,7 @@ Should be able to:
 - pagination
 - animations
 - Code cleanup, code review
+- Components placeholder when page is loading
 
 - code should be test covered
 - e2e test, cypress, playwright, selenium
@@ -47,86 +48,29 @@ And should be able to play the trailer.
 Find the right component in npmjs to render a youtube trailer.
 Should render all trailers for that movie.
 
-https://www.youtube.com/watch?v=OsI3mSgTFnk
-v=key
-{
-	"id": 628,
-	"results": [
-		{
-			"iso_639_1": "en",
-			"iso_3166_1": "US",
-			"name": "Original Theatrical Trailer",
-			"key": "qmFYu8x46VY",
-			"site": "YouTube",
-			"size": 360,
-			"type": "Trailer",
-			"official": true,
-			"published_at": "2014-07-09T00:14:17.000Z",
-			"id": "5dd31b9857d3780015dc9ce8"
-		},
-		{
-			"iso_639_1": "en",
-			"iso_3166_1": "US",
-			"name": "New Companion",
-			"key": "OsI3mSgTFnk",
-			"published_at": "2011-05-27T03:38:26.000Z",
-			"site": "YouTube",
-			"size": 720,
-			"type": "Clip",
-			"official": false,
-			"id": "5ae269d90e0a262a5e0220a9"
-		},
-		{
-			"iso_639_1": "en",
-			"iso_3166_1": "US",
-			"name": "Forever Young",
-			"key": "LIm8HfwnmVE",
-			"published_at": "2011-05-27T03:37:53.000Z",
-			"site": "YouTube",
-			"size": 720,
-			"type": "Clip",
-			"official": false,
-			"id": "5ae26973c3a36876a701ea07"
-		},
-		{
-			"iso_639_1": "en",
-			"iso_3166_1": "US",
-			"name": "Master and Apprentice Scene",
-			"key": "qsJ6BdQuUxo",
-			"published_at": "2011-05-27T03:37:50.000Z",
-			"site": "YouTube",
-			"size": 720,
-			"type": "Clip",
-			"official": false,
-			"id": "5ae2695e92514128c300705d"
-		},
-		{
-			"iso_639_1": "en",
-			"iso_3166_1": "US",
-			"name": "Becoming A Vampire",
-			"key": "c9cV7bFKMNQ",
-			"published_at": "2011-05-27T03:37:30.000Z",
-			"site": "YouTube",
-			"size": 720,
-			"type": "Clip",
-			"official": false,
-			"id": "5ae2693cc3a368767e023d23"
-		},
-		{
-			"iso_639_1": "en",
-			"iso_3166_1": "US",
-			"name": "Back from the Dead",
-			"key": "5xzDAgFrnf8",
-			"published_at": "2011-05-27T03:37:07.000Z",
-			"site": "YouTube",
-			"size": 720,
-			"type": "Clip",
-			"official": false,
-			"id": "5ae269aa0e0a26322d007818"
-		}
-	]
-}
-
 ● Last but definitely NOT least, please include a Demo for us to see.
 heroku
+
+
+Nanis changes:
+
+[x] Movie.tsx -> changed structure in return. added btn className='watch-trailer-btn'
+[x] index.html -> added link to google fonts in head
+
+Left TODO:
+[] Export scss color variabels to seperate file
+[x] HTML/SCSS-classes for dropdown. Ex dropdown header + dropdown title??????
+[] Last page and first page (M0vies.tsx)
+
+Desktop:
+[] fix size watch trailer & watch later btns
+[] fix layouot
+
+Frudds FIXME:
+[] fix watch trailer-btn. There is a "button.watch-trailer-btn.active" in index.scss for the btn.
+[] fix poster size in mobile & desktop mode
+
+footer:
+[] fix symbols e.g fontAwesome -> position pin in footer
+[] fix link to github & linked
 

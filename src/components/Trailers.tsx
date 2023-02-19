@@ -1,53 +1,71 @@
-import { useCallback, useEffect, useState } from "react"
-import { fetchTrailers } from "../services/fetchTrailers"
-import ReactPlayer from 'react-player/youtube'
-import type { PropsTrailers } from "../models/Interfaces"
-import { ErrorMessage } from "./ErrorMessage"
+import { useCallback, useState } from "react"
+import { Loader } from "./Loader"
 
+export interface ITrailers {
+  trailers: string[]
+  onCloseBackdrop: () => void
+}
 
+export const Trailers: React.FunctionComponent<ITrailers> = ({ trailers, onCloseBackdrop }) => {
+  const [isLoaded, setIsloaded] = useState(false)
+  const [currentTrailerIndex, setCurrentTrailerIndex] = useState(0)
 
-export const Trailers: React.FunctionComponent<PropsTrailers> =
-  ({ movieID, onCloseBackdrop }) => {
+  const handleCloseBackdrop = useCallback(() => {
+    onCloseBackdrop()
+  }, [onCloseBackdrop])
 
-    const [trailers, setTrailers] = useState<string[]>([])
+  const handleLoad = useCallback(() => {
+    setIsloaded(true)
+  }, [setIsloaded])
 
+  const handleNextTrailer = useCallback(() => {
+    setCurrentTrailerIndex(currentTrailerIndex + 1)
+    setIsloaded(false)
+  }, [setIsloaded, setCurrentTrailerIndex, currentTrailerIndex])
 
-    const handleTitleClick = () => {
-      onCloseBackdrop()
-    }
+  const handlePreviousTrailer = useCallback(() => {
+    setCurrentTrailerIndex(currentTrailerIndex - 1)
+    setIsloaded(false)
+  }, [setIsloaded, setCurrentTrailerIndex, currentTrailerIndex])
 
-    const fetchAndSetData = useCallback(async () => {
-      const trailerKeys = await fetchTrailers(movieID)
-      setTrailers(trailerKeys.map(trailer => `https://www.youtube.com/watch?v=${trailer}`))
-    }, [])
+  return (
+    <div className="backdrop" >
+      <button className="backdrop-exit" onClick={handleCloseBackdrop}>
+        &times;
+      </button>
 
+      {!isLoaded && <Loader />}
 
-    useEffect(() => {
-      fetchAndSetData()
+      <iframe
+        width="95%"
+        height="40%"
+        src={trailers[currentTrailerIndex]}
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        onLoad={handleLoad}
+        style={{ display: isLoaded ? 'block' : 'none' }}
+      />
 
-    }, [])
+      {isLoaded &&
+        <div className="trailer-navigation">
+          <button
+            onClick={handlePreviousTrailer}
+            disabled={currentTrailerIndex === 0}
+            className={`trailer-previous-btn${currentTrailerIndex === 0 ? ' disabled' : ''}`}>
+            ‹
+          </button>
 
-    console.log(trailers)
-    return (
-      <div className="backdrop" >
-        <button className="backdrop-exit" onClick={handleTitleClick}>
-          &times;
-        </button>
+          <p className="total-pages">
+            <b className="current-page-numb">{currentTrailerIndex + 1}</b> of {trailers.length}
+          </p>
 
-        {trailers.length > 0 ? (
-          <ReactPlayer
-            className="youtube-player"
-            url={trailers}
-            width="100%"
-            height="50%"
-            controls={true}
-            origin='https://www.youtube.com'
-          />
-        ) : (
-          <ErrorMessage errorMessage="No trailers available" />
-        )}
-
-      </div>
-    )
-  };
-
+          <button
+            onClick={handleNextTrailer}
+            disabled={currentTrailerIndex === trailers.length - 1}
+            className={`trailer-next-btn${currentTrailerIndex === trailers.length - 1 ? ' disabled' : ''}`}>
+            ›
+          </button>
+        </div>}
+    </div>
+  )
+}

@@ -1,49 +1,57 @@
-import { genreList } from "../services/config"
-import { useState } from "react"
+import { useCallback, useContext } from "react"
+import { useNavigate } from "react-router-dom"
 import ReactSlider from "react-slider"
-import { navigate } from "wouter/use-location"
+import { EActionDropdown, storeDropdown } from "../stores/dropdown"
 
-interface Genre {
+export interface IGenre {
   id: number
   name: string
   selected: boolean
 }
 
 export const Dropdown: React.FunctionComponent = () => {
-  const [selectedGenres, setSelectedGenres] = useState<Genre[]>(genreList.map(genre => ({ ...genre, selected: false })))
-  const [min, setMin] = useState(1950)
-  const [max, setMax] = useState(2023)
+  const dropdownInfo = useContext(storeDropdown.contextState)
+  const dispatchDropdown = useContext(storeDropdown.contextDispatch)
 
-  const handleGenreClick = (id: number) => {
-    const updatedGenres = selectedGenres.map(genre => {
+  const handleGenreClick = useCallback((id: number) => {
+    const updatedGenres = dropdownInfo.genres.map(genre => {
       if (genre.id === id) {
         return { ...genre, selected: !genre.selected }
       }
       return genre
     })
 
-    setSelectedGenres(updatedGenres)
+    dispatchDropdown({
+      type: EActionDropdown.Replace,
+      payload: { yearRange: { from: dropdownInfo.yearRange.from, to: dropdownInfo.yearRange.to }, genres: updatedGenres }
+    })
+  }, [dropdownInfo])
+
+  const navigate = useNavigate()
+
+  const handleFindMovies = () => {
+    const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
+    navigate(`/browse?from=${dropdownInfo.yearRange.from}&to=${dropdownInfo.yearRange.to}&genres=${selectedGenreNames}&page=1`)
   }
 
-  //http://localhost:5173/browse/?from=100&to=200&genres=action-comedy&page=3
-  // to={`/browse?from=${from}&to=${to}&genres=${genres}&page=${page}`}
-  const handleFindMovies = () => {
-    const selectedGenreNames = selectedGenres.filter(genre => genre.selected).map(genre => genre.name).join('-')
-    navigate(`/browse?from=${min}&to=${max}&genres=${selectedGenreNames}&page=1`)
-  }
+  const handleDropdownChange = useCallback((min: number, max: number, genres: IGenre[]) => {
+    dispatchDropdown({
+      type: EActionDropdown.Replace,
+      payload: { yearRange: { from: min, to: max }, genres }
+    })
+  }, [dispatchDropdown])
 
   return (
     <div className="dropdown">
+      <h2 className="dropdown-title">Year</h2>
 
-      <div className="dropdown-header">
-        <p className="slider-min-text">{min}</p>
-        <h2 className="slider-title">Year</h2>
-        <p className="slider-max-text">{max}</p>
+      <div className="slider-container">
+        <p className="slider-min-text">{dropdownInfo.yearRange.from}</p>
       </div>
 
       <div className="slider-container">
         <ReactSlider
-          defaultValue={[min, max]}
+          defaultValue={[dropdownInfo.yearRange.from, dropdownInfo.yearRange.to]}
           className="slider"
           trackClassName="tracker"
           min={1950}
@@ -59,16 +67,17 @@ export const Dropdown: React.FunctionComponent = () => {
             return <div {...props} className="track"> </div>
           }}
           onChange={([min, max]) => {
-            setMin(min!)
-            setMax(max!)
+            handleDropdownChange(min!, max!, dropdownInfo.genres)
           }}
         />
+        <p className="slider-max-text">{dropdownInfo.yearRange.to}</p>
       </div>
 
-      <h2 className="slider-title">Genre</h2>
+
+      <h2 className="dropdown-title">Genre</h2>
 
       <div className="dropdown-genres">
-        {selectedGenres.map((genre) => (
+        {dropdownInfo.genres.map((genre) => (
           <button
             className={`button-genre ${genre.selected ? 'selected' : ''}`}
             key={genre.id}
@@ -77,11 +86,12 @@ export const Dropdown: React.FunctionComponent = () => {
             {genre.name}
           </button>
         ))}
-
-        <button className="menu-filter-btn" onClick={handleFindMovies}>
-          Find Movies
-        </button>
       </div>
+
+      <button className="menu-filter-btn" onClick={handleFindMovies}>
+        Find Movies
+      </button>
     </div>
   )
 }
+

@@ -1,18 +1,25 @@
-export const Footer: React.FunctionComponent = () => {
+export const Footer: React.FunctionComponent = () =>
+(
+  <>
+    <footer className="footer">
+      <ul className="footer-ul">
+        <li className="footer-li">&copy; Giang Dinh 2023</li>
+        <li className="footer-li">giadi735@gmail.com</li>
+        <li className="footer-li">
+          <a href="https://www.linkedin.com/in/giang-dinh-99686ba6/" className="footer-link">
+            LinkedIn
+          </a>
+        </li>
+        <li className="footer-li">
+          <a href="https://github.com/fruddq" className="footer-link">
+            github
+          </a>{" "}
+        </li>
+      </ul>
+    </footer>
+  </>
+)
 
-    return (
-        <>
-            <footer className="footer">
-                <ul className="footer-ul">
-                    <li className="footer-li">Mymail@mail.com</li>
-                    <li className="footer-li">Github</li>
-                    <li className="footer-li">LinkedIn</li>
-                    <li className="footer-li">&copy; Giang Dinh 2023</li>
-                </ul>
-            </footer>
-        </>
-    )
-}
 
 
 
