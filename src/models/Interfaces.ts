@@ -16,3 +16,18 @@ export interface IMovie {
   vote_average: number
   vote_count: number
 }
+
+export interface APIMoviesresponse {
+  data: {
+    page: number
+    results: IMovie[]
+    total_pages: number
+    total_results: number
+  }
+}
+
+export interface IGenre {
+  readonly id: number
+  readonly name: string
+  readonly selected: boolean
+}

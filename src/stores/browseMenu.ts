@@ -1,17 +1,17 @@
 import { createContext } from "react"
+import { genreList } from "../constants"
 import type { IGenre } from "../models/Interfaces"
-import { genreList } from "../services/config"
 
-export enum EActionDropdown {
+export enum EActionBrowseMenu {
   Replace = "Replace",
 }
 
-interface IDropdown {
+interface IBrowseMenu {
   yearRange: { to: number; from: number }
   genres: IGenre[]
 }
 
-const getStoreDropdown = () => {
+const getStoreBrowseMenu = () => {
   const keyLocalStorage = "browse"
 
   if (!localStorage.getItem(keyLocalStorage)) {
@@ -27,15 +27,15 @@ const getStoreDropdown = () => {
     )
   }
 
-  const initialState: IDropdown = JSON.parse(localStorage.getItem(keyLocalStorage)!)
+  const initialState: IBrowseMenu = JSON.parse(localStorage.getItem(keyLocalStorage)!)
 
   return {
     // rome-ignore lint/suspicious/noExplicitAny: <explanation>
     contextState: createContext<typeof initialState>(null as any),
     contextDispatch: createContext<
       React.Dispatch<{
-        readonly type: EActionDropdown
-        readonly payload: IDropdown
+        readonly type: EActionBrowseMenu
+        readonly payload: IBrowseMenu
       }>
       // rome-ignore lint/suspicious/noExplicitAny: <explanation>
     >(null as any),
@@ -44,10 +44,10 @@ const getStoreDropdown = () => {
 
     reducer(
       _state: typeof initialState,
-      { type, payload: dropdownInfo }: { readonly type: EActionDropdown; readonly payload: IDropdown },
+      { type, payload: browseData }: { readonly type: EActionBrowseMenu; readonly payload: IBrowseMenu },
     ) {
-      if (type === EActionDropdown.Replace) {
-        const newState = { ...dropdownInfo }
+      if (type === EActionBrowseMenu.Replace) {
+        const newState = { ...browseData }
         localStorage.setItem(keyLocalStorage, JSON.stringify(newState))
 
         return newState
@@ -58,4 +58,4 @@ const getStoreDropdown = () => {
   }
 }
 
-export const storeDropdown = getStoreDropdown()
+export const storeBrowseMenu = getStoreBrowseMenu()

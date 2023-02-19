@@ -10,7 +10,7 @@ import { Home } from './routes/Home'
 import { Movies } from './routes/Movies'
 import { storeFavorites } from './stores/favorites'
 import { storeWatchLater } from './stores/watchLater'
-import { storeDropdown } from './stores/dropdown'
+import { storeBrowseMenu } from './stores/browseMenu'
 import { Favorites } from './routes/Favorites'
 import { WatchLater } from './routes/WatchLater'
 import { Search } from './routes/Search'
@@ -51,11 +51,11 @@ const router = createBrowserRouter([
 const App: React.FunctionComponent = () => {
   const [stateFavorites, dispatchFavorites] = useReducer(storeFavorites.reducer, storeFavorites.initialState)
   const [stateWatchLater, dispatchWatchLater] = useReducer(storeWatchLater.reducer, storeWatchLater.initialState)
-  const [stateDropdown, dispatchDropdown] = useReducer(storeDropdown.reducer, storeDropdown.initialState)
+  const [stateDropdown, dispatchDropdown] = useReducer(storeBrowseMenu.reducer, storeBrowseMenu.initialState)
 
   return (
-    <storeDropdown.contextState.Provider value={stateDropdown}>
-      <storeDropdown.contextDispatch.Provider value={dispatchDropdown}>
+    <storeBrowseMenu.contextState.Provider value={stateDropdown}>
+      <storeBrowseMenu.contextDispatch.Provider value={dispatchDropdown}>
         <storeWatchLater.contextState.Provider value={stateWatchLater}>
           <storeWatchLater.contextDispatch.Provider value={dispatchWatchLater}>
             <storeFavorites.contextState.Provider value={stateFavorites}>
@@ -65,8 +65,8 @@ const App: React.FunctionComponent = () => {
             </storeFavorites.contextState.Provider>
           </storeWatchLater.contextDispatch.Provider>
         </storeWatchLater.contextState.Provider>
-      </storeDropdown.contextDispatch.Provider>
-    </storeDropdown.contextState.Provider>
+      </storeBrowseMenu.contextDispatch.Provider>
+    </storeBrowseMenu.contextState.Provider>
 
   )
 }

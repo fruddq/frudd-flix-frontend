@@ -3,18 +3,18 @@ import { Loader } from "./Loader"
 
 export interface ITrailers {
   trailers: string[]
-  onCloseBackdrop: () => void
+  onCloseTrailer: () => void
 }
 
-export const Trailers: React.FunctionComponent<ITrailers> = ({ trailers, onCloseBackdrop }) => {
+export const Trailers: React.FunctionComponent<ITrailers> = ({ trailers, onCloseTrailer }) => {
   const [isLoaded, setIsloaded] = useState(false)
   const [currentTrailerIndex, setCurrentTrailerIndex] = useState(0)
 
-  const handleCloseBackdrop = useCallback(() => {
-    onCloseBackdrop()
-  }, [onCloseBackdrop])
+  const closeTrailer = useCallback(() => {
+    onCloseTrailer()
+  }, [onCloseTrailer])
 
-  const handleLoad = useCallback(() => {
+  const showTrailer = useCallback(() => {
     setIsloaded(true)
   }, [setIsloaded])
 
@@ -30,7 +30,7 @@ export const Trailers: React.FunctionComponent<ITrailers> = ({ trailers, onClose
 
   return (
     <div className="backdrop" >
-      <button className="backdrop-exit" onClick={handleCloseBackdrop}>
+      <button className="backdrop-exit" onClick={closeTrailer}>
         &times;
       </button>
 
@@ -42,7 +42,7 @@ export const Trailers: React.FunctionComponent<ITrailers> = ({ trailers, onClose
         src={trailers[currentTrailerIndex]}
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
-        onLoad={handleLoad}
+        onLoad={showTrailer}
         style={{ display: isLoaded ? 'block' : 'none' }}
       />
 

@@ -1,9 +1,7 @@
-interface Props {
+export const MobileLogoSVG: React.FC<{
   width?: string
   height?: string
-}
-
-export const MobileLogoSVG: React.FC<Props> = ({ width = '128px', height = '128px' }) => (
+}> = ({ width = '128px', height = '128px' }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 933 747"

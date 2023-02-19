@@ -49,7 +49,7 @@ Find the right component in npmjs to render a youtube trailer.
 Should render all trailers for that movie.
 
 ● Last but definitely NOT least, please include a Demo for us to see.
-heroku
+fly.io
 
 
 Nanis changes:

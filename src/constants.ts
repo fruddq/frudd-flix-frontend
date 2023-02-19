@@ -1,6 +1,3 @@
-export const API_URL = "http://localhost:3000"
-export const FRONTEND_URL = "http://localhost:5173//"
-
 export const genreList = [
   { id: 28, name: "Action" },
   { id: 35, name: "Comedy" },
@@ -22,6 +19,3 @@ export const genreList = [
   { id: 99, name: "Documentary" },
   { id: 878, name: "Science Fiction" },
 ]
-
-// Controls number of movies displayed in favorites and watchlater
-export const moviesPerPage = 20

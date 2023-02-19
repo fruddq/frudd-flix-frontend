@@ -1,33 +1,35 @@
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+
 import { Footer } from "../components/Footer"
 import { Movies as ComponentMovies } from "../components/Movies"
 import { Header } from "../components/Header"
-import type { IMovie } from "../models/Interfaces"
-import { fetchMovies } from "../services/fetchMovies"
 import { Loader } from "../components/Loader"
-import { ErrorComplete } from "../components/ErrorComplete"
+import { ErrorMessage } from "../components/ErrorMessage"
+
+import type { IMovie } from "../models/Interfaces"
+import { fetchMoviesDiscover } from "../services/fetchMoviesDiscover"
+
 
 export const Movies: React.FunctionComponent = () => {
   // rome-ignore lint/suspicious/noExplicitAny: <explanation>
   const params = useParams() as any as { readonly page: string }
   const page = Number(params.page)
 
-  if (page > 500 || page < 1) return <ErrorComplete errorMessage="Page not found" />
+  if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
 
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
 
-  if (page > totalPages && page !== 1) return <ErrorComplete errorMessage="Page not found" />
+  if (page > totalPages && page !== 1) return <ErrorMessage errorMessage="Page not found" />
 
   const fetchAndSetData = useCallback(async () => {
-    const data = await fetchMovies({ page })
+    const data = await fetchMoviesDiscover({ page })
 
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
 
-    if (page > data.total_pages) return <ErrorComplete errorMessage="Page not found" />
-  }, [setMovies, setTotalPages, fetchMovies, page])
+  }, [setMovies, setTotalPages, fetchMoviesDiscover, page])
 
   useEffect(() => {
     fetchAndSetData()
@@ -35,12 +37,12 @@ export const Movies: React.FunctionComponent = () => {
 
   const navigate = useNavigate()
 
-  const navigateNext = useCallback(() => {
+  const navigateNextPage = useCallback(() => {
     window.scrollTo(0, 0)
     navigate(`/movies/${page + 1}`)
   }, [navigate, page])
 
-  const navigatePrevious = useCallback(() => {
+  const navigatePreviousPage = useCallback(() => {
     window.scrollTo(0, 0)
     navigate(`/movies/${page - 1}`)
   }, [navigate, page])
@@ -64,8 +66,8 @@ export const Movies: React.FunctionComponent = () => {
           page={page}
           movies={movies}
           totalPages={totalPages}
-          navigateNext={navigateNext}
-          navigatePrevious={navigatePrevious}
+          navigateNext={navigateNextPage}
+          navigatePrevious={navigatePreviousPage}
           navigateFirstPage={navigateFirstPage}
           navigateLastPage={navigateLastPage}
         />
