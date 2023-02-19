@@ -22,7 +22,6 @@ export const fetchMoviesBrowse = async ({ from, to, genres, page }: IBrowse) => 
   }
 
   const response: APIMoviesresponse = await axios(config)
-  console.log(response)
   return response.data
 }
 

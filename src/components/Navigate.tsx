@@ -7,6 +7,5 @@ export const Navigate: React.FunctionComponent<{ readonly onNavigate: (x: { read
   useEffect(() => {
     onNavigate({ navigate })
   }, [navigate, onNavigate])
-
   return null
 }

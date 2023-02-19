@@ -1,8 +1,12 @@
 import { useCallback, useState } from "react"
-import type { PropsTrailers } from "../models/Props"
 import { Loader } from "./Loader"
 
-export const Trailers: React.FunctionComponent<PropsTrailers> = ({ trailers, onCloseBackdrop }) => {
+export interface ITrailers {
+  trailers: string[]
+  onCloseBackdrop: () => void
+}
+
+export const Trailers: React.FunctionComponent<ITrailers> = ({ trailers, onCloseBackdrop }) => {
   const [isLoaded, setIsloaded] = useState(false)
   const [currentTrailerIndex, setCurrentTrailerIndex] = useState(0)
 

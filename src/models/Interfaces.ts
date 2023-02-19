@@ -16,22 +16,3 @@ export interface IMovie {
   vote_average: number
   vote_count: number
 }
-
-export interface APIMoviesresponse {
-  data: {
-    page: number
-    results: IMovie[]
-    total_pages: number
-    total_results: number
-  }
-}
-
-export interface APITrailersResponse {
-  data: string[]
-}
-
-export interface IGenre {
-  id: number
-  name: string
-  selected: boolean
-}

@@ -1,6 +1,9 @@
 import axios from "axios"
-import type { APITrailersResponse } from "../models/Interfaces"
 import { API_URL } from "./config"
+
+interface APITrailersResponse {
+  data: string[]
+}
 
 export const fetchTrailers = async (movieID: number) => {
   const config = {

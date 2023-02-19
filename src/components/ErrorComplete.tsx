@@ -4,7 +4,6 @@ import { Header } from "./Header"
 
 export const ErrorComplete: React.FunctionComponent<{
   errorMessage: string
-
 }> = ({ errorMessage }) =>
   (
     <>

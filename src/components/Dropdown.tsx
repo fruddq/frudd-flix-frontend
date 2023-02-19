@@ -1,8 +1,13 @@
 import { useCallback, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import ReactSlider from "react-slider"
-import type { IGenre } from "../models/Interfaces"
 import { EActionDropdown, storeDropdown } from "../stores/dropdown"
+
+export interface IGenre {
+  id: number
+  name: string
+  selected: boolean
+}
 
 export const Dropdown: React.FunctionComponent = () => {
   const dropdownInfo = useContext(storeDropdown.contextState)
@@ -86,7 +91,6 @@ export const Dropdown: React.FunctionComponent = () => {
       <button className="menu-filter-btn" onClick={handleFindMovies}>
         Find Movies
       </button>
-
     </div>
   )
 }

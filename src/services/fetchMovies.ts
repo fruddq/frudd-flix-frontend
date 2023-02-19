@@ -1,6 +1,15 @@
 import axios from "axios"
-import type { APIMoviesresponse } from "../models/Interfaces"
+import type { IMovie } from "../models/Interfaces"
 import { API_URL } from "./config"
+
+export interface APIMoviesresponse {
+  data: {
+    page: number
+    results: IMovie[]
+    total_pages: number
+    total_results: number
+  }
+}
 
 export const fetchMovies = async ({ page }: { readonly page: number }) => {
   const config = {
