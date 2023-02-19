@@ -1,7 +1,6 @@
 import { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
 // import { navigate } from "wouter/use-location"
-import { navigateAndReturnNull } from "../services/navigateAndReturnNull"
 import { Dropdown } from "./Dropdown"
 import { SearchSVG } from "./SearchSVG"
 

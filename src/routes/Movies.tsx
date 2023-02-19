@@ -9,6 +9,7 @@ import { Loader } from "../components/Loader"
 import { ErrorMessage } from "../components/ErrorMessage"
 
 export const Movies: React.FunctionComponent = () => {
+  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
   const params = useParams() as any as { readonly page: string }
   const navigate = useNavigate()
   const [movies, setMovies] = useState<IMovie[]>([])
@@ -18,7 +19,7 @@ export const Movies: React.FunctionComponent = () => {
   if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
 
   const fetchAndSetData = useCallback(async () => {
-    const data = await fetchMovies({ page, route: 'discover' })
+    const data = await fetchMovies({ page })
 
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)

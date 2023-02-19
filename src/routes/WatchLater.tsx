@@ -5,7 +5,7 @@ import { NavigateFunction, useNavigate, useParams } from "react-router-dom"
 import type { IMovie } from "../models/Interfaces"
 
 import { Footer } from "../components/Footer"
-import { Movies as ComponentMovies } from "../components/Movies"
+import { Movies } from "../components/Movies"
 import { Header } from "../components/Header"
 import { Loader } from "../components/Loader"
 import { ErrorMessage } from "../components/ErrorMessage"
@@ -109,7 +109,7 @@ export class WatchLaterBase extends React.Component<{
         <Header />
 
         {props.movies.length ?
-          <ComponentMovies
+          <Movies
             page={page}
             movies={props.movies}
             totalPages={totalPages}

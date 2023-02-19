@@ -5,7 +5,7 @@ import { NavigateFunction, useNavigate, useParams } from "react-router-dom"
 import type { IMovie } from "../models/Interfaces"
 
 import { Footer } from "../components/Footer"
-import { Movies as ComponentMovies } from "../components/Movies"
+import { Movies } from "../components/Movies"
 import { Header } from "../components/Header"
 import { Loader } from "../components/Loader"
 import { ErrorMessage } from "../components/ErrorMessage"
@@ -20,6 +20,7 @@ import { storeFavorites } from "../stores/favorites"
 
 export const Favorites: React.FunctionComponent = () => {
   const favorites = useContext(storeFavorites.contextState)
+  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
   const params = useParams() as any as { readonly page: string }
 
   const [movies, setMovies] = useState<IMovie[]>([])
@@ -109,7 +110,7 @@ export class FavoritesBase extends React.Component<{
         <Header />
 
         {props.movies.length ?
-          <ComponentMovies
+          <Movies
             page={page}
             movies={props.movies}
             totalPages={totalPages}

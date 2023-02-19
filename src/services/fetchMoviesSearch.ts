@@ -1,12 +1,13 @@
 import axios from "axios"
 import { API_URL } from "./config"
 
-export const fetchMovies = async ({ page }: { readonly page: number }) => {
+export const fetchMoviesSearch = async ({ page, query }: { readonly page: number; readonly query: string }) => {
   const config = {
     method: "get",
-    url: `${API_URL}/discover`,
+    url: `${API_URL}/search`,
     params: {
       page,
+      query,
     },
   }
 

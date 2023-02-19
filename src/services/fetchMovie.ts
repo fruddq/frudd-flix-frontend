@@ -8,7 +8,7 @@ export interface APITMovieIDResponse {
 
 export const fetchMovie = async (movieID: number) => {
   const config = {
-    url: `${API_URL}id`,
+    url: `${API_URL}/id`,
     method: "get",
     params: {
       movieID,

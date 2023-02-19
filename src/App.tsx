@@ -13,6 +13,7 @@ import { storeWatchLater } from './stores/watchLater'
 import { storeDropdown } from './stores/dropdown'
 import { Favorites } from './routes/Favorites'
 import { WatchLater } from './routes/WatchLater'
+import { Search } from './routes/Search'
 
 
 const router = createBrowserRouter([
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/search/:query/:page",
-    element: <WatchLater />,
+    element: <Search />,
   },
 ])
 

@@ -30,16 +30,6 @@ export interface APIMoviesresponse {
   }
 }
 
-export interface IFetchMovies {
-  readonly route: string
-  readonly from?: number | undefined
-  readonly to?: number | undefined
-  readonly genres?: number[] | undefined
-  readonly page?: number | undefined
-  readonly movieID?: movieID | undefined
-  readonly query?: string | undefined
-}
-
 export interface APITrailersResponse {
   data: string[]
 }
