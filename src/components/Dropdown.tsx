@@ -2,7 +2,7 @@ import { useCallback, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import ReactSlider from "react-slider"
 import type { IGenre } from "../models/Interfaces"
-import { EActionDropdown, storeDropdown } from "../stores/dropdown"
+import { EActionDropdown, storeDropdown } from "../stores/browseMenu"
 
 // @TODO Change dropdown to relate to browse
 export const Dropdown: React.FunctionComponent<{
@@ -11,7 +11,7 @@ export const Dropdown: React.FunctionComponent<{
   const dropdownInfo = useContext(storeDropdown.contextState)
   const dispatchDropdown = useContext(storeDropdown.contextDispatch)
 
-  const handleGenreClick = useCallback((id: number) => {
+  const updateGenres = useCallback((id: number) => {
     const updatedGenres = dropdownInfo.genres.map(genre => {
       if (genre.id === id) {
         return { ...genre, selected: !genre.selected }
@@ -27,13 +27,13 @@ export const Dropdown: React.FunctionComponent<{
 
   const navigate = useNavigate()
 
-  const handleFindMovies = useCallback(() => {
+  const findMovies = useCallback(() => {
     const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
     navigate(`/browse?from=${dropdownInfo.yearRange.from}&to=${dropdownInfo.yearRange.to}&genres=${selectedGenreNames}&page=1`)
     toggleDropdown()
   }, [toggleDropdown, navigate, dropdownInfo])
 
-  const handleDropdownChange = useCallback((min: number, max: number, genres: IGenre[]) => {
+  const updateSliderValues = useCallback((min: number, max: number, genres: IGenre[]) => {
     dispatchDropdown({
       type: EActionDropdown.Replace,
       payload: { yearRange: { from: min, to: max }, genres }
@@ -66,7 +66,7 @@ export const Dropdown: React.FunctionComponent<{
             return <div {...props} className="track"> </div>
           }}
           onChange={([min, max]) => {
-            handleDropdownChange(min!, max!, dropdownInfo.genres)
+            updateSliderValues(min!, max!, dropdownInfo.genres)
           }}
         />
         <p className="slider-max-text">{dropdownInfo.yearRange.to}</p>
@@ -80,14 +80,14 @@ export const Dropdown: React.FunctionComponent<{
           <button
             className={`button-genre ${genre.selected ? 'selected' : ''}`}
             key={genre.id}
-            onClick={() => handleGenreClick(genre.id)}
+            onClick={() => updateGenres(genre.id)}
           >
             {genre.name}
           </button>
         ))}
       </div>
 
-      <button className="menu-filter-btn" onClick={handleFindMovies}>
+      <button className="menu-filter-btn" onClick={findMovies}>
         Find Movies
       </button>
     </div>

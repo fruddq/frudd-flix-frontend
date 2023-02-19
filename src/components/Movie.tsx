@@ -140,7 +140,7 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
       </section>
 
       {showBackdrop && (
-        <Trailers trailers={trailers} onCloseBackdrop={handleWatchTrailer} />
+        <Trailers trailers={trailers} onCloseTrailer={handleWatchTrailer} />
       )}
 
       <hr className="line-break" />

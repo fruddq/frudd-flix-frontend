@@ -8,7 +8,7 @@ import { Footer } from "../components/Footer"
 import { Movies } from "../components/Movies"
 import { Header } from "../components/Header"
 import { Loader } from "../components/Loader"
-import { ErrorComplete } from "../components/ErrorComplete"
+import { ErrorMessage } from "../components/ErrorMessage"
 
 import { DOM } from "../modules/DOM"
 import { fetchMoviesBrowse } from "../services/fetchMoviesBrowse"
@@ -25,15 +25,13 @@ export const Browse: React.FunctionComponent = () => {
 
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
-  const [hasNoMovies, setHasNoMovies] = useState(false)
 
   const fetchAndSetData = useCallback(async () => {
     const data = await fetchMoviesBrowse({ from, to, genres, page })
 
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
-    setHasNoMovies(data.results.length ? false : true)
-  }, [setMovies, setHasNoMovies, setTotalPages, fetchMoviesBrowse, from, to, page, genres])
+  }, [setMovies, setTotalPages, fetchMoviesBrowse, from, to, page, genres])
 
   useEffect(() => {
     fetchAndSetData()
@@ -48,7 +46,6 @@ export const Browse: React.FunctionComponent = () => {
     browseQuery={browseQuery}
     totalPages={totalPages}
     page={page}
-    hasNoMovies={hasNoMovies}
   />
 }
 
@@ -58,7 +55,6 @@ export class BrowseBase extends React.Component<{
   readonly navigate: NavigateFunction
   readonly totalPages: number
   readonly page: number
-  readonly hasNoMovies: boolean
 }> {
   navigateNext = () => {
     const { props } = this
@@ -86,9 +82,9 @@ export class BrowseBase extends React.Component<{
 
   override render() {
     const { props } = this
-    if (props.hasNoMovies) return <ErrorComplete errorMessage="No Movies Found" />
-    if (props.page > props.totalPages && props.page !== 1) return <ErrorComplete errorMessage="Page not found" />
-    if (props.page > 500 || props.page < 1) return <ErrorComplete errorMessage="Page not found" />
+    if (!props.movies.length) return <ErrorMessage errorMessage="No Movies Found" />
+    if (props.page > props.totalPages && props.page !== 1) return <ErrorMessage errorMessage="Page not found" />
+    if (props.page > 500 || props.page < 1) return <ErrorMessage errorMessage="Page not found" />
 
     return (
       <>

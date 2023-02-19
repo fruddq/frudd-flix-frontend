@@ -11,7 +11,7 @@ interface APIMoviesresponse {
   }
 }
 
-export const fetchMovies = async ({ page }: { readonly page: number }) => {
+export const fetchMoviesDiscover = async ({ page }: { readonly page: number }) => {
   const config = {
     method: "get",
     url: `${API_URL}/discover`,

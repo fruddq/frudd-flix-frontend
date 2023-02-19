@@ -4,21 +4,17 @@ import { Dropdown } from "./Dropdown"
 import { SearchSVG } from "./SearchSVG"
 
 // @TODO fix sort functions
-export const Menu: React.FC = () => {
-  const [showMenuAndSearchButton, setShowMenuAndSearch] = useState(false)
-  const [showDropdown, setShowDropdown] = useState(false)
-
-  // const handleSort = useCallback(() => {
-  //   console.log("hello")
-  // }, [])
-
+export const MenuBar: React.FC = () => {
   const navigate = useNavigate()
 
-  const handleSearch = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+  const searchMovies = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === "Go" || event.key === "Search") {
       navigate(`/search/${event.currentTarget.value}/1`)
     }
   }, [navigate])
+
+  const [showMenuAndSearchButton, setShowMenuAndSearch] = useState(false)
+  const [showDropdown, setShowDropdown] = useState(false)
 
   const showMenuAndSearch = useCallback(() => {
     setShowMenuAndSearch(true)
@@ -48,14 +44,6 @@ export const Menu: React.FC = () => {
             Browse
           </button>
 
-          {/* <button className="menu-year-btn nav-btn" onClick={handleSort}>
-            Year
-          </button>
-
-          <button className="menu-rating-btn nav-btn" onClick={handleSort}>
-            Rating
-          </button> */}
-
           <button className="menu-filter-btn nav-btn" onClick={navigateToFavorites}>
             Favorites
           </button>
@@ -81,7 +69,7 @@ export const Menu: React.FC = () => {
             className="menu-input"
             id="search"
             type="text"
-            onKeyUp={handleSearch}
+            onKeyUp={searchMovies}
             placeholder="Search"
           />
         </>

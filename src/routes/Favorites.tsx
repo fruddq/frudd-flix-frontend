@@ -9,13 +9,13 @@ import { Movies } from "../components/Movies"
 import { Header } from "../components/Header"
 import { Loader } from "../components/Loader"
 import { ErrorMessage } from "../components/ErrorMessage"
-import { ErrorComplete } from "../components/ErrorComplete"
 import { Navigate } from "../components/Navigate"
 
 import { moviesPerPage } from "../config"
 import { fetchMovie } from "../services/fetchMovie"
-
 import { storeFavorites } from "../stores/favorites"
+import { getPaginatedMovieIDs } from "../modules/getPaginatedMovieIDs"
+
 
 export const Favorites: React.FunctionComponent = () => {
   const favorites = useContext(storeFavorites.contextState)
@@ -25,15 +25,13 @@ export const Favorites: React.FunctionComponent = () => {
   const [movies, setMovies] = useState<IMovie[]>([])
 
   const fetchAndSetData = useCallback(async () => {
-    const startIndex = (Number(params.page) - 1) * moviesPerPage
-    const endIndex = startIndex + moviesPerPage
-    const movieIdsToFetch = favorites.slice(startIndex, endIndex)
+    const movieIdsToFetch = getPaginatedMovieIDs({ page: params.page, savedMovies: favorites })
 
     const dataPromises = movieIdsToFetch.map(movieId => fetchMovie(movieId))
     const savedMovies = await Promise.all(dataPromises)
 
     setMovies(savedMovies)
-  }, [setMovies, params, favorites])
+  }, [setMovies, params, favorites, getPaginatedMovieIDs])
 
   useEffect(() => {
     fetchAndSetData()
@@ -50,13 +48,13 @@ export class FavoritesBase extends React.Component<{
   readonly movies: IMovie[]
   readonly navigate: NavigateFunction
 }> {
-  navigateNext = () => {
+  navigateNextPage = () => {
     const { props } = this
     window.scrollTo(0, 0)
     props.navigate(`/favorites/${Number(props.params.page) + 1}`)
   }
 
-  navigatePrevious = () => {
+  navigatePreviousPage = () => {
     const { props } = this
     window.scrollTo(0, 0)
     props.navigate(`/favorites/${Number(props.params.page) - 1}`)
@@ -79,7 +77,7 @@ export class FavoritesBase extends React.Component<{
 
     if (props.favorites.length < 1) {
       return (<>
-        <ErrorComplete errorMessage="No movies favorited" />
+        <ErrorMessage errorMessage="No movies favorited" />
       </>)
     }
 
@@ -89,7 +87,7 @@ export class FavoritesBase extends React.Component<{
 
     const totalPages = Math.ceil(props.favorites.length / moviesPerPage)
 
-    if (page > totalPages + 1) return <ErrorComplete errorMessage={`Only ${totalPages} pages of favorites available`} />
+    if (page > totalPages + 1) return <ErrorMessage errorMessage={`Only ${totalPages} pages of favorites available`} />
 
     const paginationNumber = page + (moviesPerPage - 1) * (page - 1)
 
@@ -109,8 +107,8 @@ export class FavoritesBase extends React.Component<{
             page={page}
             movies={props.movies}
             totalPages={totalPages}
-            navigateNext={this.navigateNext}
-            navigatePrevious={this.navigatePrevious}
+            navigateNext={this.navigateNextPage}
+            navigatePrevious={this.navigatePreviousPage}
             navigateFirstPage={this.navigateFirstPage}
             navigateLastPage={this.navigateLastPage}
           />

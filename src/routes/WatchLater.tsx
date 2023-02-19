@@ -8,12 +8,13 @@ import { Footer } from "../components/Footer"
 import { Movies } from "../components/Movies"
 import { Header } from "../components/Header"
 import { Loader } from "../components/Loader"
-import { ErrorComplete } from "../components/ErrorComplete"
+import { ErrorMessage } from "../components/ErrorMessage"
 import { Navigate } from "../components/Navigate"
 
 import { moviesPerPage } from "../config"
 import { fetchMovie } from "../services/fetchMovie"
 import { storeWatchLater } from "../stores/watchLater"
+import { getPaginatedMovieIDs } from "../modules/getPaginatedMovieIDs"
 
 
 export const WatchLater: React.FunctionComponent = () => {
@@ -24,15 +25,13 @@ export const WatchLater: React.FunctionComponent = () => {
   const [movies, setMovies] = useState<IMovie[]>([])
 
   const fetchAndSetData = useCallback(async () => {
-    const startIndex = (Number(params.page) - 1) * moviesPerPage
-    const endIndex = startIndex + moviesPerPage
-    const movieIdsToFetch = watchLater.slice(startIndex, endIndex)
+    const movieIdsToFetch = getPaginatedMovieIDs({ page: params.page, savedMovies: watchLater })
 
     const dataPromises = movieIdsToFetch.map(movieId => fetchMovie(movieId))
     const savedMovies = await Promise.all(dataPromises)
 
     setMovies(savedMovies)
-  }, [setMovies, params, watchLater])
+  }, [setMovies, params, watchLater, getPaginatedMovieIDs, fetchMovie])
 
   useEffect(() => {
     fetchAndSetData()
@@ -49,13 +48,13 @@ export class WatchLaterBase extends React.Component<{
   readonly movies: IMovie[]
   readonly navigate: NavigateFunction
 }> {
-  navigateNext = () => {
+  navigateNextPage = () => {
     const { props } = this
     window.scrollTo(0, 0)
     props.navigate(`/watch-later/${Number(props.params.page) + 1}`)
   }
 
-  navigatePrevious = () => {
+  navigatePreviousPage = () => {
     const { props } = this
     window.scrollTo(0, 0)
     props.navigate(`/watch-later/${Number(props.params.page) - 1}`)
@@ -76,15 +75,15 @@ export class WatchLaterBase extends React.Component<{
   override render() {
     const { props } = this
 
-    if (props.watchLater.length < 1) return <ErrorComplete errorMessage="No movies saved" />
+    if (props.watchLater.length < 1) return <ErrorMessage errorMessage="No movies saved" />
 
     const page = Number(props.params.page)
 
-    if (page > 500 || page < 1) return <ErrorComplete errorMessage="Page not found" />
+    if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
 
     const totalPages = Math.ceil(props.watchLater.length / moviesPerPage)
 
-    if (page > totalPages + 1) return <ErrorComplete errorMessage={`Only ${totalPages} pages of watch later available`} />
+    if (page > totalPages + 1) return <ErrorMessage errorMessage={`Only ${totalPages} pages of watch later available`} />
 
     const paginationNumber = page + (moviesPerPage - 1) * (page - 1)
 
@@ -104,8 +103,8 @@ export class WatchLaterBase extends React.Component<{
             page={page}
             movies={props.movies}
             totalPages={totalPages}
-            navigateNext={this.navigateNext}
-            navigatePrevious={this.navigatePrevious}
+            navigateNext={this.navigateNextPage}
+            navigatePrevious={this.navigatePreviousPage}
             navigateFirstPage={this.navigateFirstPage}
             navigateLastPage={this.navigateLastPage}
           />
