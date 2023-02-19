@@ -1,13 +1,15 @@
 import CN from 'classnames'
 import { useCallback, useContext, useEffect, useState } from "react"
 
-import { genreList } from "../services/config"
 import { EActionFavorites, storeFavorites } from "../stores/favorites"
 import { EActionWatchLater, storeWatchLater } from '../stores/watchLater'
 
 import placeHolder from '../assets/place-holder.png'
+
 import { Trailers } from './Trailers'
 import { fetchTrailers } from '../services/fetchTrailers'
+import { genreList } from '../constants'
+
 import type { IMovie } from '../models/Interfaces'
 
 const getTrailers = async (movieID: number) => {

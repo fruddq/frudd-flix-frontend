@@ -5,7 +5,7 @@ import { SearchSVG } from "./SearchSVG"
 
 // @TODO fix sort functions
 export const Menu: React.FC = () => {
-  const [showMenuButton, setShowMenu] = useState(false)
+  const [showMenuAndSearchButton, setShowMenuAndSearch] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
 
   // const handleSort = useCallback(() => {
@@ -20,31 +20,31 @@ export const Menu: React.FC = () => {
     }
   }, [navigate])
 
-  const handleSClick = useCallback(() => {
-    setShowMenu(true)
-  }, [setShowMenu])
+  const showMenuAndSearch = useCallback(() => {
+    setShowMenuAndSearch(true)
+  }, [setShowMenuAndSearch])
 
-  const handleMenuClick = useCallback(() => {
-    setShowMenu(false)
-  }, [setShowMenu])
+  const hideMenuAndSearch = useCallback(() => {
+    setShowMenuAndSearch(false)
+  }, [setShowMenuAndSearch])
 
-  const handleBrowseClick = useCallback(() => {
+  const toggleDropdown = useCallback(() => {
     setShowDropdown((prevState) => !prevState)
   }, [setShowDropdown])
 
-  const handleWatchLater = useCallback(() => {
+  const navigateToWatchLater = useCallback(() => {
     navigate("/watch-later/1")
   }, [navigate])
 
-  const handleFavorites = useCallback(() => {
+  const navigateToFavorites = useCallback(() => {
     navigate("/favorites/1")
   }, [navigate])
 
   return (
     <nav className="menu">
-      {!showMenuButton && (
+      {!showMenuAndSearchButton && (
         <>
-          <button className="menu-browse-btn nav-btn" onClick={handleBrowseClick}>
+          <button className="menu-browse-btn nav-btn" onClick={toggleDropdown}>
             Browse
           </button>
 
@@ -56,24 +56,24 @@ export const Menu: React.FC = () => {
             Rating
           </button> */}
 
-          <button className="menu-filter-btn nav-btn" onClick={handleFavorites}>
+          <button className="menu-filter-btn nav-btn" onClick={navigateToFavorites}>
             Favorites
           </button>
 
-          <button className="menu-filter-btn nav-btn" onClick={handleWatchLater}>
+          <button className="menu-filter-btn nav-btn" onClick={navigateToWatchLater}>
             Watch later
           </button>
 
-          <button className="menu-search-btn nav-btn" onClick={handleSClick}>
+          <button className="menu-search-btn nav-btn" onClick={showMenuAndSearch}>
             <SearchSVG height={"30"} width={"30"} />
           </button>
 
-          {showDropdown && <Dropdown />}
+          {showDropdown && <Dropdown toggleDropdown={toggleDropdown} />}
         </>
       )}
-      {showMenuButton && (
+      {showMenuAndSearchButton && (
         <>
-          <button className="menu-menu-btn nav-btn" onClick={handleMenuClick}>
+          <button className="menu-menu-btn nav-btn" onClick={hideMenuAndSearch}>
             Menu
           </button>
 

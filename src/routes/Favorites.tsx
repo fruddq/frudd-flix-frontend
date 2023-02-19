@@ -14,7 +14,6 @@ import { Navigate } from "../components/Navigate"
 
 import { moviesPerPage } from "../services/config"
 import { fetchMovie } from "../services/fetchMovie"
-import { fetchMovies } from "../services/fetchMovies"
 
 import { storeFavorites } from "../stores/favorites"
 
@@ -34,7 +33,7 @@ export const Favorites: React.FunctionComponent = () => {
     const savedMovies = await Promise.all(dataPromises)
 
     setMovies(savedMovies)
-  }, [setMovies, fetchMovies, params, favorites])
+  }, [setMovies, params, favorites])
 
   useEffect(() => {
     fetchAndSetData()

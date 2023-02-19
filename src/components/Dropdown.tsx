@@ -4,12 +4,15 @@ import ReactSlider from "react-slider"
 import { EActionDropdown, storeDropdown } from "../stores/dropdown"
 
 export interface IGenre {
-  id: number
-  name: string
-  selected: boolean
+  readonly id: number
+  readonly name: string
+  readonly selected: boolean
 }
 
-export const Dropdown: React.FunctionComponent = () => {
+// @TODO Change dropdown to relate to browse
+export const Dropdown: React.FunctionComponent<{
+  readonly toggleDropdown: () => void
+}> = ({ toggleDropdown }) => {
   const dropdownInfo = useContext(storeDropdown.contextState)
   const dispatchDropdown = useContext(storeDropdown.contextDispatch)
 
@@ -29,10 +32,11 @@ export const Dropdown: React.FunctionComponent = () => {
 
   const navigate = useNavigate()
 
-  const handleFindMovies = () => {
+  const handleFindMovies = useCallback(() => {
     const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
     navigate(`/browse?from=${dropdownInfo.yearRange.from}&to=${dropdownInfo.yearRange.to}&genres=${selectedGenreNames}&page=1`)
-  }
+    toggleDropdown()
+  }, [toggleDropdown, navigate, dropdownInfo])
 
   const handleDropdownChange = useCallback((min: number, max: number, genres: IGenre[]) => {
     dispatchDropdown({

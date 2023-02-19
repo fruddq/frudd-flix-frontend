@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+
+import type { IMovie } from "../models/Interfaces"
+
 import { Footer } from "../components/Footer"
 import { Movies } from "../components/Movies"
 import { Header } from "../components/Header"
-import type { IMovie } from "../models/Interfaces"
-import { fetchMovies } from "../services/fetchMovies"
 import { Loader } from "../components/Loader"
-import { fetchMoviesSearch } from "../services/fetchMoviesSearch"
 import { ErrorComplete } from "../components/ErrorComplete"
+
+import { fetchMoviesSearch } from "../services/fetchMoviesSearch"
 
 export const Search: React.FunctionComponent = () => {
   // rome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -29,9 +31,7 @@ export const Search: React.FunctionComponent = () => {
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
 
-    if (page > data.total_pages) return <ErrorComplete errorMessage="Page not found" />
-
-  }, [setMovies, setTotalPages, fetchMovies, page, query])
+  }, [setMovies, setTotalPages, page, query])
 
   useEffect(() => {
     fetchAndSetData()

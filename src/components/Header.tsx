@@ -1,7 +1,9 @@
 
-import { Menu } from "./Menu"
-import logo from '../assets/mobile-logo.png'
 import { Link } from "react-router-dom"
+
+import { Menu } from "./Menu"
+
+import logo from '../assets/mobile-logo.png'
 
 export const Header: React.FunctionComponent = () =>
 (

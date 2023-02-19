@@ -13,7 +13,6 @@ import { Navigate } from "../components/Navigate"
 
 import { moviesPerPage } from "../services/config"
 import { fetchMovie } from "../services/fetchMovie"
-import { fetchMovies } from "../services/fetchMovies"
 import { storeWatchLater } from "../stores/watchLater"
 
 
@@ -33,7 +32,7 @@ export const WatchLater: React.FunctionComponent = () => {
     const savedMovies = await Promise.all(dataPromises)
 
     setMovies(savedMovies)
-  }, [setMovies, fetchMovies, params, watchLater])
+  }, [setMovies, params, watchLater])
 
   useEffect(() => {
     fetchAndSetData()

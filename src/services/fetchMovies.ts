@@ -2,7 +2,7 @@ import axios from "axios"
 import type { IMovie } from "../models/Interfaces"
 import { API_URL } from "./config"
 
-export interface APIMoviesresponse {
+interface APIMoviesresponse {
   data: {
     page: number
     results: IMovie[]
