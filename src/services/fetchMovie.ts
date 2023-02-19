@@ -1,6 +1,6 @@
 import axios from "axios"
 import type { IMovie } from "../models/Interfaces"
-import { API_URL } from "./config"
+import { API_URL } from "../config"
 
 export interface APITMovieIDResponse {
   data: IMovie

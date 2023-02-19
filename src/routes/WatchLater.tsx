@@ -11,7 +11,7 @@ import { Loader } from "../components/Loader"
 import { ErrorComplete } from "../components/ErrorComplete"
 import { Navigate } from "../components/Navigate"
 
-import { moviesPerPage } from "../services/config"
+import { moviesPerPage } from "../config"
 import { fetchMovie } from "../services/fetchMovie"
 import { storeWatchLater } from "../stores/watchLater"
 

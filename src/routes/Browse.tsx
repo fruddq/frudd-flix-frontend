@@ -11,8 +11,8 @@ import { Loader } from "../components/Loader"
 import { ErrorComplete } from "../components/ErrorComplete"
 
 import { DOM } from "../modules/DOM"
-import { getIDsFromString } from "../services/getIDsFromString"
 import { fetchMoviesBrowse } from "../services/fetchMoviesBrowse"
+import { getIDsFromString } from "../modules/getIDsFromString"
 
 export const Browse: React.FunctionComponent = () => {
   const location = useLocation()

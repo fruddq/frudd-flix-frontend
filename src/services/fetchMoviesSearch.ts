@@ -1,6 +1,6 @@
 import axios from "axios"
 import type { APIMoviesresponse } from "../models/Interfaces"
-import { API_URL } from "./config"
+import { API_URL } from "../config"
 
 export const fetchMoviesSearch = async ({ page, query }: { readonly page: number; readonly query: string }) => {
   const config = {
