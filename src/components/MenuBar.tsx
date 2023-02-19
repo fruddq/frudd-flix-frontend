@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Dropdown } from "./BrowseMenu"
+import { BrowseMenu } from "./BrowseMenu"
 import { SearchSVG } from "./SearchSVG"
 
 // @TODO fix sort functions
@@ -56,7 +56,7 @@ export const MenuBar: React.FC = () => {
             <SearchSVG height={"30"} width={"30"} />
           </button>
 
-          {showDropdown && <Dropdown toggleDropdown={toggleDropdown} />}
+          {showDropdown && <BrowseMenu toggleDropdown={toggleDropdown} />}
         </>
       )}
       {showMenuAndSearchButton && (

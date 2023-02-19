@@ -44,10 +44,10 @@ const getStoreBrowseMenu = () => {
 
     reducer(
       _state: typeof initialState,
-      { type, payload: dropdownInfo }: { readonly type: EActionBrowseMenu; readonly payload: IBrowseMenu },
+      { type, payload: browseData }: { readonly type: EActionBrowseMenu; readonly payload: IBrowseMenu },
     ) {
       if (type === EActionBrowseMenu.Replace) {
-        const newState = { ...dropdownInfo }
+        const newState = { ...browseData }
         localStorage.setItem(keyLocalStorage, JSON.stringify(newState))
 
         return newState

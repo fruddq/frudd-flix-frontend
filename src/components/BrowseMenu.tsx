@@ -5,52 +5,52 @@ import type { IGenre } from "../models/Interfaces"
 import { EActionBrowseMenu, storeBrowseMenu } from "../stores/browseMenu"
 
 // @TODO Change dropdown to relate to browse
-export const Dropdown: React.FunctionComponent<{
+export const BrowseMenu: React.FunctionComponent<{
   readonly toggleDropdown: () => void
 }> = ({ toggleDropdown }) => {
-  const dropdownInfo = useContext(storeBrowseMenu.contextState)
-  const dispatchDropdown = useContext(storeBrowseMenu.contextDispatch)
+  const browseMenuData = useContext(storeBrowseMenu.contextState)
+  const dispatchBrowseMenu = useContext(storeBrowseMenu.contextDispatch)
 
   const updateGenres = useCallback((id: number) => {
-    const updatedGenres = dropdownInfo.genres.map(genre => {
+    const updatedGenres = browseMenuData.genres.map(genre => {
       if (genre.id === id) {
         return { ...genre, selected: !genre.selected }
       }
       return genre
     })
 
-    dispatchDropdown({
+    dispatchBrowseMenu({
       type: EActionBrowseMenu.Replace,
-      payload: { yearRange: { from: dropdownInfo.yearRange.from, to: dropdownInfo.yearRange.to }, genres: updatedGenres }
+      payload: { yearRange: { from: browseMenuData.yearRange.from, to: browseMenuData.yearRange.to }, genres: updatedGenres }
     })
-  }, [dropdownInfo])
+  }, [browseMenuData])
 
   const navigate = useNavigate()
 
   const findMovies = useCallback(() => {
-    const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
-    navigate(`/browse?from=${dropdownInfo.yearRange.from}&to=${dropdownInfo.yearRange.to}&genres=${selectedGenreNames}&page=1`)
+    const selectedGenreNames = browseMenuData.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
+    navigate(`/browse?from=${browseMenuData.yearRange.from}&to=${browseMenuData.yearRange.to}&genres=${selectedGenreNames}&page=1`)
     toggleDropdown()
-  }, [toggleDropdown, navigate, dropdownInfo])
+  }, [toggleDropdown, navigate, browseMenuData])
 
   const updateSliderValues = useCallback((min: number, max: number, genres: IGenre[]) => {
-    dispatchDropdown({
+    dispatchBrowseMenu({
       type: EActionBrowseMenu.Replace,
       payload: { yearRange: { from: min, to: max }, genres }
     })
-  }, [dispatchDropdown])
+  }, [dispatchBrowseMenu])
 
   return (
     <div className="dropdown">
       <h2 className="dropdown-title">Year</h2>
 
       <div className="slider-container">
-        <p className="slider-min-text">{dropdownInfo.yearRange.from}</p>
+        <p className="slider-min-text">{browseMenuData.yearRange.from}</p>
       </div>
 
       <div className="slider-container">
         <ReactSlider
-          defaultValue={[dropdownInfo.yearRange.from, dropdownInfo.yearRange.to]}
+          defaultValue={[browseMenuData.yearRange.from, browseMenuData.yearRange.to]}
           className="slider"
           trackClassName="tracker"
           min={1950}
@@ -66,17 +66,17 @@ export const Dropdown: React.FunctionComponent<{
             return <div {...props} className="track"> </div>
           }}
           onChange={([min, max]) => {
-            updateSliderValues(min!, max!, dropdownInfo.genres)
+            updateSliderValues(min!, max!, browseMenuData.genres)
           }}
         />
-        <p className="slider-max-text">{dropdownInfo.yearRange.to}</p>
+        <p className="slider-max-text">{browseMenuData.yearRange.to}</p>
       </div>
 
 
       <h2 className="dropdown-title">Genre</h2>
 
       <div className="dropdown-genres">
-        {dropdownInfo.genres.map((genre) => (
+        {browseMenuData.genres.map((genre) => (
           <button
             className={`button-genre ${genre.selected ? 'selected' : ''}`}
             key={genre.id}
