@@ -9,7 +9,7 @@ import type { IMovie } from "../models/Interfaces"
 
 import { DOM } from "../modules/DOM"
 import { fetchMoviesBrowse } from "../services/fetchMoviesBrowse"
-import { getMatchingGenreIds } from "../services/getIDsFromString"
+import { getIDsFromString } from "../services/getIDsFromString"
 
 export const Browse: React.FunctionComponent = () => {
   const query = DOM.getters.URLQuery()
@@ -23,7 +23,7 @@ export const Browse: React.FunctionComponent = () => {
 
   const from = Number(query["from"])
   const to = Number(query["to"])
-  const genres = getMatchingGenreIds(query["genres"] as string)
+  const genres = getIDsFromString(query["genres"] as string)
 
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)

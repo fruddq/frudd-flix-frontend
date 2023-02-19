@@ -19,6 +19,7 @@ import { storeWatchLater } from "../stores/watchLater"
 
 export const WatchLater: React.FunctionComponent = () => {
   const watchLater = useContext(storeWatchLater.contextState)
+  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
   const params = useParams() as any as { readonly page: string }
 
   const [movies, setMovies] = useState<IMovie[]>([])
