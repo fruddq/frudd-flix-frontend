@@ -1,6 +1,6 @@
 import { createContext } from "react"
+import { genreList } from "../constants"
 import type { IGenre } from "../models/Interfaces"
-import { genreList } from "../services/config"
 
 export enum EActionDropdown {
   Replace = "Replace",

@@ -1,13 +1,8 @@
 import { useCallback, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import ReactSlider from "react-slider"
+import type { IGenre } from "../models/Interfaces"
 import { EActionDropdown, storeDropdown } from "../stores/dropdown"
-
-export interface IGenre {
-  readonly id: number
-  readonly name: string
-  readonly selected: boolean
-}
 
 // @TODO Change dropdown to relate to browse
 export const Dropdown: React.FunctionComponent<{

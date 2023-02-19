@@ -1,4 +1,4 @@
-import { genreList } from "./config"
+import { genreList } from "../constants"
 
 export const getIDsFromString = (genreString: string) => {
   const splitGenres = genreString.split("-")
