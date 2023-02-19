@@ -2,7 +2,7 @@ import { createContext } from "react"
 import { genreList } from "../constants"
 import type { IGenre } from "../models/Interfaces"
 
-export enum EActionDropdown {
+export enum EActionBrowseMenu {
   Replace = "Replace",
 }
 
@@ -34,7 +34,7 @@ const getStoreBrowseMenu = () => {
     contextState: createContext<typeof initialState>(null as any),
     contextDispatch: createContext<
       React.Dispatch<{
-        readonly type: EActionDropdown
+        readonly type: EActionBrowseMenu
         readonly payload: IBrowseMenu
       }>
       // rome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -44,9 +44,9 @@ const getStoreBrowseMenu = () => {
 
     reducer(
       _state: typeof initialState,
-      { type, payload: dropdownInfo }: { readonly type: EActionDropdown; readonly payload: IBrowseMenu },
+      { type, payload: dropdownInfo }: { readonly type: EActionBrowseMenu; readonly payload: IBrowseMenu },
     ) {
-      if (type === EActionDropdown.Replace) {
+      if (type === EActionBrowseMenu.Replace) {
         const newState = { ...dropdownInfo }
         localStorage.setItem(keyLocalStorage, JSON.stringify(newState))
 
@@ -58,4 +58,4 @@ const getStoreBrowseMenu = () => {
   }
 }
 
-export const storeDropdown = getStoreBrowseMenu()
+export const storeBrowseMenu = getStoreBrowseMenu()

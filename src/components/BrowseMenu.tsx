@@ -2,14 +2,14 @@ import { useCallback, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import ReactSlider from "react-slider"
 import type { IGenre } from "../models/Interfaces"
-import { EActionDropdown, storeDropdown } from "../stores/browseMenu"
+import { EActionBrowseMenu, storeBrowseMenu } from "../stores/browseMenu"
 
 // @TODO Change dropdown to relate to browse
 export const Dropdown: React.FunctionComponent<{
   readonly toggleDropdown: () => void
 }> = ({ toggleDropdown }) => {
-  const dropdownInfo = useContext(storeDropdown.contextState)
-  const dispatchDropdown = useContext(storeDropdown.contextDispatch)
+  const dropdownInfo = useContext(storeBrowseMenu.contextState)
+  const dispatchDropdown = useContext(storeBrowseMenu.contextDispatch)
 
   const updateGenres = useCallback((id: number) => {
     const updatedGenres = dropdownInfo.genres.map(genre => {
@@ -20,7 +20,7 @@ export const Dropdown: React.FunctionComponent<{
     })
 
     dispatchDropdown({
-      type: EActionDropdown.Replace,
+      type: EActionBrowseMenu.Replace,
       payload: { yearRange: { from: dropdownInfo.yearRange.from, to: dropdownInfo.yearRange.to }, genres: updatedGenres }
     })
   }, [dropdownInfo])
@@ -35,7 +35,7 @@ export const Dropdown: React.FunctionComponent<{
 
   const updateSliderValues = useCallback((min: number, max: number, genres: IGenre[]) => {
     dispatchDropdown({
-      type: EActionDropdown.Replace,
+      type: EActionBrowseMenu.Replace,
       payload: { yearRange: { from: min, to: max }, genres }
     })
   }, [dispatchDropdown])
