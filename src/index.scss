@@ -140,6 +140,10 @@ body {
           border-radius: 50%;
           margin-top: -5px;
         }
+
+        .thumb:hover {
+          background: linear-gradient(to bottom, #fac23d, #d88b14);
+        }
       }
 
       .dropdown-genres {

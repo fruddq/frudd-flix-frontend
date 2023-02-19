@@ -1,17 +1,14 @@
 import axios from "axios"
-import type { movieID } from "../models/Interfaces"
 import { API_URL } from "./config"
 
 export interface IBrowse {
   readonly page: number
-  readonly from?: number | undefined
-  readonly to?: number | undefined
-  readonly genres?: number[] | undefined
-  readonly movieID?: movieID | undefined
-  readonly query?: string | undefined
+  readonly from: number
+  readonly to: number
+  readonly genres: number[]
 }
 
-export const fetchMoviesBrowse = async ({ from, to, genres, page, movieID, query }: IBrowse) => {
+export const fetchMoviesBrowse = async ({ from, to, genres, page }: IBrowse) => {
   const config = {
     method: "get",
     url: `${API_URL}/browse`,
@@ -20,8 +17,6 @@ export const fetchMoviesBrowse = async ({ from, to, genres, page, movieID, query
       to,
       genres,
       page,
-      movieID,
-      query,
     },
   }
 

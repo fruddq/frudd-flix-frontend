@@ -127,6 +127,9 @@ body {
   border-radius: 50%;
   margin-top: -5px;
 }
+.header .menu .dropdown .slider-container .thumb:hover {
+  background: linear-gradient(to bottom, #fac23d, #d88b14);
+}
 .header .menu .dropdown .dropdown-genres {
   display: flex;
   flex-direction: row;

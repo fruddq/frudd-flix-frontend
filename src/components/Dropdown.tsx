@@ -1,5 +1,5 @@
 import { useCallback, useContext } from "react"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import ReactSlider from "react-slider"
 import type { IGenre } from "../models/Interfaces"
 import { EActionDropdown, storeDropdown } from "../stores/dropdown"
@@ -22,8 +22,11 @@ export const Dropdown: React.FunctionComponent = () => {
     })
   }, [dropdownInfo])
 
+  const navigate = useNavigate()
+
   const handleFindMovies = () => {
-    Navigate('/browse')
+    const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
+    navigate(`/browse?from=${dropdownInfo.yearRange.from}&to=${dropdownInfo.yearRange.to}&genres=${selectedGenreNames}&page=1`)
   }
 
   const handleDropdownChange = useCallback((min: number, max: number, genres: IGenre[]) => {

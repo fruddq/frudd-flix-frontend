@@ -1,65 +1,77 @@
 import { useCallback, useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { ErrorComplete } from "../components/ErrorComplete"
 import { Footer } from "../components/Footer"
-import { Movies as ComponentMovies } from "../components/Movies"
 import { Header } from "../components/Header"
-import type { IMovie } from "../models/Interfaces"
-import { fetchMovies } from "../services/fetchMovies"
 import { Loader } from "../components/Loader"
-import { ErrorMessage } from "../components/ErrorMessage"
+import { Movies } from "../components/Movies"
+import type { IMovie } from "../models/Interfaces"
+
 import { DOM } from "../modules/DOM"
+import { fetchMoviesBrowse } from "../services/fetchMoviesBrowse"
+import { getMatchingGenreIds } from "../services/getIDsFromString"
 
 export const Browse: React.FunctionComponent = () => {
-  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
-
   const query = DOM.getters.URLQuery()
-  console.log(query)
-  // const page = Number(params.page)
 
-  // if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
+  if (!(query["from"] && query["to"] && query["page"] && query["genres"]))
+    return <ErrorComplete errorMessage="Need genres, year from, year to and page in order to browse" />
 
-  // const [movies, setMovies] = useState<IMovie[]>([])
-  // const [totalPages, setTotalPages] = useState(1)
+  const page = Number(query["page"])
 
-  // const fetchAndSetData = useCallback(async () => {
-  //   const data = await fetchMovies({ page })
+  if (page > 500 || page < 1) return <ErrorComplete errorMessage="Page not found" />
 
-  //   setMovies(data.results)
-  //   setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
-  // }, [setMovies, setTotalPages, fetchMovies, page])
+  const from = Number(query["from"])
+  const to = Number(query["to"])
+  const genres = getMatchingGenreIds(query["genres"] as string)
 
-  // useEffect(() => {
-  //   fetchAndSetData()
-  // }, [fetchAndSetData])
+  const [movies, setMovies] = useState<IMovie[]>([])
+  const [totalPages, setTotalPages] = useState(1)
 
-  // const navigate = useNavigate()
+  const fetchAndSetData = useCallback(async () => {
+    const data = await fetchMoviesBrowse({ from, to, genres, page })
 
-  // const navigateNext = useCallback(() => {
-  //   window.scrollTo(0, 0)
-  //   navigate(`/movies/${page + 1}`)
-  // }, [navigate, page])
+    setMovies(data.results)
+    setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
 
-  // const navigatePrevious = useCallback(() => {
-  //   window.scrollTo(0, 0)
-  //   navigate(`/movies/${page - 1}`)
-  // }, [navigate, page])
+    if (page > data.total_pages) return <ErrorComplete errorMessage="Page not found" />
+  }, [setMovies, setTotalPages, fetchMoviesBrowse, page])
 
-  // const navigateFirstPage = useCallback(() => {
-  //   window.scrollTo(0, 0)
-  //   navigate("/movies/1")
-  // }, [navigate, page])
+  useEffect(() => {
+    fetchAndSetData()
+  }, [fetchAndSetData])
 
-  // const navigateLastPage = useCallback(() => {
-  //   window.scrollTo(0, 0)
-  //   navigate(`/movies/${totalPages}`)
-  // }, [navigate, totalPages])
+  const location = useLocation()
+  const urlQuery = `/browse${location.search.split('page=')[0]}page=`
+  const navigate = useNavigate()
+
+  const navigateNext = useCallback(() => {
+    window.scrollTo(0, 0)
+    navigate(`${urlQuery}${page + 1}`)
+  }, [navigate, page])
+
+  const navigatePrevious = useCallback(() => {
+    window.scrollTo(0, 0)
+    navigate(`${urlQuery}${page - 1}`)
+  }, [navigate, page])
+
+  const navigateFirstPage = useCallback(() => {
+    window.scrollTo(0, 0)
+    navigate(`${urlQuery}1`)
+
+  }, [navigate, page])
+
+  const navigateLastPage = useCallback(() => {
+    window.scrollTo(0, 0)
+    navigate(`${urlQuery}${totalPages}`)
+  }, [navigate, totalPages])
 
   return (
     <>
       <Header />
-      {/* 
+
       {movies.length ?
-        <ComponentMovies
+        <Movies
           page={page}
           movies={movies}
           totalPages={totalPages}
@@ -69,7 +81,7 @@ export const Browse: React.FunctionComponent = () => {
           navigateLastPage={navigateLastPage}
         />
         :
-        <Loader />} */}
+        <Loader />}
 
       <Footer />
     </>
