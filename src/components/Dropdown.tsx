@@ -1,8 +1,6 @@
 import { useCallback, useContext } from "react"
 import ReactSlider from "react-slider"
-import { navigate } from "wouter/use-location"
 import type { IGenre } from "../models/Interfaces"
-import { navigateAndReturnNull } from "../services/navigateAndReturnNull"
 import { EActionDropdown, storeDropdown } from "../stores/dropdown"
 
 export const Dropdown: React.FunctionComponent = () => {
@@ -23,12 +21,12 @@ export const Dropdown: React.FunctionComponent = () => {
     })
   }, [dropdownInfo])
 
-  const handleFindMovies = () => {
-    const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
-    return navigateAndReturnNull(() => {
-      navigate(`/browse/from=${dropdownInfo.yearRange.from}/to=${dropdownInfo.yearRange.to}/genres=${selectedGenreNames}/1`)
-    })
-  }
+  // const handleFindMovies = () => {
+  //   const selectedGenreNames = dropdownInfo.genres.filter(genre => genre.selected).map(genre => genre.name).join('-')
+  //   return navigateAndReturnNull(() => {
+  //     navigate(`/browse/from=${dropdownInfo.yearRange.from}/to=${dropdownInfo.yearRange.to}/genres=${selectedGenreNames}/1`)
+  //   })
+  // }
 
   const handleDropdownChange = useCallback((min: number, max: number, genres: IGenre[]) => {
     dispatchDropdown({
@@ -84,9 +82,9 @@ export const Dropdown: React.FunctionComponent = () => {
         ))}
       </div>
 
-      <button className="menu-filter-btn" onClick={handleFindMovies}>
+      {/* <button className="menu-filter-btn" onClick={handleFindMovies}>
         Find Movies
-      </button>
+      </button> */}
 
     </div>
   )

@@ -14,6 +14,7 @@ import { storeDropdown } from './stores/dropdown'
 import { Favorites } from './routes/Favorites'
 import { WatchLater } from './routes/WatchLater'
 import { Search } from './routes/Search'
+import { Error404 } from './components/Error404'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
     path: "/search/:query/:page",
     element: <Search />,
   },
+  {
+    path: "/*",
+    element: <Error404 />,
+  },
 ])
 
 const App: React.FunctionComponent = () => {
@@ -51,7 +56,6 @@ const App: React.FunctionComponent = () => {
             <storeFavorites.contextState.Provider value={stateFavorites}>
               <storeFavorites.contextDispatch.Provider value={dispatchFavorites}>
                 <RouterProvider router={router} />
-
                 {/* <Route path="/browse">
                       {() => {
                         const params = new URLSearchParams(location.search)
