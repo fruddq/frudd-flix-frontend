@@ -78,10 +78,11 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
 
   return (
     <div className="movie">
-      <h2 className="movie-title">
-        {movie.title}
-      </h2>
-
+      <div className="movie-title-container">
+        <h2 className="movie-title">
+          {movie.title}
+        </h2>
+      </div>
       <img
         className="movie-poster"
         src={
@@ -92,17 +93,17 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
         alt={movie.poster_path ? movie.title : "No poster available"}
       />
 
-      <section className="sort-info-container">
+      <section className="movie-info-container">
         <article>
-          <p className="sort-info-text movie-year">
+          <p className="movie-info-text movie-year">
             {movie.release_date.substring(0, 4)}
           </p>
-          <p className="sort-info-text">
+          <p className="movie-info-text">
             Rating: {movie.vote_average.toFixed(1)}/10
           </p>
         </article>
 
-        <article className="sort-info-text">
+        <article className="movie-info-text movie-genre-container">
           {genreNames.map((name) => (
             <button key={name} className="menu-item menu-button">
               {name}
