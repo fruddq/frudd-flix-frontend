@@ -243,8 +243,8 @@ body {
         font-family: "Mukta", sans-serif;
         width: 100%;
 
-        .previous-btn,
-        .next-btn {
+        .trailer-previous-btn,
+        .trailer-next-btn {
           font-family: "Mukta", sans-serif;
           background-color: transparent;
           color: white;
@@ -259,6 +259,11 @@ body {
           font-size: 2rem;
           width: 1%;
           font-weight: 600;
+        }
+
+        .trailer-previous-btn.disabled,
+        .trailer-next-btn.disabled {
+          color: grey;
         }
 
         .total-pages {

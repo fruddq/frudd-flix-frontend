@@ -47,7 +47,7 @@ export const Trailers: React.FunctionComponent<PropsTrailers> = ({ trailers, onC
           <button
             onClick={handlePreviousTrailer}
             disabled={currentTrailerIndex === 0}
-            className={`previous-btn${currentTrailerIndex === 0 ? ' disabled' : ''}`}>
+            className={`trailer-previous-btn${currentTrailerIndex === 0 ? ' disabled' : ''}`}>
             ‹
           </button>
 
@@ -58,7 +58,7 @@ export const Trailers: React.FunctionComponent<PropsTrailers> = ({ trailers, onC
           <button
             onClick={handleNextTrailer}
             disabled={currentTrailerIndex === trailers.length - 1}
-            className={`next-btn${currentTrailerIndex === trailers.length - 1 ? ' disabled' : ''}`}>
+            className={`trailer-next-btn${currentTrailerIndex === trailers.length - 1 ? ' disabled' : ''}`}>
             ›
           </button>
         </div>}

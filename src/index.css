@@ -221,8 +221,8 @@ body {
   font-family: "Mukta", sans-serif;
   width: 100%;
 }
-.movies-container .movie .backdrop .trailer-navigation .previous-btn,
-.movies-container .movie .backdrop .trailer-navigation .next-btn {
+.movies-container .movie .backdrop .trailer-navigation .trailer-previous-btn,
+.movies-container .movie .backdrop .trailer-navigation .trailer-next-btn {
   font-family: "Mukta", sans-serif;
   background-color: transparent;
   color: white;
@@ -237,6 +237,10 @@ body {
   font-size: 2rem;
   width: 1%;
   font-weight: 600;
+}
+.movies-container .movie .backdrop .trailer-navigation .trailer-previous-btn.disabled,
+.movies-container .movie .backdrop .trailer-navigation .trailer-next-btn.disabled {
+  color: grey;
 }
 .movies-container .movie .backdrop .trailer-navigation .total-pages {
   color: rgb(158, 158, 158);
