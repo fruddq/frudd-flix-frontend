@@ -29,7 +29,7 @@ export const Search: React.FunctionComponent = () => {
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
 
-    console.log(page, data.total_pages)
+    if (page > data.total_pages) return <ErrorComplete errorMessage="Page not found" />
 
   }, [setMovies, setTotalPages, fetchMovies, page, query])
 

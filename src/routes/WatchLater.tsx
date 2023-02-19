@@ -8,7 +8,6 @@ import { Footer } from "../components/Footer"
 import { Movies } from "../components/Movies"
 import { Header } from "../components/Header"
 import { Loader } from "../components/Loader"
-import { ErrorMessage } from "../components/ErrorMessage"
 import { ErrorComplete } from "../components/ErrorComplete"
 import { Navigate } from "../components/Navigate"
 
@@ -81,7 +80,7 @@ export class WatchLaterBase extends React.Component<{
 
     const page = Number(props.params.page)
 
-    if (page > 500 || page < 1) return <ErrorMessage errorMessage="Page not found" />
+    if (page > 500 || page < 1) return <ErrorComplete errorMessage="Page not found" />
 
     const totalPages = Math.ceil(props.watchLater.length / moviesPerPage)
 

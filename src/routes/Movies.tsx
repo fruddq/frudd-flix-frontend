@@ -6,7 +6,6 @@ import { Header } from "../components/Header"
 import type { IMovie } from "../models/Interfaces"
 import { fetchMovies } from "../services/fetchMovies"
 import { Loader } from "../components/Loader"
-import { ErrorMessage } from "../components/ErrorMessage"
 import { ErrorComplete } from "../components/ErrorComplete"
 
 export const Movies: React.FunctionComponent = () => {
@@ -27,7 +26,7 @@ export const Movies: React.FunctionComponent = () => {
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
 
-    if (page > data.total_pages) return <ErrorMessage errorMessage="Page not found" />
+    if (page > data.total_pages) return <ErrorComplete errorMessage="Page not found" />
   }, [setMovies, setTotalPages, fetchMovies, page])
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import axios from "axios"
+import type { APIMoviesresponse } from "../models/Interfaces"
 import { API_URL } from "./config"
 
 export interface IBrowse {
@@ -20,7 +21,8 @@ export const fetchMoviesBrowse = async ({ from, to, genres, page }: IBrowse) => 
     },
   }
 
-  const response = await axios(config)
+  const response: APIMoviesresponse = await axios(config)
+  console.log(response)
   return response.data
 }
 

@@ -61,31 +61,6 @@ const App: React.FunctionComponent = () => {
             <storeFavorites.contextState.Provider value={stateFavorites}>
               <storeFavorites.contextDispatch.Provider value={dispatchFavorites}>
                 <RouterProvider router={router} />
-                {/* <Route path="/browse">
-                      {() => {
-                        const params = new URLSearchParams(location.search)
-                        return (
-                          <Browse
-                            from={Number(params.get('from') || '0')}
-                            to={Number(params.get('to') || '0')}
-                            genres={params.get('genres') || ''}
-                            page={Number(params.get('page') || '1')}
-                          />
-                        )
-                      }}
-                    </Route> */}
-                {/*Wouter prevents normal search params  */}
-
-                {/* <Route path="/browse/from=:from/to=:to/genres=:genres/:page">
-                      {params => <Browse page={Number(params['page'] || "1")} from={Number(params['from'] || "1950")} to={Number(params['to'] || "2023")} genres={params['genres'] || ""} />}
-                    </Route>
-
-                    <Route path="/404" component={Error404} />
-
-                    <Redirect to="/404" />
-                  </Switch>
-                </Router> */}
-
               </storeFavorites.contextDispatch.Provider>
             </storeFavorites.contextState.Provider>
           </storeWatchLater.contextDispatch.Provider>
