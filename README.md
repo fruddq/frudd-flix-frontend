@@ -52,25 +52,4 @@ Should render all trailers for that movie.
 fly.io
 
 
-Nanis changes:
-
-[x] Movie.tsx -> changed structure in return. added btn className='watch-trailer-btn'
-[x] index.html -> added link to google fonts in head
-
-Left TODO:
-[] Export scss color variabels to seperate file
-[x] HTML/SCSS-classes for dropdown. Ex dropdown header + dropdown title??????
-[] Last page and first page (M0vies.tsx)
-
-Desktop:
-[] fix size watch trailer & watch later btns
-[] fix layouot
-
-Frudds FIXME:
-[] fix watch trailer-btn. There is a "button.watch-trailer-btn.active" in index.scss for the btn.
-[] fix poster size in mobile & desktop mode
-
-footer:
-[] fix symbols e.g fontAwesome -> position pin in footer
-[] fix link to github & linked
 
