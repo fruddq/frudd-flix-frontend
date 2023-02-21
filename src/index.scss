@@ -39,7 +39,7 @@ body {
     background-color: rgba(0, 0, 0, 0.877);
     color: #000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in;
     border-radius: 5px;
     padding-bottom: 2px;
     padding-top: 2px;
@@ -69,7 +69,6 @@ body {
       justify-content: center;
       align-items: center;
     }
-
     .browse-btn-active {
       background-color: #fff;
       color: #000;
@@ -215,7 +214,7 @@ body {
       }
 
       .menu-filter-btn:hover {
-        background-color: black;
+        background-color: rgb(34, 34, 34);
         color: gold;
       }
     }
@@ -223,6 +222,7 @@ body {
     .browse-menu-sticky {
       top: 105%;
       height: 75vh;
+      transition: all 0.3s ease-in;
     }
   }
 }
@@ -396,7 +396,7 @@ body {
           margin: 2%;
           border: 0;
           border-radius: 10px;
-          box-shadow: 0 0 4px 1px rgb(168, 168, 168);
+          // box-shadow: 0 0 4px 1px rgb(168, 168, 168);
           width: 30%;
         }
 
@@ -555,6 +555,11 @@ body {
         padding: 0.5% 1.5%;
       }
 
+      .nav-btn:hover {
+        color: black;
+        background-color: white;
+      }
+
       .menu-input {
         width: 29.5%;
       }
@@ -563,24 +568,32 @@ body {
       }
 
       .browse-menu {
-        top: 60%;
+        top: 35%;
         display: flex;
         align-items: center;
         height: auto;
         padding: 0;
+        width: 50%;
+        left: 25%;
 
         .browse-title {
           margin: 5%;
+          font-size: 2.2rem;
         }
+
         .slider-container {
           width: 70%;
+
           .slider-min-text {
             top: 15%;
             left: 15%;
+            font-size: 1.4rem;
           }
+
           .slider-max-text {
             top: 15%;
             right: 15%;
+            font-size: 1.4rem;
           }
         }
 
@@ -588,6 +601,22 @@ body {
           width: 60%;
           margin: 5% 0 5% 0;
         }
+
+        .browse-genres {
+          margin-top: 5%;
+
+          .button-genre {
+            font-size: 1.2rem;
+          }
+        }
+        .menu-filter-btn {
+          font-size: 1.3rem;
+        }
+      }
+
+      .browse-menu-sticky {
+        top: 110%;
+        transition: all 0.3s ease-in;
       }
     }
   }
@@ -601,8 +630,8 @@ body {
     .movie {
       width: 20%;
       margin-bottom: 20px;
-      outline: 1px solid rgba(255, 255, 255, 0.185);
-      border-radius: 3%;
+      outline: none;
+      border: 2px solid #4e4e4ea1;
       text-align: center;
 
       .movie-title-container {
@@ -612,14 +641,17 @@ body {
         align-items: center;
 
         .movie-title {
-          font-size: 2.1rem;
-          text-align: center;
+          font-size: 2rem;
           flex-grow: 1;
+          display: -ms-flexbox;
           display: -webkit-box;
-          -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
-          text-overflow: ellipsis;
+          -webkit-line-clamp: 3;
+          -ms-line-clamp: 3;
+          -moz-line-clamp: 3;
+          box-orient: vertical;
+          -webkit-box-orient: vertical;
         }
       }
 
@@ -629,28 +661,77 @@ body {
       }
 
       .movie-info-container {
-        margin-top: 2%;
-        height: 5%;
+        margin-top: 3%;
+        height: 100%;
+
+        .movie-info-text {
+          font-size: 1.8rem;
+        }
 
         .movie-genre-container {
           display: flex;
           flex-wrap: wrap;
+          align-items: center;
           justify-content: center;
-          height: 155px;
+          min-height: 130px;
           width: 100%;
         }
+
         .menu-button {
           margin-bottom: 0;
-          height: 40px;
-          min-width: 100px;
-          max-width: 150px;
-          line-height: 15px;
+          font-size: 1.2rem;
+        }
+
+        .later-trailer-liked-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .watch-trailer-btn,
+          .watch-trailer-btn,
+          .watch-later {
+            width: 35%;
+            font-size: 1.1rem;
+          }
+
+          .favorite {
+            font-size: 2.7em;
+          }
         }
       }
 
       .line-break {
         display: none;
       }
+    }
+  }
+
+  .pagination-container {
+    margin: 0;
+    .total-pages {
+      font-size: 1.3rem;
+    }
+
+    .last-btn,
+    .first-btn,
+    .previous-btn,
+    .next-btn {
+      font-size: 3rem;
+      width: 5%;
+    }
+  }
+
+  .footer {
+    .footer-ul {
+      font-size: 1.5rem;
+    }
+
+    .fa-linkedin {
+      font-size: 1.5rem;
+    }
+
+    .fa-linkedin:hover {
+      color: white;
     }
   }
 }

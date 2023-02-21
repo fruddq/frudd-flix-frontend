@@ -37,7 +37,7 @@ body {
   background-color: rgba(0, 0, 0, 0.877);
   color: #000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in;
   border-radius: 5px;
   padding-bottom: 2px;
   padding-top: 2px;
@@ -194,12 +194,13 @@ body {
   font-family: "Mukta", sans-serif;
 }
 .header .menu .browse-menu .menu-filter-btn:hover {
-  background-color: black;
+  background-color: rgb(34, 34, 34);
   color: gold;
 }
 .header .menu .browse-menu-sticky {
   top: 105%;
   height: 75vh;
+  transition: all 0.3s ease-in;
 }
 
 .movies-container {
@@ -346,7 +347,6 @@ body {
   margin: 2%;
   border: 0;
   border-radius: 10px;
-  box-shadow: 0 0 4px 1px rgb(168, 168, 168);
   width: 30%;
 }
 .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-trailer-btn {
@@ -480,6 +480,10 @@ body {
     font-size: 1.2rem;
     padding: 0.5% 1.5%;
   }
+  .header .menu .nav-btn:hover {
+    color: black;
+    background-color: white;
+  }
   .header .menu .menu-input {
     width: 29.5%;
   }
@@ -487,14 +491,17 @@ body {
     padding: 0.7%;
   }
   .header .menu .browse-menu {
-    top: 60%;
+    top: 35%;
     display: flex;
     align-items: center;
     height: auto;
     padding: 0;
+    width: 50%;
+    left: 25%;
   }
   .header .menu .browse-menu .browse-title {
     margin: 5%;
+    font-size: 2.2rem;
   }
   .header .menu .browse-menu .slider-container {
     width: 70%;
@@ -502,14 +509,29 @@ body {
   .header .menu .browse-menu .slider-container .slider-min-text {
     top: 15%;
     left: 15%;
+    font-size: 1.4rem;
   }
   .header .menu .browse-menu .slider-container .slider-max-text {
     top: 15%;
     right: 15%;
+    font-size: 1.4rem;
   }
   .header .menu .browse-menu .menu-filter-btn {
     width: 60%;
     margin: 5% 0 5% 0;
+  }
+  .header .menu .browse-menu .browse-genres {
+    margin-top: 5%;
+  }
+  .header .menu .browse-menu .browse-genres .button-genre {
+    font-size: 1.2rem;
+  }
+  .header .menu .browse-menu .menu-filter-btn {
+    font-size: 1.3rem;
+  }
+  .header .menu .browse-menu-sticky {
+    top: 110%;
+    transition: all 0.3s ease-in;
   }
   .movies-container {
     display: flex;
@@ -520,8 +542,8 @@ body {
   .movies-container .movie {
     width: 20%;
     margin-bottom: 20px;
-    outline: 1px solid rgba(255, 255, 255, 0.185);
-    border-radius: 3%;
+    outline: none;
+    border: 2px solid rgba(78, 78, 78, 0.631372549);
     text-align: center;
   }
   .movies-container .movie .movie-title-container {
@@ -531,39 +553,79 @@ body {
     align-items: center;
   }
   .movies-container .movie .movie-title-container .movie-title {
-    font-size: 2.1rem;
-    text-align: center;
+    font-size: 2rem;
     flex-grow: 1;
+    display: -ms-flexbox;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -ms-line-clamp: 3;
+    -moz-line-clamp: 3;
+    box-orient: vertical;
+    -webkit-box-orient: vertical;
   }
   .movies-container .movie .movie-poster {
     width: 80%;
     margin: 0 auto;
   }
   .movies-container .movie .movie-info-container {
-    margin-top: 2%;
-    height: 5%;
+    margin-top: 3%;
+    height: 100%;
+  }
+  .movies-container .movie .movie-info-container .movie-info-text {
+    font-size: 1.8rem;
   }
   .movies-container .movie .movie-info-container .movie-genre-container {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    height: 155px;
+    min-height: 130px;
     width: 100%;
   }
   .movies-container .movie .movie-info-container .menu-button {
     margin-bottom: 0;
-    height: 40px;
-    min-width: 100px;
-    max-width: 150px;
-    line-height: 15px;
+    font-size: 1.2rem;
+  }
+  .movies-container .movie .movie-info-container .later-trailer-liked-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-trailer-btn,
+  .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-trailer-btn,
+  .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-later {
+    width: 35%;
+    font-size: 1.1rem;
+  }
+  .movies-container .movie .movie-info-container .later-trailer-liked-container .favorite {
+    font-size: 2.7em;
   }
   .movies-container .movie .line-break {
     display: none;
+  }
+  .pagination-container {
+    margin: 0;
+  }
+  .pagination-container .total-pages {
+    font-size: 1.3rem;
+  }
+  .pagination-container .last-btn,
+  .pagination-container .first-btn,
+  .pagination-container .previous-btn,
+  .pagination-container .next-btn {
+    font-size: 3rem;
+    width: 5%;
+  }
+  .footer .footer-ul {
+    font-size: 1.5rem;
+  }
+  .footer .fa-linkedin {
+    font-size: 1.5rem;
+  }
+  .footer .fa-linkedin:hover {
+    color: white;
   }
 }
 .loading-container {

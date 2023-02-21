@@ -82,7 +82,8 @@ export class BrowseBase extends React.Component<{
 
   override render() {
     const { props } = this
-    if (!props.movies.length) return <ErrorMessage errorMessage="No Movies Found" />
+
+    // if (!props.movies.length) return <ErrorMessage errorMessage="No Movies Found" />
     if (props.page > props.totalPages && props.page !== 1) return <ErrorMessage errorMessage="Page not found" />
     if (props.page > 500 || props.page < 1) return <ErrorMessage errorMessage="Page not found" />
 

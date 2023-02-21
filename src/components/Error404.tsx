@@ -1,9 +1,8 @@
-import { Header } from "./Header"
+import { ErrorMessage } from "./ErrorMessage"
 
 export const Error404: React.FunctionComponent = () =>
 (
-  <div>
-    <Header />
-    <div className="error-message">Page not found</div>
-  </div>
+  <>
+    <ErrorMessage errorMessage="Page not found" />
+  </>
 )
