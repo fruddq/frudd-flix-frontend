@@ -7,7 +7,8 @@ import { EActionBrowseMenu, storeBrowseMenu } from "../stores/browseMenu"
 // @TODO Change dropdown to relate to browse
 export const BrowseMenu: React.FunctionComponent<{
   readonly toggleDropdown: () => void
-}> = ({ toggleDropdown }) => {
+  readonly isSticky: boolean
+}> = ({ toggleDropdown, isSticky }) => {
   const browseMenuData = useContext(storeBrowseMenu.contextState)
   const dispatchBrowseMenu = useContext(storeBrowseMenu.contextDispatch)
 
@@ -41,7 +42,7 @@ export const BrowseMenu: React.FunctionComponent<{
   }, [dispatchBrowseMenu])
 
   return (
-    <div className="browse">
+    <div className={`browse-menu ${isSticky ? 'browse-menu-sticky' : ''}`}  >
       <h2 className="browse-title">Year</h2>
 
       <div className="slider-container">
@@ -71,9 +72,6 @@ export const BrowseMenu: React.FunctionComponent<{
         />
         <p className="slider-max-text">{browseMenuData.yearRange.to}</p>
       </div>
-
-
-      <h2 className="browse-title">Genre</h2>
 
       <div className="browse-genres">
         {browseMenuData.genres.map((genre) => (

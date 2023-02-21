@@ -32,19 +32,31 @@ body {
     color: rgb(255, 255, 255);
   }
 
+  .menu-sticky {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.877);
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+  }
+
   .menu {
-    width: 90%;
+    width: 100%;
     justify-content: center;
     display: flex;
-    position: sticky;
-    outline: 5px solid green;
+    z-index: 50;
 
     .nav-btn {
       background-color: transparent;
       color: #fff;
       border: 2px solid #fff;
       border-radius: 30px;
-      padding: 10px 20px;
+      padding: 1.5% 5%;
       font-size: 0.7rem;
       font-weight: bold;
       text-transform: uppercase;
@@ -52,13 +64,13 @@ body {
       cursor: pointer;
       transition: all 0.3s ease;
       margin-left: 1.5%;
-      max-width: 26%;
+      max-width: 24%;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .nav-btn:hover {
+    .browse-btn-active {
       background-color: #fff;
       color: #000;
       box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.3);
@@ -67,6 +79,7 @@ body {
     .menu-menu-btn {
       width: 100px;
       margin-left: 5px;
+      padding: 4%;
     }
 
     .menu-input {
@@ -76,21 +89,22 @@ body {
       margin-right: 10px;
     }
 
-    .browse {
+    .browse-menu {
       font-family: "Mukta", sans-serif;
       color: black;
       position: absolute;
       outline: 2px solid gold;
       background-color: black;
-      height: 80%;
+      height: 77%;
       width: 90%;
       left: 5%;
-      top: 21%;
+      top: 22.5%;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: stretch;
       padding-top: 5%;
+      z-index: 50;
 
       .browse-title {
         margin: 0;
@@ -174,17 +188,19 @@ body {
           border: 1px solid gold;
           border-radius: 1rem;
           margin: 0.5rem;
-          padding: 0.5rem 1rem;
+          padding: 0.2rem 1rem;
           font-size: 1rem;
           cursor: pointer;
           transition: background-color 0.2s, color 0.2s;
           font-family: "Mukta", sans-serif;
         }
+
         .button-genre.selected {
           background-color: gold;
           color: black;
         }
       }
+
       .menu-filter-btn {
         background-color: gold;
         color: black;
@@ -202,6 +218,11 @@ body {
         background-color: black;
         color: gold;
       }
+    }
+
+    .browse-menu-sticky {
+      top: 105%;
+      height: 75vh;
     }
   }
 }
@@ -223,7 +244,8 @@ body {
         font-family: "Mukta", sans-serif;
         margin-left: 5%;
         margin-right: 5%;
-        font-size: 1.5rem;
+        font-size: 1.7rem;
+        color: rgb(255, 255, 255);
       }
     }
 
@@ -415,15 +437,7 @@ body {
       margin: 2% 1% 4% 1%;
     }
 
-    .movie-title-container {
-      .movie-title {
-        font-size: 1.7rem;
-        color: rgb(255, 255, 255);
-      }
-    }
-
     &-poster {
-      object-fit: cover;
       border-radius: 15px;
       margin-left: 5%;
       margin-right: 5%;
@@ -529,41 +543,50 @@ body {
       margin: 2%;
       font-size: 1.5rem;
     }
+  }
 
-    .header {
-      .menu {
+  .header {
+    .menu {
+      display: flex;
+      justify-content: center;
+
+      .nav-btn {
+        font-size: 1.2rem;
+        padding: 0.5% 1.5%;
+      }
+
+      .menu-input {
+        width: 29.5%;
+      }
+      .menu-menu-btn {
+        padding: 0.7%;
+      }
+
+      .browse-menu {
+        top: 60%;
         display: flex;
-        justify-content: center;
-        .menu-input {
+        align-items: center;
+        height: auto;
+        padding: 0;
+
+        .browse-title {
+          margin: 5%;
+        }
+        .slider-container {
           width: 70%;
+          .slider-min-text {
+            top: 15%;
+            left: 15%;
+          }
+          .slider-max-text {
+            top: 15%;
+            right: 15%;
+          }
         }
 
-        .browse {
-          top: 60%;
-          display: flex;
-          align-items: center;
-          height: auto;
-          padding: 0;
-
-          .browse-title {
-            margin: 5%;
-          }
-          .slider-container {
-            width: 70%;
-            .slider-min-text {
-              top: 15%;
-              left: 15%;
-            }
-            .slider-max-text {
-              top: 15%;
-              right: 15%;
-            }
-          }
-
-          .menu-filter-btn {
-            width: 60%;
-            margin: 5% 0 5% 0;
-          }
+        .menu-filter-btn {
+          width: 60%;
+          margin: 5% 0 5% 0;
         }
       }
     }
@@ -583,24 +606,31 @@ body {
       text-align: center;
 
       .movie-title-container {
-        min-height: 150px;
+        min-height: 15vh; /* minimum height of 5% of the viewport height */
+        max-height: 15vh;
         display: flex;
         align-items: center;
 
         .movie-title {
-          font-size: 1.9rem;
+          font-size: 2.1rem;
           text-align: center;
           flex-grow: 1;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 
       .movie-poster {
-        width: 70%;
+        width: 80%;
         margin: 0 auto;
       }
+
       .movie-info-container {
-        outline: 2px solid orange;
-        height: 270px;
+        margin-top: 2%;
+        height: 5%;
 
         .movie-genre-container {
           display: flex;
@@ -622,5 +652,32 @@ body {
         display: none;
       }
     }
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.loader {
+  margin: 10%;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

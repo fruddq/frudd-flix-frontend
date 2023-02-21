@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { BrowseMenu } from "./BrowseMenu"
 import { SearchSVG } from "./SearchSVG"
@@ -36,32 +36,49 @@ export const MenuBar: React.FC = () => {
     navigate("/favorites/1")
   }, [navigate])
 
+  const [isSticky, setIsSticky] = useState(false)
+  const stickyPosition = 100 // set the position value where the menu should become sticky
+
+  useEffect(() => {
+    const makeMenuSticky = () => {
+      const scrollPosition = window.scrollY
+      setIsSticky(scrollPosition >= stickyPosition)
+    }
+
+    window.addEventListener('scroll', makeMenuSticky)
+
+    return () => {
+      window.removeEventListener('scroll', makeMenuSticky)
+    }
+  }, [stickyPosition])
+
+
   return (
-    <nav className="menu">
+    <nav className={`menu ${isSticky ? 'menu-sticky' : ''}`}>
       {!showMenuAndSearchButton && (
         <>
-          <button className="menu-browse-btn nav-btn" onClick={toggleDropdown}>
+          <button className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''} ${showDropdown ? 'browse-btn-active' : ''}`} onClick={toggleDropdown}>
             Browse
           </button>
 
-          <button className="menu-filter-btn nav-btn" onClick={navigateToFavorites}>
+          <button className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`} onClick={navigateToFavorites}>
             Favorites
           </button>
 
-          <button className="menu-filter-btn nav-btn" onClick={navigateToWatchLater}>
+          <button className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`} onClick={navigateToWatchLater}>
             Watch later
           </button>
 
-          <button className="menu-search-btn nav-btn" onClick={showMenuAndSearch}>
+          <button className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`} onClick={showMenuAndSearch}>
             <SearchSVG height={"30"} width={"30"} />
           </button>
 
-          {showDropdown && <BrowseMenu toggleDropdown={toggleDropdown} />}
+          {showDropdown && <BrowseMenu toggleDropdown={toggleDropdown} isSticky={isSticky} />}
         </>
       )}
       {showMenuAndSearchButton && (
         <>
-          <button className="menu-menu-btn nav-btn" onClick={hideMenuAndSearch}>
+          <button className={`menu-menu-btn nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`} onClick={hideMenuAndSearch}>
             Menu
           </button>
 

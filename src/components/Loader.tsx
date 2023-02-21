@@ -1,4 +1,6 @@
 export const Loader: React.FunctionComponent = () =>
 (
-  <div className="loader">Loading...</div>
+  <div className="loading-container">
+    <div className="loader" />
+  </div>
 )

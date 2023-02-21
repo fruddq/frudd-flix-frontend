@@ -30,19 +30,30 @@ body {
   font-size: 3.5rem;
   color: rgb(255, 255, 255);
 }
+.header .menu-sticky {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.877);
+  color: #000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
 .header .menu {
-  width: 90%;
+  width: 100%;
   justify-content: center;
   display: flex;
-  position: sticky;
-  outline: 5px solid green;
+  z-index: 50;
 }
 .header .menu .nav-btn {
   background-color: transparent;
   color: #fff;
   border: 2px solid #fff;
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 1.5% 5%;
   font-size: 0.7rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -50,12 +61,12 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: 1.5%;
-  max-width: 26%;
+  max-width: 24%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.header .menu .nav-btn:hover {
+.header .menu .browse-btn-active {
   background-color: #fff;
   color: #000;
   box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.3);
@@ -63,6 +74,7 @@ body {
 .header .menu .menu-menu-btn {
   width: 100px;
   margin-left: 5px;
+  padding: 4%;
 }
 .header .menu .menu-input {
   width: 100%;
@@ -70,23 +82,24 @@ body {
   margin-left: 5px;
   margin-right: 10px;
 }
-.header .menu .browse {
+.header .menu .browse-menu {
   font-family: "Mukta", sans-serif;
   color: black;
   position: absolute;
   outline: 2px solid gold;
   background-color: black;
-  height: 80%;
+  height: 77%;
   width: 90%;
   left: 5%;
-  top: 21%;
+  top: 22.5%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
   padding-top: 5%;
+  z-index: 50;
 }
-.header .menu .browse .browse-title {
+.header .menu .browse-menu .browse-title {
   margin: 0;
   color: gold;
   font-size: 1.5rem;
@@ -94,7 +107,7 @@ body {
   text-align: center;
   font-family: "Mukta", sans-serif;
 }
-.header .menu .browse .slider-container {
+.header .menu .browse-menu .slider-container {
   flex: 1;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -105,35 +118,35 @@ body {
   align-items: center;
   height: 10%;
 }
-.header .menu .browse .slider-container .slider-min-text,
-.header .menu .browse .slider-container .slider-max-text {
+.header .menu .browse-menu .slider-container .slider-min-text,
+.header .menu .browse-menu .slider-container .slider-max-text {
   color: gold;
   position: absolute;
   top: 7%;
 }
-.header .menu .browse .slider-container .slider-min-text {
+.header .menu .browse-menu .slider-container .slider-min-text {
   left: 5%;
   text-align: left;
 }
-.header .menu .browse .slider-container .slider-max-text {
+.header .menu .browse-menu .slider-container .slider-max-text {
   right: 5%;
   text-align: right;
 }
-.header .menu .browse .slider-container .slider {
+.header .menu .browse-menu .slider-container .slider {
   cursor: pointer;
   width: 100%;
   height: 2px;
   background-color: gold;
 }
-.header .menu .browse .slider-container .slider .track {
+.header .menu .browse-menu .slider-container .slider .track {
   height: 2px;
   background-color: blueviolet;
 }
-.header .menu .browse .slider-container .slider .track:nth-child(2) {
+.header .menu .browse-menu .slider-container .slider .track:nth-child(2) {
   background-color: var(--char-coal);
   background-color: gold;
 }
-.header .menu .browse .slider-container .thumb {
+.header .menu .browse-menu .slider-container .thumb {
   cursor: pointer;
   width: 1rem;
   height: 1rem;
@@ -141,10 +154,10 @@ body {
   border-radius: 50%;
   margin-top: -5px;
 }
-.header .menu .browse .slider-container .thumb:hover {
+.header .menu .browse-menu .slider-container .thumb:hover {
   background: linear-gradient(to bottom, #fac23d, #d88b14);
 }
-.header .menu .browse .browse-genres {
+.header .menu .browse-menu .browse-genres {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -152,23 +165,23 @@ body {
   align-items: center;
   font-size: 0.9rem;
 }
-.header .menu .browse .browse-genres .button-genre {
+.header .menu .browse-menu .browse-genres .button-genre {
   background-color: black;
   color: gold;
   border: 1px solid gold;
   border-radius: 1rem;
   margin: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.2rem 1rem;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
   font-family: "Mukta", sans-serif;
 }
-.header .menu .browse .browse-genres .button-genre.selected {
+.header .menu .browse-menu .browse-genres .button-genre.selected {
   background-color: gold;
   color: black;
 }
-.header .menu .browse .menu-filter-btn {
+.header .menu .browse-menu .menu-filter-btn {
   background-color: gold;
   color: black;
   border: none;
@@ -180,9 +193,13 @@ body {
   transition: background-color 0.2s, color 0.2s;
   font-family: "Mukta", sans-serif;
 }
-.header .menu .browse .menu-filter-btn:hover {
+.header .menu .browse-menu .menu-filter-btn:hover {
   background-color: black;
   color: gold;
+}
+.header .menu .browse-menu-sticky {
+  top: 105%;
+  height: 75vh;
 }
 
 .movies-container {
@@ -201,7 +218,8 @@ body {
   font-family: "Mukta", sans-serif;
   margin-left: 5%;
   margin-right: 5%;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
+  color: rgb(255, 255, 255);
 }
 .movies-container .movie .backdrop {
   position: fixed;
@@ -361,13 +379,7 @@ body {
   transition: background-color 0.3s ease;
   margin: 2% 1% 4% 1%;
 }
-.movies-container .movie .movie-title-container .movie-title {
-  font-size: 1.7rem;
-  color: rgb(255, 255, 255);
-}
 .movies-container .movie-poster {
-  -o-object-fit: cover;
-     object-fit: cover;
   border-radius: 15px;
   margin-left: 5%;
   margin-right: 5%;
@@ -460,35 +472,42 @@ body {
     margin: 2%;
     font-size: 1.5rem;
   }
-  .error-message-container .header .menu {
+  .header .menu {
     display: flex;
     justify-content: center;
   }
-  .error-message-container .header .menu .menu-input {
-    width: 70%;
+  .header .menu .nav-btn {
+    font-size: 1.2rem;
+    padding: 0.5% 1.5%;
   }
-  .error-message-container .header .menu .browse {
+  .header .menu .menu-input {
+    width: 29.5%;
+  }
+  .header .menu .menu-menu-btn {
+    padding: 0.7%;
+  }
+  .header .menu .browse-menu {
     top: 60%;
     display: flex;
     align-items: center;
     height: auto;
     padding: 0;
   }
-  .error-message-container .header .menu .browse .browse-title {
+  .header .menu .browse-menu .browse-title {
     margin: 5%;
   }
-  .error-message-container .header .menu .browse .slider-container {
+  .header .menu .browse-menu .slider-container {
     width: 70%;
   }
-  .error-message-container .header .menu .browse .slider-container .slider-min-text {
+  .header .menu .browse-menu .slider-container .slider-min-text {
     top: 15%;
     left: 15%;
   }
-  .error-message-container .header .menu .browse .slider-container .slider-max-text {
+  .header .menu .browse-menu .slider-container .slider-max-text {
     top: 15%;
     right: 15%;
   }
-  .error-message-container .header .menu .browse .menu-filter-btn {
+  .header .menu .browse-menu .menu-filter-btn {
     width: 60%;
     margin: 5% 0 5% 0;
   }
@@ -506,22 +525,28 @@ body {
     text-align: center;
   }
   .movies-container .movie .movie-title-container {
-    min-height: 150px;
+    min-height: 15vh; /* minimum height of 5% of the viewport height */
+    max-height: 15vh;
     display: flex;
     align-items: center;
   }
   .movies-container .movie .movie-title-container .movie-title {
-    font-size: 1.9rem;
+    font-size: 2.1rem;
     text-align: center;
     flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .movies-container .movie .movie-poster {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
   }
   .movies-container .movie .movie-info-container {
-    outline: 2px solid orange;
-    height: 270px;
+    margin-top: 2%;
+    height: 5%;
   }
   .movies-container .movie .movie-info-container .movie-genre-container {
     display: flex;
@@ -539,5 +564,31 @@ body {
   }
   .movies-container .movie .line-break {
     display: none;
+  }
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.loader {
+  margin: 10%;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }/*# sourceMappingURL=index.css.map */
