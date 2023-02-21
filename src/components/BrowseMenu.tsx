@@ -41,8 +41,8 @@ export const BrowseMenu: React.FunctionComponent<{
   }, [dispatchBrowseMenu])
 
   return (
-    <div className="dropdown">
-      <h2 className="dropdown-title">Year</h2>
+    <div className="browse">
+      <h2 className="browse-title">Year</h2>
 
       <div className="slider-container">
         <p className="slider-min-text">{browseMenuData.yearRange.from}</p>
@@ -73,9 +73,9 @@ export const BrowseMenu: React.FunctionComponent<{
       </div>
 
 
-      <h2 className="dropdown-title">Genre</h2>
+      <h2 className="browse-title">Genre</h2>
 
-      <div className="dropdown-genres">
+      <div className="browse-genres">
         {browseMenuData.genres.map((genre) => (
           <button
             className={`button-genre ${genre.selected ? 'selected' : ''}`}
