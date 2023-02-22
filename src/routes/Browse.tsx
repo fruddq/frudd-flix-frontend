@@ -25,13 +25,18 @@ export const Browse: React.FunctionComponent = () => {
 
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
+  const [noMoviesFound, setNoMoviesFound] = useState(false)
 
   const fetchAndSetData = useCallback(async () => {
     const data = await fetchMoviesBrowse({ from, to, genres, page })
 
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
-  }, [setMovies, setTotalPages, fetchMoviesBrowse, from, to, page, genres])
+    if (!data.results.length) {
+      setNoMoviesFound(true)
+    }
+    console.log(data.results)
+  }, [setMovies, setTotalPages, fetchMoviesBrowse, from, to, page, genres, setNoMoviesFound])
 
   useEffect(() => {
     fetchAndSetData()
@@ -46,6 +51,7 @@ export const Browse: React.FunctionComponent = () => {
     browseQuery={browseQuery}
     totalPages={totalPages}
     page={page}
+    noMoviesFound={noMoviesFound}
   />
 }
 
@@ -55,6 +61,7 @@ export class BrowseBase extends React.Component<{
   readonly navigate: NavigateFunction
   readonly totalPages: number
   readonly page: number
+  readonly noMoviesFound: boolean
 }> {
   navigateNext = () => {
     const { props } = this
@@ -83,7 +90,7 @@ export class BrowseBase extends React.Component<{
   override render() {
     const { props } = this
 
-    // if (!props.movies.length) return <ErrorMessage errorMessage="No Movies Found" />
+    if (props.noMoviesFound) return <ErrorMessage errorMessage="No Movies Found" />
     if (props.page > props.totalPages && props.page !== 1) return <ErrorMessage errorMessage="Page not found" />
     if (props.page > 500 || props.page < 1) return <ErrorMessage errorMessage="Page not found" />
 
