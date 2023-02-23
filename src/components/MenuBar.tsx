@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { BrowseMenu } from "./BrowseMenu"
+import { BrowseMenu } from "./BrowseMenu/BrowseMenu"
 import { SearchSVG } from "./SearchSVG"
 
 // @TODO fix sort functions

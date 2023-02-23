@@ -5,6 +5,7 @@
 body {
   margin: 0;
   background-color: rgb(0, 0, 0);
+  padding: 0 16px;
 }
 
 .error-message-container {
@@ -22,46 +23,36 @@ body {
   justify-content: center;
   flex-flow: column;
   align-items: center;
+  margin: 16px 0;
 }
 .header .frudd-flix-logo {
   width: 100%;
+  margin-bottom: 8px;
 }
 .header .title {
   font-size: 3.5rem;
   color: rgb(255, 255, 255);
 }
-.header .menu-sticky {
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.877);
-  color: #000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-in;
-  border-radius: 5px;
-  padding-bottom: 2px;
-  padding-top: 2px;
-}
 .header .menu {
-  width: 100%;
-  justify-content: center;
+  justify-content: space-between;
   display: flex;
   z-index: 50;
+  gap: 8px;
+  position: relative;
+  width: 100%;
 }
 .header .menu .nav-btn {
   background-color: transparent;
   color: #fff;
   border: 2px solid #fff;
   border-radius: 30px;
-  padding: 1.5% 5%;
+  padding: 8px 12px;
   font-size: 0.7rem;
   font-weight: bold;
   text-transform: uppercase;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-left: 1.5%;
-  max-width: 24%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,14 +64,11 @@ body {
 }
 .header .menu .menu-menu-btn {
   width: 100px;
-  margin-left: 5px;
-  padding: 4%;
+  padding: 16px 16px;
 }
 .header .menu .menu-input {
   width: 100%;
   border-radius: 10px;
-  margin-left: 5px;
-  margin-right: 10px;
 }
 .header .menu .browse-menu {
   font-family: "Mukta", sans-serif;
@@ -88,55 +76,48 @@ body {
   position: absolute;
   outline: 2px solid gold;
   background-color: black;
-  height: 77%;
-  width: 90%;
-  left: 5%;
-  top: 22.5%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  padding-top: 5%;
   z-index: 50;
+  top: 110%;
 }
-.header .menu .browse-menu .browse-title {
+.header .menu .browse-menu .slider-container {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header .menu .browse-menu .slider-container .slider-year-container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+}
+.header .menu .browse-menu .slider-container .slider-year-container .browse-title {
   margin: 0;
   color: gold;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   font-family: "Mukta", sans-serif;
+  justify-self: center;
 }
-.header .menu .browse-menu .slider-container {
-  flex: 1;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 10%;
-}
-.header .menu .browse-menu .slider-container .slider-min-text,
-.header .menu .browse-menu .slider-container .slider-max-text {
+.header .menu .browse-menu .slider-container .slider-year-container .slider-min-text,
+.header .menu .browse-menu .slider-container .slider-year-container .slider-max-text {
   color: gold;
-  position: absolute;
-  top: 7%;
 }
-.header .menu .browse-menu .slider-container .slider-min-text {
-  left: 5%;
-  text-align: left;
+.header .menu .browse-menu .slider-container .slider-year-container .slider-min-text {
+  justify-self: start;
 }
-.header .menu .browse-menu .slider-container .slider-max-text {
-  right: 5%;
-  text-align: right;
+.header .menu .browse-menu .slider-container .slider-year-container .slider-max-text {
+  justify-self: end;
 }
 .header .menu .browse-menu .slider-container .slider {
   cursor: pointer;
   width: 100%;
-  height: 2px;
   background-color: gold;
+  margin-bottom: 16px;
 }
 .header .menu .browse-menu .slider-container .slider .track {
   height: 2px;
@@ -164,14 +145,15 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 0.9rem;
+  margin: 8px 0;
+  gap: 8px;
 }
 .header .menu .browse-menu .browse-genres .button-genre {
   background-color: black;
   color: gold;
   border: 1px solid gold;
-  border-radius: 1rem;
-  margin: 0.5rem;
-  padding: 0.2rem 1rem;
+  border-radius: 32px;
+  padding: 8px 16px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
@@ -198,9 +180,14 @@ body {
   color: gold;
 }
 .header .menu .browse-menu-sticky {
-  top: 105%;
-  height: 75vh;
-  transition: all 0.3s ease-in;
+  width: 93%;
+  left: 3.5%;
+}
+.header .menu-sticky {
+  position: fixed;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.877);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .movies-container {
@@ -347,6 +334,7 @@ body {
   margin: 2%;
   border: 0;
   border-radius: 10px;
+  cursor: pointer;
   width: 30%;
 }
 .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-trailer-btn {
@@ -381,9 +369,7 @@ body {
 }
 .movies-container .movie-poster {
   border-radius: 15px;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 8px;
 }
 .movies-container .movie .line-break {
   width: 70%;
@@ -475,10 +461,10 @@ body {
   .header .menu {
     display: flex;
     justify-content: center;
+    gap: 16px;
   }
   .header .menu .nav-btn {
     font-size: 1.2rem;
-    padding: 0.5% 1.5%;
   }
   .header .menu .nav-btn:hover {
     color: black;
@@ -506,12 +492,12 @@ body {
   .header .menu .browse-menu .slider-container {
     width: 70%;
   }
-  .header .menu .browse-menu .slider-container .slider-min-text {
+  .header .menu .browse-menu .slider-container .slider-year-container .slider-min-text {
     top: 15%;
     left: 15%;
     font-size: 1.4rem;
   }
-  .header .menu .browse-menu .slider-container .slider-max-text {
+  .header .menu .browse-menu .slider-container .slider-year-container .slider-max-text {
     top: 15%;
     right: 15%;
     font-size: 1.4rem;
@@ -531,7 +517,6 @@ body {
   }
   .header .menu .browse-menu-sticky {
     top: 110%;
-    transition: all 0.3s ease-in;
   }
   .movies-container {
     display: flex;

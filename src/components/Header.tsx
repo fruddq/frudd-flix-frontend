@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 import { MenuBar } from "./MenuBar"
 
-import logo from '../assets/mobile-logo.png'
+import logo from '../assets/mobile-logo-test.png'
 
 export const Header: React.FunctionComponent = () =>
 (

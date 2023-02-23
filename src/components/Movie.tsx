@@ -1,5 +1,5 @@
 import CN from 'classnames'
-import { useCallback, useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useMemo, useState } from "react"
 
 import { EActionFavorites, storeFavorites } from "../stores/favorites"
 import { EActionWatchLater, storeWatchLater } from '../stores/watchLater'
@@ -23,7 +23,7 @@ export interface PropsMovie {
 
 export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
 
-  const [showBackdrop, setShowBackdrop] = useState(false)
+  const [showBackdropTrailer, setShowBackdropTrailer] = useState(false)
 
   const genreNames = movie.genre_ids.map(id => {
     const genre = genreList.find(g => g.id === id)
@@ -33,7 +33,7 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
   const dispatchWatchLater = useContext(storeWatchLater.contextDispatch)
   const stateWatchLater = useContext(storeWatchLater.contextState)
 
-  const handleWatchLater: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+  const addRemoveWatchlater: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
       event.preventDefault()
 
@@ -47,23 +47,24 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
 
   const dispatchFavorite = useContext(storeFavorites.contextDispatch)
   const stateFavorites = useContext(storeFavorites.contextState)
+  const memoizedStateFavorites = useMemo(() => stateFavorites, [stateFavorites])
 
-  const handleFavourite: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+  const addRemoveFavorite: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
       event.preventDefault()
 
       dispatchFavorite({
-        type: stateFavorites.includes(movie.id) ? EActionFavorites.Remove : EActionFavorites.Add,
+        type: memoizedStateFavorites.includes(movie.id) ? EActionFavorites.Remove : EActionFavorites.Add,
         payload: movie.id
       })
 
     },
-    [dispatchFavorite, stateFavorites, movie]
+    [dispatchFavorite, memoizedStateFavorites, movie]
   )
 
-  const handleWatchTrailer = useCallback(() => {
-    setShowBackdrop(!showBackdrop)
-  }, [setShowBackdrop, showBackdrop])
+  const showTrailer = useCallback(() => {
+    setShowBackdropTrailer(!showBackdropTrailer)
+  }, [setShowBackdropTrailer, showBackdropTrailer])
 
   const [trailers, setTrailers] = useState<string[]>([])
 
@@ -113,15 +114,10 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
 
         <article className="later-trailer-liked-container">
 
-          {trailers.length &&
-            <button onClick={handleWatchTrailer}
-              className="watch-trailer-btn">
-              Watch trailer
-            </button>
-          }
+          {trailers.length > 0 && <button onClick={showTrailer} className="watch-trailer-btn">Watch trailer</button>}
 
           <button
-            onClick={handleWatchLater}
+            onClick={addRemoveWatchlater}
             className={CN("watch-later", `movie-${movie.id}`, {
               active: stateWatchLater.includes(movie.id),
             })}
@@ -130,7 +126,7 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
           </button>
 
           <button
-            onClick={handleFavourite}
+            onClick={addRemoveFavorite}
             className={CN("favorite", `movie-${movie.id}`, {
               active: stateFavorites.includes(movie.id),
             })}
@@ -140,8 +136,8 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
         </article>
       </section>
 
-      {showBackdrop && (
-        <Trailers trailers={trailers} onCloseTrailer={handleWatchTrailer} />
+      {showBackdropTrailer && (
+        <Trailers trailers={trailers} onCloseTrailer={showTrailer} />
       )}
 
       <hr className="line-break" />

@@ -32,10 +32,14 @@ export const Browse: React.FunctionComponent = () => {
 
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
+
     if (!data.results.length) {
       setNoMoviesFound(true)
     }
-    console.log(data.results)
+    else {
+      setNoMoviesFound(false)
+    }
+
   }, [setMovies, setTotalPages, fetchMoviesBrowse, from, to, page, genres, setNoMoviesFound])
 
   useEffect(() => {

@@ -53,3 +53,5 @@ fly.io
 
 
 
+När man kör watch later och eller favorites, så ska den fetcha med en gång, spara det i en reducer som också sparar till lokal storage, så när man besöker watch later och favorites ska den titta, finns det i reducers, ta det, annars fetcha
+då trycker man watch, eller favorite, fetchar direkt till reducer o sparar till lokal storage
