@@ -230,7 +230,9 @@ body {
 
     .movie-title-container {
       .movie-title {
-        font-family: "Mukta", sans-serif;
+        // font-family: "Mukta", sans-serif;
+        font-family: "Lato", sans-serif;
+        // font-family: "Poppins", sans-serif;
         margin-left: 5%;
         margin-right: 5%;
         font-size: 1.7rem;
@@ -271,12 +273,14 @@ body {
         flex-flow: row;
         justify-content: center;
         align-items: center;
-        font-family: "Mukta", sans-serif;
+        font-family: "Lato", sans-serif;
+
         width: 100%;
 
         .trailer-previous-btn,
         .trailer-next-btn {
-          font-family: "Mukta", sans-serif;
+          font-family: "Lato", sans-serif;
+
           background-color: transparent;
           color: white;
           border: none;
@@ -398,6 +402,8 @@ body {
         font-size: 1.3rem;
         display: inline;
         color: rgb(255, 255, 255);
+        font-family: "Lato", sans-serif;
+        font-weight: 500;
       }
 
       .movie-year {
@@ -521,208 +527,6 @@ body {
   color: #fff;
 }
 
-//DESKTOP LAYOUT:
-@media only screen and (min-width: 1024px) {
-  .error-message-container {
-    height: 85vh;
-
-    .error-message {
-      margin: 2%;
-      font-size: 1.5rem;
-    }
-  }
-
-  .header {
-    .menu {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      .nav-btn {
-        font-size: 1.2rem;
-      }
-
-      .nav-btn:hover {
-        color: black;
-        background-color: white;
-      }
-
-      .menu-input {
-        width: 29.5%;
-      }
-      .menu-menu-btn {
-        padding: 0.7%;
-      }
-
-      .browse-menu {
-        top: 35%;
-        display: flex;
-        align-items: center;
-        height: auto;
-        padding: 0;
-        width: 50%;
-        left: 25%;
-
-        .browse-title {
-          margin: 5%;
-          font-size: 2.2rem;
-        }
-
-        .slider-container {
-          width: 70%;
-
-          .slider-year-container {
-            .slider-min-text {
-              top: 15%;
-              left: 15%;
-              font-size: 1.4rem;
-            }
-
-            .slider-max-text {
-              top: 15%;
-              right: 15%;
-              font-size: 1.4rem;
-            }
-          }
-        }
-
-        .menu-filter-btn {
-          width: 60%;
-          margin: 5% 0 5% 0;
-        }
-
-        .browse-genres {
-          margin-top: 5%;
-
-          .button-genre {
-            font-size: 1.2rem;
-          }
-        }
-        .menu-filter-btn {
-          font-size: 1.3rem;
-        }
-      }
-
-      .browse-menu-sticky {
-        top: 110%;
-      }
-    }
-  }
-
-  .movies-container {
-    display: flex;
-    flex-flow: wrap;
-    gap: 5%;
-    margin-top: 1%;
-
-    .movie {
-      width: 20%;
-      margin-bottom: 20px;
-      outline: none;
-      border: 2px solid #4e4e4ea1;
-      text-align: center;
-
-      .movie-title-container {
-        min-height: 15vh; /* minimum height of 5% of the viewport height */
-        max-height: 15vh;
-        display: flex;
-        align-items: center;
-
-        .movie-title {
-          font-size: 2rem;
-          flex-grow: 1;
-          display: -ms-flexbox;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          -webkit-line-clamp: 3;
-          -ms-line-clamp: 3;
-          -moz-line-clamp: 3;
-          box-orient: vertical;
-          -webkit-box-orient: vertical;
-        }
-      }
-
-      .movie-poster {
-        width: 80%;
-        margin: 0 auto;
-      }
-
-      .movie-info-container {
-        margin-top: 3%;
-        height: 100%;
-
-        .movie-info-text {
-          font-size: 1.8rem;
-        }
-
-        .movie-genre-container {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: center;
-          min-height: 130px;
-          width: 100%;
-        }
-
-        .menu-button {
-          margin-bottom: 0;
-          font-size: 1.2rem;
-        }
-
-        .later-trailer-liked-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          .watch-trailer-btn,
-          .watch-trailer-btn,
-          .watch-later {
-            width: 35%;
-            font-size: 1.1rem;
-          }
-
-          .favorite {
-            font-size: 2.7em;
-          }
-        }
-      }
-
-      .line-break {
-        display: none;
-      }
-    }
-  }
-
-  .pagination-container {
-    margin: 0;
-    .total-pages {
-      font-size: 1.3rem;
-    }
-
-    .last-btn,
-    .first-btn,
-    .previous-btn,
-    .next-btn {
-      font-size: 3rem;
-      width: 5%;
-    }
-  }
-
-  .footer {
-    .footer-ul {
-      font-size: 1.5rem;
-    }
-
-    .fa-linkedin {
-      font-size: 1.5rem;
-    }
-
-    .fa-linkedin:hover {
-      color: white;
-    }
-  }
-}
-
 .loading-container {
   display: flex;
   justify-content: center;
@@ -748,4 +552,9 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+//DESKTOP LAYOUT:
+@media only screen and (min-width: 1024px) {
+  @import "desktop";
 }

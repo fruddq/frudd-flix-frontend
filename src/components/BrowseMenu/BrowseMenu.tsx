@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from "react"
+import { useCallback, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { storeBrowseMenu } from "../../stores/browseMenu"
 import { BrowseMenuGenres } from "./BrowseMenuGenres"

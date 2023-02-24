@@ -44,6 +44,7 @@ export const Trailers: React.FunctionComponent<ITrailers> = ({ trailers, onClose
         allowFullScreen
         onLoad={showTrailer}
         style={{ display: isLoaded ? 'block' : 'none' }}
+        className="trailer-player"
       />
 
       {isLoaded &&
