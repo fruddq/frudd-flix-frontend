@@ -213,6 +213,7 @@ body {
     top: 0px;
     background-color: rgba(0, 0, 0, 0.877);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 8px 16px;
   }
 }
 
@@ -230,9 +231,7 @@ body {
 
     .movie-title-container {
       .movie-title {
-        // font-family: "Mukta", sans-serif;
         font-family: "Lato", sans-serif;
-        // font-family: "Poppins", sans-serif;
         margin-left: 5%;
         margin-right: 5%;
         font-size: 1.7rem;

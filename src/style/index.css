@@ -188,6 +188,7 @@ body {
   top: 0px;
   background-color: rgba(0, 0, 0, 0.877);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 8px 16px;
 }
 
 .movies-container {

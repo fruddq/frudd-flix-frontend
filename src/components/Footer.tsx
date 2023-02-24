@@ -21,7 +21,7 @@ export const Footer: React.FunctionComponent = () =>
             aria-label="To github profile"
             rel="noreferrer" />
         </li>
-        <li className="footer-li footer-name">&copy; Giang. D 2023</li>
+        <li className="footer-li footer-name">&copy; Giang Dinh 2023</li>
       </ul>
     </footer>
   </>
