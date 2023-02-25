@@ -319,6 +319,7 @@ body {
   border-radius: 10px;
   cursor: pointer;
   width: 30%;
+  color: black;
 }
 .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-trailer-btn {
   background-color: rgb(52, 255, 103);
