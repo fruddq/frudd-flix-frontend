@@ -131,7 +131,9 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
               active: stateFavorites.includes(movie.id),
             })}
           >
-            &#10084;
+            <svg viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 21.35l-1.45-1.32C4.96 14.77 2 11.23 2 7.5 2 4.42 4.42 2 7.5 2c1.93 0 3.77.94 4.9 2.52C13.73 2.94 15.57 2 17.5 2 20.58 2 23 4.42 23 7.5c0 3.73-2.96 7.27-8.55 12.53L12 21.35z" />
+            </svg>
           </button>
         </article>
       </section>

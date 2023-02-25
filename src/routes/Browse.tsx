@@ -13,7 +13,6 @@ import { ErrorMessage } from "../components/ErrorMessage"
 import { DOM } from "../modules/DOM"
 import { fetchMoviesBrowse } from "../services/fetchMoviesBrowse"
 import { getIDsFromString } from "../modules/getIDsFromString"
-import { scrollToTop } from "../constants"
 
 export const Browse: React.FunctionComponent = () => {
   const location = useLocation()

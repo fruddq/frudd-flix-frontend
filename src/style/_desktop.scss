@@ -138,19 +138,15 @@
       }
 
       .later-trailer-liked-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .watch-trailer-btn,
         .watch-trailer-btn,
         .watch-later {
           width: 35%;
           font-size: 1.1rem;
         }
 
-        .favorite {
-          font-size: 2.7em;
+        button.favorite {
+          width: 9%;
+          height: 9%;
         }
       }
     }

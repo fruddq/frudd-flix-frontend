@@ -273,22 +273,6 @@ body {
 .movies-container .movie .backdrop .trailer-navigation .total-pages .current-page-numb {
   color: white;
 }
-.movies-container .movie button.favorite {
-  color: white !important;
-  margin-left: 3%;
-}
-.movies-container .movie button.favorite.active {
-  color: red !important;
-  animation: heartBeat 1s forwards;
-}
-.movies-container .movie button.watch-later.active {
-  background-color: rgb(145, 145, 245);
-  animation: heartBeat 1s forwards;
-}
-.movies-container .movie button.watch-trailer-btn.active {
-  background-color: rgb(145, 145, 245);
-  animation: heartBeat 1s forwards;
-}
 @keyframes heartBeat {
   0% {
     transform: scale(1);
@@ -317,16 +301,14 @@ body {
     transform: rotate(360deg);
   }
 }
-.movies-container .movie button.favorite {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 0;
-}
 .movies-container .movie .movie-info-container {
   font-family: "Mukta", sans-serif;
   margin: 0 3% 5%;
+}
+.movies-container .movie .movie-info-container .later-trailer-liked-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-trailer-btn,
 .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-later {
@@ -340,6 +322,28 @@ body {
 }
 .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-trailer-btn {
   background-color: rgb(52, 255, 103);
+}
+.movies-container .movie .movie-info-container .later-trailer-liked-container button.favorite {
+  color: white;
+  margin-left: 4px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  height: 24px;
+  width: 24px;
+}
+.movies-container .movie .movie-info-container .later-trailer-liked-container button.favorite.active {
+  color: red !important;
+  animation: heartBeat 1s forwards;
+}
+.movies-container .movie .movie-info-container .later-trailer-liked-container button.watch-later.active {
+  background-color: rgb(145, 145, 245);
+  animation: heartBeat 1s forwards;
+}
+.movies-container .movie .movie-info-container .later-trailer-liked-container button.watch-trailer-btn.active {
+  background-color: rgb(145, 145, 245);
+  animation: heartBeat 1s forwards;
 }
 .movies-container .movie .movie-info-container .movie-info-text {
   font-size: 1.3rem;
@@ -592,19 +596,14 @@ body {
     margin-bottom: 0;
     font-size: 1.2rem;
   }
-  .movies-container .movie .movie-info-container .later-trailer-liked-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-trailer-btn,
   .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-trailer-btn,
   .movies-container .movie .movie-info-container .later-trailer-liked-container .watch-later {
     width: 35%;
     font-size: 1.1rem;
   }
-  .movies-container .movie .movie-info-container .later-trailer-liked-container .favorite {
-    font-size: 2.7em;
+  .movies-container .movie .movie-info-container .later-trailer-liked-container button.favorite {
+    width: 9%;
+    height: 9%;
   }
   .movies-container .movie .line-break {
     display: none;
