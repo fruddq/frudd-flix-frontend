@@ -1,6 +1,7 @@
 import React, { useMemo } from "react"
 import { useCallback, useEffect, useState, } from "react"
 import { NavigateFunction, useLocation, useNavigate } from "react-router-dom"
+import { animateScroll } from "react-scroll"
 
 import type { IMovie } from "../models/Interfaces"
 
@@ -69,40 +70,36 @@ export class BrowseBase extends React.Component<{
 }> {
   navigateNext = () => {
     const { props } = this
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     props.navigate(`${props.browseQuery}${props.page + 1}`)
   }
 
   navigatePrevious = () => {
     const { props } = this
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     props.navigate(`${props.browseQuery}${props.page - 1}`)
   }
 
   navigateFirstPage = () => {
     const { props } = this
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     props.navigate(`${props.browseQuery}1`)
   }
 
   navigateLastPage = () => {
     const { props } = this
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     props.navigate(`${props.browseQuery}${props.totalPages}`)
   }

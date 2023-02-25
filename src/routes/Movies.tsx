@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { fetchMoviesDiscover } from "../services/fetchMoviesDiscover"
+import { animateScroll } from 'react-scroll'
 
 import { Footer } from "../components/Footer"
 import { Movies as ComponentMovies } from "../components/Movies"
@@ -8,8 +10,6 @@ import { Loader } from "../components/Loader"
 import { ErrorMessage } from "../components/ErrorMessage"
 
 import type { IMovie } from "../models/Interfaces"
-import { fetchMoviesDiscover } from "../services/fetchMoviesDiscover"
-
 
 export const Movies: React.FunctionComponent = () => {
   // rome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -38,37 +38,33 @@ export const Movies: React.FunctionComponent = () => {
   const navigate = useNavigate()
 
   const navigateNextPage = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     navigate(`/movies/${page + 1}`)
   }, [navigate, page])
 
   const navigatePreviousPage = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     navigate(`/movies/${page - 1}`)
   }, [navigate, page])
 
   const navigateFirstPage = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     navigate("/movies/1")
   }, [navigate, page])
 
   const navigateLastPage = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     navigate(`/movies/${totalPages}`)
   }, [navigate, totalPages])

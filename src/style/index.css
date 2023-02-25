@@ -403,7 +403,7 @@ body {
   cursor: pointer;
   margin: 0 8px;
   outline: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 600;
 }
 .pagination-container .last-btn.disabled,
@@ -414,8 +414,9 @@ body {
 }
 .pagination-container .total-pages {
   color: rgb(158, 158, 158);
-  margin: 0 16px;
+  margin: 0 8px;
   word-spacing: 8px;
+  font-size: 0.9rem;
 }
 .pagination-container .total-pages .current-page-numb {
   color: white;

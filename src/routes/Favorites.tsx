@@ -1,4 +1,5 @@
 import React from "react"
+import { animateScroll } from "react-scroll"
 import { useCallback, useEffect, useState, useContext } from "react"
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom"
 
@@ -15,7 +16,6 @@ import { moviesPerPage } from "../config"
 import { fetchMovie } from "../services/fetchMovie"
 import { storeFavorites } from "../stores/favorites"
 import { getPaginatedMovieIDs } from "../modules/getPaginatedMovieIDs"
-
 
 export const Favorites: React.FunctionComponent = () => {
   const favorites = useContext(storeFavorites.contextState)
@@ -50,40 +50,36 @@ export class FavoritesBase extends React.Component<{
 }> {
   navigateNextPage = () => {
     const { props } = this
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     props.navigate(`/favorites/${Number(props.params.page) + 1}`)
   }
 
   navigatePreviousPage = () => {
     const { props } = this
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     props.navigate(`/favorites/${Number(props.params.page) - 1}`)
   }
 
   navigateFirstPage = () => {
     const { props } = this
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     props.navigate("/favorites/1")
   }
 
   navigateLastPage = () => {
     const { props } = this
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     props.navigate(`/favorites/${Math.ceil(props.favorites.length / moviesPerPage)}`)
   }

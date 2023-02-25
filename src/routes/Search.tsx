@@ -1,3 +1,4 @@
+import { animateScroll } from "react-scroll"
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
@@ -40,37 +41,33 @@ export const Search: React.FunctionComponent = () => {
   const navigate = useNavigate()
 
   const navigateNextPage = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     navigate(`/search/${query}/${page + 1}`)
   }, [navigate, page])
 
   const navigatePreviousPage = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     navigate(`/search/${query}/${page - 1}`)
   }, [navigate, page])
 
   const navigateFirstPage = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     navigate(`/search/${query}/1`)
   }, [navigate, page])
 
   const navigateLastPage = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    animateScroll.scrollToTop({
+      duration: 1000,
+      smooth: 'easeInOutQuint'
     })
     navigate(`/search/${query}/${totalPages}`)
   }, [navigate, totalPages])
