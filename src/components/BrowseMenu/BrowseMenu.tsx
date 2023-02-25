@@ -19,6 +19,11 @@ export const BrowseMenu: React.FunctionComponent<{
       .map(genre => genre.name)
       .join('-')
 
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     navigate(`/browse?from=${browseMenuData.yearRange.from}&to=${browseMenuData.yearRange.to}&genres=${selectedGenreNames}&page=1`)
 
     toggleDropdown()
@@ -31,7 +36,11 @@ export const BrowseMenu: React.FunctionComponent<{
 
       <BrowseMenuGenres />
 
-      <button className="menu-filter-btn" onClick={findMovies}>
+      <button
+        className="menu-filter-btn"
+        onClick={findMovies}
+        aria-label="Find Movies"
+      >
         Find Movies
       </button>
     </div>

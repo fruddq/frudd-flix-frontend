@@ -42,6 +42,7 @@ export const Movies: React.FunctionComponent<IProps> = ({
           className={`first-btn${page === 1 ? ' disabled' : ''}`}
           disabled={page === 1}
           onClick={navigateFirstPage}
+          aria-label="First page"
         >
           «
         </button>
@@ -49,17 +50,16 @@ export const Movies: React.FunctionComponent<IProps> = ({
         <button className={`previous-btn${page === 1 ? ' disabled' : ''}`}
           disabled={page === 1}
           onClick={navigatePrevious}
+          aria-label="Previous page"
         >
           ‹
         </button>
 
-        <p className="total-pages">
-          <b className="current-page-numb">{page}</b> of {totalPages}
-        </p>
-        {/* TODO: pagination numbers */}
+        <p className="total-pages"><b className="current-page-numb">{page}</b> of {totalPages}</p>
         <button className={`next-btn${page === totalPages ? ' disabled' : ''}`}
           disabled={page === totalPages}
           onClick={navigateNext}
+          aria-label="Next page"
         >
           ›
         </button>
@@ -68,6 +68,7 @@ export const Movies: React.FunctionComponent<IProps> = ({
           className={`last-btn${page === totalPages ? ' disabled' : ''}`}
           disabled={page === totalPages}
           onClick={navigateLastPage}
+          aria-label="Last page"
         >
           »
         </button>

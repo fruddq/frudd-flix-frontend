@@ -57,19 +57,35 @@ export const MenuBar: React.FC = () => {
     <nav className={`menu ${isSticky ? 'menu-sticky' : ''}`}>
       {!showMenuAndSearchButton && (
         <>
-          <button className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''} ${showDropdown ? 'browse-btn-active' : ''}`} onClick={toggleDropdown}>
+          <button
+            className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''} ${showDropdown ? 'browse-btn-active' : ''}`}
+            onClick={toggleDropdown}
+            aria-label="Browse"
+          >
             Browse
           </button>
 
-          <button className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`} onClick={navigateToFavorites}>
+          <button
+            className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`}
+            onClick={navigateToFavorites}
+            aria-label="Favorites"
+          >
             Favorites
           </button>
 
-          <button className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`} onClick={navigateToWatchLater}>
+          <button
+            className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`}
+            onClick={navigateToWatchLater}
+            aria-label="Watch Later"
+          >
             Watch later
           </button>
 
-          <button className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`} onClick={showMenuAndSearch}>
+          <button
+            className={`nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`}
+            onClick={showMenuAndSearch}
+            aria-label="Search"
+          >
             <SearchSVG height={"30"} width={"30"} />
           </button>
 
@@ -78,7 +94,11 @@ export const MenuBar: React.FC = () => {
       )}
       {showMenuAndSearchButton && (
         <>
-          <button className={`menu-menu-btn nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`} onClick={hideMenuAndSearch}>
+          <button
+            className={`menu-menu-btn nav-btn ${isSticky ? 'nav-btn-sticky' : ''}`}
+            onClick={hideMenuAndSearch}
+            aria-label="Menu"
+          >
             Menu
           </button>
 

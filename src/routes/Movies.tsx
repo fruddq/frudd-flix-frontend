@@ -38,22 +38,38 @@ export const Movies: React.FunctionComponent = () => {
   const navigate = useNavigate()
 
   const navigateNextPage = useCallback(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     navigate(`/movies/${page + 1}`)
   }, [navigate, page])
 
   const navigatePreviousPage = useCallback(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     navigate(`/movies/${page - 1}`)
   }, [navigate, page])
 
   const navigateFirstPage = useCallback(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     navigate("/movies/1")
   }, [navigate, page])
 
   const navigateLastPage = useCallback(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     navigate(`/movies/${totalPages}`)
   }, [navigate, totalPages])
 

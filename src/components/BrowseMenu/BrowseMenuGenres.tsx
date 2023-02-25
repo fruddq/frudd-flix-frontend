@@ -27,12 +27,12 @@ export const BrowseMenuGenres: React.FunctionComponent = () => {
           className={`button-genre ${genre.selected ? 'selected' : ''}`}
           key={genre.id}
           onClick={() => updateGenres(genre.id)}
+          aria-label={genre.name}
         >
           {genre.name}
         </button>
       ))}
     </div>
-
   )
 }
 

@@ -50,25 +50,41 @@ export class WatchLaterBase extends React.Component<{
 }> {
   navigateNextPage = () => {
     const { props } = this
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     props.navigate(`/watch-later/${Number(props.params.page) + 1}`)
   }
 
   navigatePreviousPage = () => {
     const { props } = this
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     props.navigate(`/watch-later/${Number(props.params.page) - 1}`)
   }
 
   navigateFirstPage = () => {
     const { props } = this
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     props.navigate("/watch-later/1")
   }
 
   navigateLastPage = () => {
     const { props } = this
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     props.navigate(`/watch-later/${Math.ceil(props.watchLater.length / moviesPerPage)}`)
   }
 

@@ -50,25 +50,41 @@ export class FavoritesBase extends React.Component<{
 }> {
   navigateNextPage = () => {
     const { props } = this
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     props.navigate(`/favorites/${Number(props.params.page) + 1}`)
   }
 
   navigatePreviousPage = () => {
     const { props } = this
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     props.navigate(`/favorites/${Number(props.params.page) - 1}`)
   }
 
   navigateFirstPage = () => {
     const { props } = this
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     props.navigate("/favorites/1")
   }
 
   navigateLastPage = () => {
     const { props } = this
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
     props.navigate(`/favorites/${Math.ceil(props.favorites.length / moviesPerPage)}`)
   }
 
