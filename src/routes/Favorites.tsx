@@ -16,6 +16,7 @@ import { moviesPerPage } from "../config"
 import { fetchMovie } from "../services/fetchMovie"
 import { storeFavorites } from "../stores/favorites"
 import { getPaginatedMovieIDs } from "../modules/getPaginatedMovieIDs"
+import { scrollSettings } from "../constants"
 
 export const Favorites: React.FunctionComponent = () => {
   const favorites = useContext(storeFavorites.contextState)
@@ -50,37 +51,25 @@ export class FavoritesBase extends React.Component<{
 }> {
   navigateNextPage = () => {
     const { props } = this
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     props.navigate(`/favorites/${Number(props.params.page) + 1}`)
   }
 
   navigatePreviousPage = () => {
     const { props } = this
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     props.navigate(`/favorites/${Number(props.params.page) - 1}`)
   }
 
   navigateFirstPage = () => {
     const { props } = this
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     props.navigate("/favorites/1")
   }
 
   navigateLastPage = () => {
     const { props } = this
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     props.navigate(`/favorites/${Math.ceil(props.favorites.length / moviesPerPage)}`)
   }
 

@@ -11,6 +11,7 @@ import { Loader } from "../components/Loader"
 import { ErrorMessage } from "../components/ErrorMessage"
 
 import { fetchMoviesSearch } from "../services/fetchMoviesSearch"
+import { scrollSettings } from "../constants"
 
 export const Search: React.FunctionComponent = () => {
   // rome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -41,34 +42,22 @@ export const Search: React.FunctionComponent = () => {
   const navigate = useNavigate()
 
   const navigateNextPage = useCallback(() => {
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     navigate(`/search/${query}/${page + 1}`)
   }, [navigate, page])
 
   const navigatePreviousPage = useCallback(() => {
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     navigate(`/search/${query}/${page - 1}`)
   }, [navigate, page])
 
   const navigateFirstPage = useCallback(() => {
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     navigate(`/search/${query}/1`)
   }, [navigate, page])
 
   const navigateLastPage = useCallback(() => {
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     navigate(`/search/${query}/${totalPages}`)
   }, [navigate, totalPages])
 

@@ -10,6 +10,7 @@ import { Loader } from "../components/Loader"
 import { ErrorMessage } from "../components/ErrorMessage"
 
 import type { IMovie } from "../models/Interfaces"
+import { scrollSettings } from "../constants"
 
 export const Movies: React.FunctionComponent = () => {
   // rome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -38,34 +39,22 @@ export const Movies: React.FunctionComponent = () => {
   const navigate = useNavigate()
 
   const navigateNextPage = useCallback(() => {
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     navigate(`/movies/${page + 1}`)
   }, [navigate, page])
 
   const navigatePreviousPage = useCallback(() => {
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     navigate(`/movies/${page - 1}`)
   }, [navigate, page])
 
   const navigateFirstPage = useCallback(() => {
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     navigate("/movies/1")
   }, [navigate, page])
 
   const navigateLastPage = useCallback(() => {
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     navigate(`/movies/${totalPages}`)
   }, [navigate, totalPages])
 

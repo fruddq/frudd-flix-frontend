@@ -14,6 +14,7 @@ import { ErrorMessage } from "../components/ErrorMessage"
 import { DOM } from "../modules/DOM"
 import { fetchMoviesBrowse } from "../services/fetchMoviesBrowse"
 import { getIDsFromString } from "../modules/getIDsFromString"
+import { scrollSettings } from "../constants"
 
 export const Browse: React.FunctionComponent = () => {
   const location = useLocation()
@@ -70,37 +71,25 @@ export class BrowseBase extends React.Component<{
 }> {
   navigateNext = () => {
     const { props } = this
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     props.navigate(`${props.browseQuery}${props.page + 1}`)
   }
 
   navigatePrevious = () => {
     const { props } = this
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     props.navigate(`${props.browseQuery}${props.page - 1}`)
   }
 
   navigateFirstPage = () => {
     const { props } = this
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     props.navigate(`${props.browseQuery}1`)
   }
 
   navigateLastPage = () => {
     const { props } = this
-    animateScroll.scrollToTop({
-      duration: 1000,
-      smooth: 'easeInOutQuint'
-    })
+    animateScroll.scrollToTop(scrollSettings)
     props.navigate(`${props.browseQuery}${props.totalPages}`)
   }
 

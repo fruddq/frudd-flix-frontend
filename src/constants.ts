@@ -19,3 +19,8 @@ export const genreList = [
   { id: 878, name: "Science Fiction" },
   { id: 10752, name: "War" },
 ]
+
+export const scrollSettings = {
+  duration: 1000,
+  smooth: "easeInOutQuint",
+}
