@@ -67,7 +67,6 @@ const App: React.FunctionComponent = () => {
         </storeWatchLater.contextState.Provider>
       </storeBrowseMenu.contextDispatch.Provider>
     </storeBrowseMenu.contextState.Provider>
-
   )
 }
 

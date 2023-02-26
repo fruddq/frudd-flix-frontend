@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { fetchMoviesDiscover } from "../services/fetchMoviesDiscover"
 import { animateScroll } from 'react-scroll'
 
 import { Footer } from "../components/Footer"
@@ -9,6 +8,7 @@ import { Header } from "../components/Header"
 import { Loader } from "../components/Loader"
 import { ErrorMessage } from "../components/ErrorMessage"
 
+import { fetchMoviesDiscover } from "../services/fetchMoviesDiscover"
 import type { IMovie } from "../models/Interfaces"
 import { scrollSettings } from "../constants"
 
@@ -29,7 +29,6 @@ export const Movies: React.FunctionComponent = () => {
 
     setMovies(data.results)
     setTotalPages(data.total_pages > 500 ? 500 : data.total_pages)
-
   }, [setMovies, setTotalPages, fetchMoviesDiscover, page])
 
   useEffect(() => {
