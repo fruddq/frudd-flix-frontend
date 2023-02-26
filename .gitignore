@@ -23,3 +23,5 @@ App.css.map
 *.njsproj
 *.sln
 *.sw?
+
+coverage

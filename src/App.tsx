@@ -17,7 +17,7 @@ import { Search } from './routes/Search'
 import { Error404 } from './components/Error404'
 import { Browse } from './routes/Browse'
 
-const router = createBrowserRouter([
+const Router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
@@ -60,7 +60,7 @@ const App: React.FunctionComponent = () => {
           <storeWatchLater.contextDispatch.Provider value={dispatchWatchLater}>
             <storeFavorites.contextState.Provider value={stateFavorites}>
               <storeFavorites.contextDispatch.Provider value={dispatchFavorites}>
-                <RouterProvider router={router} />
+                <RouterProvider router={Router} />
               </storeFavorites.contextDispatch.Provider>
             </storeFavorites.contextState.Provider>
           </storeWatchLater.contextDispatch.Provider>
