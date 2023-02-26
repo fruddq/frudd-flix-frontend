@@ -1,8 +1,6 @@
 import discover from "../fixtures/discover.json"
 import { API_VERSION } from "../../src/config"
 
-// @TODO REMOVE WAIT wherever not needed
-// BLOCK SCROLLING
 describe("e2e", () => {
   describe("Page content and navigation", () => {
     it("Loads first page with correct information", () => {
@@ -47,13 +45,11 @@ describe("e2e", () => {
 
       cy.intercept(`/api${API_VERSION}/discover?page=1`, { fixture: "discover.json" }).as("discoverData1")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData1")
-      cy.wait(["@discoverData1", "@trailersData1"])
 
       cy.get(".last-btn").click()
 
       cy.intercept(`/api${API_VERSION}/discover?page=500`, { fixture: "discover.json" }).as("discoverData2")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData2")
-      cy.wait(["@discoverData2", "@trailersData2"])
 
       cy.url().should("include", "/movies/500")
       cy.get(".last-btn").should("be.disabled")
@@ -64,13 +60,11 @@ describe("e2e", () => {
 
       cy.intercept(`/api${API_VERSION}/discover?page=3`, { fixture: "discover.json" }).as("discoverData1")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData1")
-      cy.wait(["@discoverData1", "@trailersData1"])
 
       cy.get(".previous-btn").click()
 
       cy.intercept("/api/v1/discover?page=2", { fixture: "discover.json" }).as("discoverData2")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData2")
-      cy.wait(["@discoverData2", "@trailersData2"])
 
       cy.url().should("include", "/movies/2")
     })
@@ -80,13 +74,11 @@ describe("e2e", () => {
 
       cy.intercept(`/api${API_VERSION}/discover?page=355`, { fixture: "discover.json" }).as("discoverData1")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData1")
-      cy.wait(["@discoverData1", "@trailersData1"])
 
       cy.get(".first-btn").click()
 
       cy.intercept(`/api${API_VERSION}/discover?page=1`, { fixture: "discover.json" }).as("discoverData2")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData2")
-      cy.wait(["@discoverData2", "@trailersData2"])
 
       cy.url().should("include", "/movies/1")
     })
@@ -96,25 +88,22 @@ describe("e2e", () => {
 
       cy.intercept(`/api${API_VERSION}/discover?page=1`, { fixture: "discover.json" }).as("discoverData1")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData1")
-      cy.wait(["@discoverData1", "@trailersData1"])
 
       cy.get(".frudd-flix-logo").click()
 
       cy.intercept("/api/v1/discover?page=1", { fixture: "discover.json" }).as("discoverData2")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData2")
-      cy.wait(["@discoverData2", "@trailersData2"])
 
       cy.url().should("include", "/movies/1")
     })
   })
 
-  describe("Browse", () => {
+  describe.only("Browse", () => {
     it("searches for correct genres", () => {
       cy.visit("/movies/1")
 
       cy.intercept(`/api${API_VERSION}/discover?page=1`, { fixture: "discover.json" }).as("discoverData")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData")
-      cy.wait(["@discoverData", "@trailersData"])
 
       cy.contains("button", "Browse").click()
 
@@ -127,8 +116,7 @@ describe("e2e", () => {
       cy.intercept(`/api${API_VERSION}/browse?from=1950&to=2023&genres[]=35&genres[]=28&genres[]=878&page=1`, {
         fixture: "discover.json",
       }).as("discoverData2")
-      cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData")
-      cy.wait(["@discoverData2", "@trailersData2"])
+      cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData2")
 
       cy.url()
         .should("include", "Action")
@@ -144,7 +132,6 @@ describe("e2e", () => {
 
       cy.intercept(`/api${API_VERSION}/discover?page=1`, { fixture: "discover.json" }).as("discoverData")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData")
-      cy.wait(["@discoverData", "@trailersData"])
 
       cy.contains("button", "Browse").click()
 
@@ -159,7 +146,6 @@ describe("e2e", () => {
         fixture: "discover.json",
       }).as("discoverData2")
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData2")
-      cy.wait(["@discoverData2", "@trailersData2"])
 
       cy.url()
         .should("include", "page=1")
@@ -185,7 +171,6 @@ describe("e2e", () => {
       cy.intercept(`/api${API_VERSION}/browse?from=1950&to=2023&genres[]=35&page=1`, {
         fixture: "discover.json",
       }).as("discoverData2")
-      cy.wait("@discoverData2")
 
       cy.contains("button", "Browse").click()
 
@@ -200,8 +185,6 @@ describe("e2e", () => {
       cy.intercept(`/api${API_VERSION}/browse?from=1952&to=2021&genres[]=28&page=1`, {
         fixture: "discover.json",
       }).as("discoverData3")
-
-      cy.wait("@discoverData3")
 
       cy.contains("button", "Browse").click()
 
@@ -224,14 +207,12 @@ describe("e2e", () => {
         "discoverData",
       )
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData")
-      cy.wait(["@discoverData", "@trailersData"])
 
       cy.get(".next-btn").click()
 
       cy.intercept(`/api${API_VERSION}/browse?from=1950&to=2023&genres[]=35&page=2`, { fixture: "discover.json" }).as(
         "discoverData2",
       )
-      cy.wait("@discoverData2")
 
       cy.url().should("include", "page=2")
     })
@@ -244,14 +225,12 @@ describe("e2e", () => {
         "discoverData",
       )
       cy.intercept(`/api${API_VERSION}/trailers*`, { fixture: "trailers.json" }).as("trailersData")
-      cy.wait(["@discoverData", "@trailersData"])
 
       cy.get(".previous-btn").click()
 
       cy.intercept(`/api${API_VERSION}/browse?from=1950&to=2023&genres[]=35&page=1`, { fixture: "discover.json" }).as(
         "discoverData2",
       )
-      cy.wait("@discoverData2")
 
       cy.url().should("include", "page=1")
     })

@@ -84,6 +84,8 @@ body.mobile-scroll-block {
   flex-direction: column;
   z-index: 50;
   top: 110%;
+  overflow: scroll;
+  max-height: 70vh;
 }
 .header .menu .browse-menu .slider-container {
   padding: 0 16px;
