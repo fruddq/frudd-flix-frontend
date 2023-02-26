@@ -99,7 +99,7 @@ export const Movie: React.FunctionComponent<PropsMovie> = ({ movie }) => {
           <p className="movie-info-text movie-year">
             {movie.release_date.substring(0, 4)}
           </p>
-          <p className="movie-info-text">
+          <p className="movie-info-text movie-rating">
             Rating: {movie.vote_average.toFixed(1)}/10
           </p>
         </article>

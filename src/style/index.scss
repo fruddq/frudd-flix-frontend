@@ -8,6 +8,10 @@ body {
   padding: 0 16px;
 }
 
+body.mobile-scroll-block {
+  overflow: hidden;
+}
+
 .error-message-container {
   height: 100vh;
   .error-message {

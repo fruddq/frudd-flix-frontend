@@ -1,0 +1,10 @@
+{
+  "include": ["**/*.ts"],
+  "exclude": [],
+  "compilerOptions": {
+      "target": "ESNext",
+      "lib": ["ESNext","dom"],
+      "resolveJsonModule": true,
+  },
+  "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
+}

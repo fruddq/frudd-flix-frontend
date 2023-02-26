@@ -22,8 +22,6 @@ export const Movies: React.FunctionComponent = () => {
   const [movies, setMovies] = useState<IMovie[]>([])
   const [totalPages, setTotalPages] = useState(1)
 
-  if (page > totalPages && page !== 1) return <ErrorMessage errorMessage="Page not found" />
-
   const fetchAndSetData = useCallback(async () => {
     const data = await fetchMoviesDiscover({ page })
 

@@ -16,6 +16,8 @@ import { WatchLater } from './routes/WatchLater'
 import { Search } from './routes/Search'
 import { Error404 } from './components/Error404'
 import { Browse } from './routes/Browse'
+import { Global } from './components/global'
+import { GlobalContext, GlobalDispatchContext, GlobalInitialState, GlobalReducer } from './stores/global'
 
 const Router = createBrowserRouter([
   {
@@ -52,21 +54,27 @@ const App: React.FunctionComponent = () => {
   const [stateFavorites, dispatchFavorites] = useReducer(storeFavorites.reducer, storeFavorites.initialState)
   const [stateWatchLater, dispatchWatchLater] = useReducer(storeWatchLater.reducer, storeWatchLater.initialState)
   const [stateDropdown, dispatchDropdown] = useReducer(storeBrowseMenu.reducer, storeBrowseMenu.initialState)
+  const [stateGlobal, dispatchGlobal] = useReducer(GlobalReducer, GlobalInitialState)
 
   return (
-    <storeBrowseMenu.contextState.Provider value={stateDropdown}>
-      <storeBrowseMenu.contextDispatch.Provider value={dispatchDropdown}>
-        <storeWatchLater.contextState.Provider value={stateWatchLater}>
-          <storeWatchLater.contextDispatch.Provider value={dispatchWatchLater}>
-            <storeFavorites.contextState.Provider value={stateFavorites}>
-              <storeFavorites.contextDispatch.Provider value={dispatchFavorites}>
-                <RouterProvider router={Router} />
-              </storeFavorites.contextDispatch.Provider>
-            </storeFavorites.contextState.Provider>
-          </storeWatchLater.contextDispatch.Provider>
-        </storeWatchLater.contextState.Provider>
-      </storeBrowseMenu.contextDispatch.Provider>
-    </storeBrowseMenu.contextState.Provider>
+    <GlobalContext.Provider value={stateGlobal}>
+      <GlobalDispatchContext.Provider value={dispatchGlobal}>
+        <storeBrowseMenu.contextState.Provider value={stateDropdown}>
+          <storeBrowseMenu.contextDispatch.Provider value={dispatchDropdown}>
+            <storeWatchLater.contextState.Provider value={stateWatchLater}>
+              <storeWatchLater.contextDispatch.Provider value={dispatchWatchLater}>
+                <storeFavorites.contextState.Provider value={stateFavorites}>
+                  <storeFavorites.contextDispatch.Provider value={dispatchFavorites}>
+                    <RouterProvider router={Router} />
+                    <Global />
+                  </storeFavorites.contextDispatch.Provider>
+                </storeFavorites.contextState.Provider>
+              </storeWatchLater.contextDispatch.Provider>
+            </storeWatchLater.contextState.Provider>
+          </storeBrowseMenu.contextDispatch.Provider>
+        </storeBrowseMenu.contextState.Provider>
+      </GlobalDispatchContext.Provider>
+    </GlobalContext.Provider>
   )
 }
 

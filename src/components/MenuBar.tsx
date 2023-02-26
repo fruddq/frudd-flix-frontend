@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { BrowseMenu } from "./BrowseMenu/BrowseMenu"
 import { SearchSVG } from "./SearchSVG"
-
+import { EActionGlobal, GlobalDispatchContext } from "../stores/global"
 // @TODO fix sort functions
 export const MenuBar: React.FC = () => {
   const navigate = useNavigate()
+  const dispatchGlobal = useContext(GlobalDispatchContext)
 
   const searchMovies = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === "Go" || event.key === "Search") {
@@ -25,8 +26,13 @@ export const MenuBar: React.FC = () => {
   }, [setShowMenuAndSearch])
 
   const toggleDropdown = useCallback(() => {
+    dispatchGlobal({
+      type: EActionGlobal.ToggleBodyScroll,
+      payload: showDropdown ? false : true
+    })
+
     setShowDropdown((prevState) => !prevState)
-  }, [setShowDropdown])
+  }, [setShowDropdown, dispatchGlobal, showDropdown])
 
   const navigateToWatchLater = useCallback(() => {
     navigate("/watch-later/1")
@@ -37,7 +43,7 @@ export const MenuBar: React.FC = () => {
   }, [navigate])
 
   const [isSticky, setIsSticky] = useState(false)
-  const stickyPosition = 100 // set the position value where the menu should become sticky
+  const stickyPosition = 100
 
   useEffect(() => {
     const makeMenuSticky = () => {
@@ -51,7 +57,6 @@ export const MenuBar: React.FC = () => {
       window.removeEventListener('scroll', makeMenuSticky)
     }
   }, [stickyPosition])
-
 
   return (
     <nav className={`menu ${isSticky ? 'menu-sticky' : ''}`}>
