@@ -16,8 +16,8 @@ import { WatchLater } from './routes/WatchLater'
 import { Search } from './routes/Search'
 import { Error404 } from './components/Error404'
 import { Browse } from './routes/Browse'
-import { Global } from './components/global'
 import { GlobalContext, GlobalDispatchContext, GlobalInitialState, GlobalReducer } from './stores/global'
+import { Global } from './components/Global'
 
 const Router = createBrowserRouter([
   {

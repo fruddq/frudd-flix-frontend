@@ -5,7 +5,7 @@ import { fetchMoviesDiscover as theModule } from "../fetchMoviesDiscover"
 import { API_URL } from "../../config"
 
 describe.concurrent(theModule.name, () => {
-  it.concurrent("When there length", async () => {
+  it.concurrent("When there length", async ({ expect }) => {
     const responseData = {
       page: 1,
       results: [
